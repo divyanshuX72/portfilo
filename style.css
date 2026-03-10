@@ -4185,6 +4185,138 @@ button:active,
     }
 }
 
+/* ═══ RESUME DOWNLOAD BUTTON ═══ */
+.resume-btn {
+    background: linear-gradient(135deg, #ffd700, #ffb300, #ffa000);
+    padding: 14px 28px;
+    border-radius: 40px;
+    width: 100%;
+    box-sizing: border-box;
+    font-family: var(--font-heading, 'Poppins', sans-serif);
+    font-weight: 700;
+    font-size: 15px;
+    text-decoration: none;
+    color: #1a1a2e;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow:
+        0 0 15px rgba(255, 200, 0, 0.5),
+        0 0 30px rgba(255, 200, 0, 0.15),
+        0 4px 15px rgba(0, 0, 0, 0.3);
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+    letter-spacing: 0.5px;
+    border: 2px solid rgba(255, 215, 0, 0.3);
+    z-index: 1;
+    animation: resumeBtnPulse 2.5s ease-in-out infinite;
+}
+
+/* Shimmer sweep overlay */
+.resume-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg,
+            transparent,
+            rgba(255, 255, 255, 0.3),
+            transparent);
+    transition: left 0.6s ease;
+    z-index: -1;
+}
+
+.resume-btn:hover::before {
+    left: 100%;
+}
+
+.resume-btn:hover {
+    transform: scale(1.07) translateY(-2px);
+    box-shadow:
+        0 0 25px rgba(255, 200, 0, 0.8),
+        0 0 50px rgba(255, 200, 0, 0.3),
+        0 8px 32px rgba(0, 0, 0, 0.4);
+    background: linear-gradient(135deg, #ffe033, #ffc107, #ffab00);
+    border-color: rgba(255, 215, 0, 0.6);
+    color: #1a1a2e;
+    text-decoration: none;
+}
+
+.resume-btn:active {
+    transform: scale(0.97);
+    box-shadow:
+        0 0 12px rgba(255, 200, 0, 0.6),
+        0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+.resume-btn i {
+    font-size: 16px;
+    transition: transform 0.3s ease;
+}
+
+.resume-btn:hover i {
+    transform: translateY(2px);
+    animation: downloadBounce 0.6s ease infinite;
+}
+
+/* Pulse glow keyframe */
+@keyframes resumeBtnPulse {
+
+    0%,
+    100% {
+        box-shadow:
+            0 0 15px rgba(255, 200, 0, 0.5),
+            0 0 30px rgba(255, 200, 0, 0.15),
+            0 4px 15px rgba(0, 0, 0, 0.3);
+    }
+
+    50% {
+        box-shadow:
+            0 0 20px rgba(255, 200, 0, 0.7),
+            0 0 45px rgba(255, 200, 0, 0.25),
+            0 4px 15px rgba(0, 0, 0, 0.3);
+    }
+}
+
+/* Download icon bounce */
+@keyframes downloadBounce {
+
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(3px);
+    }
+}
+
+/* ── Resume Button Responsive ── */
+@media screen and (max-width: 768px) {
+    .resume-btn {
+        padding: 12px 26px;
+        font-size: 14px;
+        gap: 8px;
+        border-radius: 36px;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .resume-btn {
+        padding: 12px 22px;
+        font-size: 13px;
+        gap: 8px;
+        border-radius: 32px;
+        width: 100%;
+        justify-content: center;
+    }
+}
+
 /* Disable Heavy Animations and 3D completely if Reduced Motion is enabled or on very small devices */
 @media (prefers-reduced-motion: reduce) {
 

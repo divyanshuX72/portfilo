@@ -18,20 +18,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const navbar = document.getElementById('navbar');
     const backToTop = document.getElementById('backToTop');
     const sections = document.querySelectorAll('.section, .hero-section');
-    const navLinks = document.querySelectorAll('.nav-link');
 
     function onScroll() {
         const scrollY = window.scrollY;
         navbar.classList.toggle('scrolled', scrollY > 60);
         backToTop.classList.toggle('visible', scrollY > 500);
-        let current = '';
-        sections.forEach(sec => {
-            const top = sec.offsetTop - 120;
-            if (scrollY >= top) current = sec.getAttribute('id');
-        });
-        navLinks.forEach(link => {
-            link.classList.toggle('active', link.getAttribute('href') === '#' + current);
-        });
     }
     window.addEventListener('scroll', onScroll, { passive: true });
     onScroll();
@@ -40,20 +31,95 @@ document.addEventListener('DOMContentLoaded', () => {
         window.scrollTo({ top: 0, behavior: 'smooth' });
     });
 
-    // ─── HAMBURGER MENU ───
+    // ─── SIDEBAR NAVIGATION ───
     const hamburger = document.getElementById('hamburger');
-    const navLinksContainer = document.getElementById('navLinks');
+    const sidebar = document.getElementById('sidebar');
+    const sidebarOverlay = document.getElementById('sidebarOverlay');
+    const sidebarClose = document.getElementById('sidebarClose');
+    const sidebarLinks = document.querySelectorAll('.sidebar-link');
+    const themeToggle = document.getElementById('theme-toggle');
+    const themeIcon = document.getElementById('themeIcon');
+    const themeLabel = document.querySelector('.theme-label');
+
+    function openSidebar() {
+        hamburger.classList.add('active');
+        sidebar.classList.add('active');
+        sidebarOverlay.classList.add('active');
+        document.body.classList.add('sidebar-open');
+    }
+
+    function closeSidebar() {
+        hamburger.classList.remove('active');
+        sidebar.classList.remove('active');
+        sidebarOverlay.classList.remove('active');
+        document.body.classList.remove('sidebar-open');
+    }
 
     hamburger.addEventListener('click', () => {
-        hamburger.classList.toggle('active');
-        navLinksContainer.classList.toggle('active');
+        if (sidebar.classList.contains('active')) {
+            closeSidebar();
+        } else {
+            openSidebar();
+        }
     });
 
-    navLinksContainer.querySelectorAll('.nav-link').forEach(link => {
+    sidebarClose.addEventListener('click', closeSidebar);
+    sidebarOverlay.addEventListener('click', closeSidebar);
+
+    // Close sidebar on nav link click & smooth scroll
+    sidebarLinks.forEach(link => {
         link.addEventListener('click', () => {
-            hamburger.classList.remove('active');
-            navLinksContainer.classList.remove('active');
+            closeSidebar();
         });
+    });
+
+    // Close sidebar on Escape key
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && sidebar.classList.contains('active')) {
+            closeSidebar();
+        }
+    });
+
+    // Update sidebar active link on scroll
+    function updateSidebarActiveLink() {
+        let current = '';
+        sections.forEach(sec => {
+            const top = sec.offsetTop - 120;
+            if (window.scrollY >= top) current = sec.getAttribute('id');
+        });
+        sidebarLinks.forEach(link => {
+            link.classList.toggle('active', link.getAttribute('href') === '#' + current);
+        });
+    }
+
+    window.addEventListener('scroll', updateSidebarActiveLink, { passive: true });
+    updateSidebarActiveLink();
+
+    // ─── DARK/LIGHT THEME TOGGLE ───
+    let isDarkMode = true;
+
+    themeToggle.addEventListener('click', () => {
+        isDarkMode = !isDarkMode;
+        if (isDarkMode) {
+            document.documentElement.style.setProperty('--bg', '#0a0a0a');
+            document.documentElement.style.setProperty('--bg-card', '#111111');
+            document.documentElement.style.setProperty('--text-primary', '#E8E8E8');
+            document.documentElement.style.setProperty('--text-secondary', '#999999');
+            document.documentElement.style.setProperty('--white', '#FFFFFF');
+            themeIcon.className = 'fas fa-moon';
+            themeLabel.textContent = 'Dark Mode';
+        } else {
+            document.documentElement.style.setProperty('--bg', '#f5f5f5');
+            document.documentElement.style.setProperty('--bg-card', '#ffffff');
+            document.documentElement.style.setProperty('--text-primary', '#1a1a1a');
+            document.documentElement.style.setProperty('--text-secondary', '#555555');
+            document.documentElement.style.setProperty('--white', '#1a1a1a');
+            themeIcon.className = 'fas fa-sun';
+            themeLabel.textContent = 'Light Mode';
+        }
+        // Trigger icon rotation animation
+        themeIcon.style.transform = 'rotate(360deg)';
+        setTimeout(() => { themeIcon.style.transform = 'rotate(0deg)'; }, 500);
     });
 
     // ─── TYPEWRITER ───
@@ -116,18 +182,110 @@ document.addEventListener('DOMContentLoaded', () => {
         requestAnimationFrame(step);
     }
 
-    // ─── SKILL BARS ───
-    const skillBars = document.querySelectorAll('.skill-progress');
-    const skillObserver = new IntersectionObserver((entries) => {
+    // ─── HACKER SKILL BARS ───
+    const hackerSkillFills = document.querySelectorAll('.skill-fill-hack');
+    const hackerSkillObserver = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
-                const bar = entry.target;
-                bar.style.width = bar.getAttribute('data-width') + '%';
-                skillObserver.unobserve(bar);
+                const container = entry.target.closest('.terminal-panel');
+                if (container && !container.classList.contains('skills-animated')) {
+                    container.classList.add('skills-animated');
+                    const items = container.querySelectorAll('.hacker-skill-item');
+                    items.forEach((item, idx) => {
+                        setTimeout(() => {
+                            const fill = item.querySelector('.skill-fill-hack');
+                            const glow = item.querySelector('.skill-bar-glow');
+                            const w = fill.getAttribute('data-width') + '%';
+                            fill.style.setProperty('--fill-width', w);
+                            fill.classList.add('active');
+                            fill.style.width = w;
+                            if (glow) glow.style.width = w;
+                        }, idx * 300);
+                    });
+                }
+                hackerSkillObserver.unobserve(entry.target);
             }
         });
-    }, { threshold: 0.3 });
-    skillBars.forEach(bar => skillObserver.observe(bar));
+    }, { threshold: 0.2 });
+    document.querySelectorAll('.terminal-panel').forEach(panel => hackerSkillObserver.observe(panel));
+
+    // ─── MATRIX RAIN CANVAS ───
+    const matrixCanvas = document.getElementById('matrixCanvas');
+    if (matrixCanvas) {
+        const mCtx = matrixCanvas.getContext('2d');
+        const matrixChars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789@#$%^&*()_+-=[]{}|;:,.<>?/~`アイウエオカキクケコサシスセソタチツテトナニヌネノ';
+        let matrixColumns;
+        let matrixDrops;
+        const matrixFontSize = 14;
+
+        function initMatrix() {
+            const section = matrixCanvas.closest('.hacker-skills');
+            if (section) {
+                matrixCanvas.width = section.offsetWidth;
+                matrixCanvas.height = section.offsetHeight;
+            } else {
+                matrixCanvas.width = window.innerWidth;
+                matrixCanvas.height = 800;
+            }
+            matrixColumns = Math.floor(matrixCanvas.width / matrixFontSize);
+            matrixDrops = new Array(matrixColumns).fill(1).map(() => Math.random() * -100);
+        }
+
+        initMatrix();
+        window.addEventListener('resize', initMatrix);
+
+        let matrixRunning = false;
+
+        function drawMatrix() {
+            if (!matrixRunning) return;
+
+            mCtx.fillStyle = 'rgba(5, 10, 14, 0.06)';
+            mCtx.fillRect(0, 0, matrixCanvas.width, matrixCanvas.height);
+
+            for (let i = 0; i < matrixDrops.length; i++) {
+                const charIdx = Math.floor(Math.random() * matrixChars.length);
+                const char = matrixChars[charIdx];
+                const x = i * matrixFontSize;
+                const y = matrixDrops[i] * matrixFontSize;
+
+                // Leading bright character
+                mCtx.fillStyle = '#00ff9c';
+                mCtx.globalAlpha = 0.9;
+                mCtx.font = `${matrixFontSize}px 'JetBrains Mono', monospace`;
+                mCtx.fillText(char, x, y);
+
+                // Trailing faded character
+                mCtx.fillStyle = '#003d2e';
+                mCtx.globalAlpha = 0.4;
+                mCtx.fillText(matrixChars[Math.floor(Math.random() * matrixChars.length)], x, y - matrixFontSize);
+
+                mCtx.globalAlpha = 1;
+
+                if (y > matrixCanvas.height && Math.random() > 0.975) {
+                    matrixDrops[i] = 0;
+                }
+                matrixDrops[i] += 0.5;
+            }
+
+            requestAnimationFrame(drawMatrix);
+        }
+
+        // Only run the matrix when the section is visible
+        const matrixSection = matrixCanvas.closest('.hacker-skills');
+        if (matrixSection) {
+            const matrixVisObserver = new IntersectionObserver((entries) => {
+                entries.forEach(e => {
+                    if (e.isIntersecting && !matrixRunning) {
+                        matrixRunning = true;
+                        drawMatrix();
+                    } else if (!e.isIntersecting) {
+                        matrixRunning = false;
+                    }
+                });
+            }, { threshold: 0.05 });
+            matrixVisObserver.observe(matrixSection);
+        }
+    }
 
     // ─── GITHUB PROJECTS LOADER ───
     const GITHUB_USERNAME = 'divyanshuX72';
@@ -242,6 +400,89 @@ document.addEventListener('DOMContentLoaded', () => {
         return 'fas fa-code-branch';
     }
 
+    // Mock preview content per project type
+    function getMockPreview(icon, langColor, lang, name, featured) {
+        const lname = (name || '').toLowerCase();
+        const isWeb = ['html', 'css', 'javascript', 'typescript'].includes(lang.toLowerCase());
+        const isJava = lang.toLowerCase() === 'java';
+        const isPy = lang.toLowerCase() === 'python';
+        const isC = ['c', 'c++'].includes(lang.toLowerCase());
+        const isAuto = lname.includes('playwright') || lname.includes('automation') || lname.includes('selenium');
+
+        // Decide which mock to show
+        if (isAuto) return mockTerminal(langColor, icon);
+        if (isWeb) return mockBrowser(langColor, icon);
+        if (isJava) return mockCodeEditor(langColor, icon, 'Java');
+        if (isPy) return mockCodeEditor(langColor, icon, 'Python');
+        if (isC) return mockCodeEditor(langColor, icon, 'C');
+        return mockCodeEditor(langColor, icon, lang);
+    }
+
+    function mockBrowser(color, icon) {
+        return `
+        <div class="mock-browser">
+          <div class="mock-browser-bar">
+            <span class="mock-dot red"></span>
+            <span class="mock-dot yellow"></span>
+            <span class="mock-dot green"></span>
+            <div class="mock-url-bar"><i class="fas fa-lock"></i> github.com/divyanshuX72</div>
+          </div>
+          <div class="mock-browser-body">
+            <div class="mock-body-glow" style="background:radial-gradient(circle at 40% 60%, ${color}22 0%, transparent 65%)"></div>
+            <div class="mock-icon-wrap"><i class="${icon}"></i></div>
+            <div class="mock-lines">
+              <div class="mock-line ml-80 ml-c1"></div>
+              <div class="mock-line ml-60 ml-c2"></div>
+              <div class="mock-line ml-90 ml-c3"></div>
+              <div class="mock-line ml-50 ml-c1"></div>
+            </div>
+          </div>
+        </div>`;
+    }
+
+    function mockTerminal(color, icon) {
+        return `
+        <div class="mock-terminal">
+          <div class="mock-terminal-bar">
+            <span class="mock-dot red"></span>
+            <span class="mock-dot yellow"></span>
+            <span class="mock-dot green"></span>
+            <span class="mock-terminal-title">bash &mdash; terminal</span>
+          </div>
+          <div class="mock-terminal-body">
+            <div class="mock-body-glow" style="background:radial-gradient(circle at 30% 50%, ${color}18 0%, transparent 60%)"></div>
+            <div class="mock-term-line"><span class="mock-prompt">$</span> npx playwright test</div>
+            <div class="mock-term-line mock-term-pass"><i class="fas fa-check-circle"></i> 12 passed (3.2s)</div>
+            <div class="mock-term-line"><span class="mock-prompt">$</span> running cross-browser...</div>
+            <div class="mock-term-line mock-term-info">&#x2714; Chrome  &#x2714; Firefox  &#x2714; Safari</div>
+            <div class="mock-terminal-cursor"></div>
+          </div>
+        </div>`;
+    }
+
+    function mockCodeEditor(color, icon, langLabel) {
+        return `
+        <div class="mock-editor">
+          <div class="mock-editor-bar">
+            <span class="mock-dot red"></span>
+            <span class="mock-dot yellow"></span>
+            <span class="mock-dot green"></span>
+            <span class="mock-editor-tab">${langLabel} • main.${langLabel === 'Java' ? 'java' : langLabel === 'Python' ? 'py' : 'c'}</span>
+          </div>
+          <div class="mock-editor-body">
+            <div class="mock-body-glow" style="background:radial-gradient(circle at 70% 40%, ${color}20 0%, transparent 60%)"></div>
+            <div class="mock-code-lines">
+              <div class="mc-line"><span class="mc-num">1</span><span class="mc-kw">class</span> <span class="mc-cls">Main</span> {</div>
+              <div class="mc-line"><span class="mc-num">2</span>  <span class="mc-kw">public</span> <span class="mc-fn">run</span>() {</div>
+              <div class="mc-line"><span class="mc-num">3</span>    <span class="mc-str">"Hello World"</span>;</div>
+              <div class="mc-line"><span class="mc-num">4</span>  }</div>
+              <div class="mc-line"><span class="mc-num">5</span>}</div>
+            </div>
+            <div class="mock-icon-small"><i class="${icon}"></i></div>
+          </div>
+        </div>`;
+    }
+
     function buildProjectCard(project, delay, isCurated = false) {
         const cats = isCurated ? (project.categories || ['web']) : getCategories(project);
         const lang = project.language || 'Code';
@@ -252,20 +493,20 @@ document.addEventListener('DOMContentLoaded', () => {
         const url = isCurated ? project.githubUrl : project.html_url;
         const featured = isCurated ? project.featured : false;
 
+        const mockHTML = getMockPreview(icon, langMeta.color, lang, name, featured);
+
         const card = document.createElement('div');
         card.className = 'project-card' + (featured ? ' project-card--featured' : '');
         card.setAttribute('data-categories', cats.join(','));
         card.style.animationDelay = `${delay}ms`;
 
         card.innerHTML = `
-            <div class="project-image">
-                <div class="project-image-placeholder" style="--lang-color:${langMeta.color}">
-                    <i class="${icon}"></i>
-                    ${featured ? '<span class="featured-badge"><i class="fas fa-star"></i> Featured</span>' : ''}
-                </div>
+            <div class="project-image" style="--lang-color:${langMeta.color}">
+                ${mockHTML}
+                ${featured ? '<span class="featured-badge"><i class="fas fa-star"></i> Featured</span>' : ''}
                 <div class="project-overlay">
-                    <a href="${url}" target="_blank" rel="noopener" class="project-link" aria-label="View on GitHub">
-                        <i class="fab fa-github"></i>
+                    <a href="${url}" target="_blank" rel="noopener" class="btn-project btn-project-filled" aria-label="View Repo">
+                        <i class="fab fa-github"></i> View Repo
                     </a>
                 </div>
             </div>
@@ -342,9 +583,17 @@ document.addEventListener('DOMContentLoaded', () => {
         const errorEl = document.getElementById('projectsError');
 
         try {
-            const res = await fetch(GITHUB_API);
-            if (!res.ok) throw new Error('GitHub API error');
-            const githubRepos = await res.json();
+            let githubRepos = null;
+            const cached = sessionStorage.getItem('github_repos');
+
+            if (cached) {
+                githubRepos = JSON.parse(cached);
+            } else {
+                const res = await fetch(GITHUB_API);
+                if (!res.ok) throw new Error('GitHub API error');
+                githubRepos = await res.json();
+                sessionStorage.setItem('github_repos', JSON.stringify(githubRepos));
+            }
 
             // Filter out forks, sort by updated
             const liveRepos = githubRepos
@@ -409,9 +658,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // ─── PARTICLES.JS ───
     if (typeof particlesJS !== 'undefined') {
+        const isMobile = window.innerWidth < 768;
         particlesJS('particles-js', {
             particles: {
-                number: { value: 80, density: { enable: true, value_area: 900 } },
+                number: { value: isMobile ? 30 : 80, density: { enable: true, value_area: 900 } },
                 color: { value: ['#C8A96A', '#00FF9C', '#F5E6C8', '#ffffff'] },
                 shape: { type: 'circle' },
                 opacity: { value: 0.5, random: true, anim: { enable: true, speed: 0.8, opacity_min: 0.05 } },
@@ -422,8 +672,8 @@ document.addEventListener('DOMContentLoaded', () => {
             interactivity: {
                 detect_on: 'canvas',
                 events: {
-                    onhover: { enable: true, mode: 'grab' },
-                    onclick: { enable: true, mode: 'push' },
+                    onhover: { enable: !isMobile, mode: 'grab' },
+                    onclick: { enable: !isMobile, mode: 'push' },
                     resize: true
                 },
                 modes: {
@@ -437,8 +687,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // ─── THREE.JS — ADVANCED 3D HERO SCENE ───
     if (typeof THREE !== 'undefined') {
+        const isMobile = window.innerWidth < 768;
         const canvas = document.getElementById('hero-canvas');
         if (!canvas) return;
+
+        if (isMobile) {
+            canvas.style.display = 'none';
+            // Stop setting up three JS on small screens completely
+            return;
+        }
 
         // Get the right-panel container size
         const container = canvas.parentElement;
@@ -615,6 +872,187 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    // ─── THREE.JS — GLOBAL FUTURISTIC BACKGROUND ───
+    const globalCanvas = document.getElementById('global-3d-bg');
+    if (globalCanvas && typeof THREE !== 'undefined') {
+        const sceneBg = new THREE.Scene();
+        const cameraBg = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 1000);
+        cameraBg.position.z = 30;
+
+        const rendererBg = new THREE.WebGLRenderer({
+            canvas: globalCanvas,
+            alpha: true,
+            antialias: false // Optimize for performance
+        });
+        rendererBg.setPixelRatio(Math.min(window.devicePixelRatio, 1.5)); // Lightweight rendering
+        rendererBg.setSize(window.innerWidth, window.innerHeight);
+
+        // 1. Animated Network Nodes (Optimized WebGL GL_LINES)
+        const particleCount = 70;
+        const particlesGeo = new THREE.BufferGeometry();
+        const particlePos = new Float32Array(particleCount * 3);
+        const particleVel = [];
+
+        for (let i = 0; i < particleCount; i++) {
+            particlePos[i * 3] = (Math.random() - 0.5) * 80;
+            particlePos[i * 3 + 1] = (Math.random() - 0.5) * 80;
+            particlePos[i * 3 + 2] = (Math.random() - 0.5) * 40;
+            particleVel.push({
+                x: (Math.random() - 0.5) * 0.04,
+                y: (Math.random() - 0.5) * 0.04,
+                z: (Math.random() - 0.5) * 0.04
+            });
+        }
+        particlesGeo.setAttribute('position', new THREE.BufferAttribute(particlePos, 3));
+        const particlesMat = new THREE.PointsMaterial({
+            color: 0x00ff9c,
+            size: 0.2,
+            transparent: true,
+            opacity: 0.5
+        });
+        const networkParticles = new THREE.Points(particlesGeo, particlesMat);
+        sceneBg.add(networkParticles);
+
+        // Network Lines (Pre-allocated Buffer)
+        const lineMat = new THREE.LineBasicMaterial({
+            color: 0x00ff9c,
+            transparent: true,
+            opacity: 0.12
+        });
+        const maxLines = (particleCount * (particleCount - 1)) / 2;
+        const linesGeo = new THREE.BufferGeometry();
+        const linePosArray = new Float32Array(maxLines * 6);
+        linesGeo.setAttribute('position', new THREE.BufferAttribute(linePosArray, 3));
+        const networkLines = new THREE.LineSegments(linesGeo, lineMat);
+        sceneBg.add(networkLines);
+
+        // 2. Rotating Developer Cubes
+        const cubeGeo = new THREE.BoxGeometry(8, 8, 8);
+        const cubeEdges = new THREE.EdgesGeometry(cubeGeo);
+        const cubeMat = new THREE.LineBasicMaterial({ color: 0x00cc7a, transparent: true, opacity: 0.25 });
+
+        const devCube1 = new THREE.LineSegments(cubeEdges, cubeMat);
+        devCube1.position.set(20, -10, -15);
+        sceneBg.add(devCube1);
+
+        const devCube2 = new THREE.LineSegments(cubeEdges, cubeMat);
+        devCube2.scale.set(0.6, 0.6, 0.6);
+        devCube2.position.set(-25, 15, -20);
+        sceneBg.add(devCube2);
+
+        // 3. Floating Code Symbols
+        const symbols = ['{ }', '</>', '[]', '()', 'JS', 'Ts', 'npm'];
+        const symbolSprites = [];
+
+        symbols.forEach((sym) => {
+            const c = document.createElement('canvas');
+            c.width = 128; c.height = 64;
+            const ctx = c.getContext('2d');
+            ctx.fillStyle = '#00ff9c';
+            ctx.font = 'bold 28px "JetBrains Mono", monospace';
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.fillText(sym, 64, 32);
+
+            const tex = new THREE.CanvasTexture(c);
+            const spriteMat = new THREE.SpriteMaterial({ map: tex, transparent: true, opacity: 0.25 });
+
+            // Create 2 instances of each symbol
+            for (let j = 0; j < 2; j++) {
+                const sprite = new THREE.Sprite(spriteMat);
+                sprite.scale.set(5, 2.5, 1);
+                sprite.position.set(
+                    (Math.random() - 0.5) * 70,
+                    (Math.random() - 0.5) * 70,
+                    (Math.random() - 0.5) * 30
+                );
+                sceneBg.add(sprite);
+                symbolSprites.push({
+                    mesh: sprite,
+                    speedY: Math.random() * 0.015 + 0.005,
+                    speedX: (Math.random() - 0.5) * 0.01
+                });
+            }
+        });
+
+        // Background Fog
+        sceneBg.fog = new THREE.FogExp2(0x050a0e, 0.02);
+
+        const clockBg = new THREE.Clock();
+
+        function animateGlobalBg() {
+            requestAnimationFrame(animateGlobalBg);
+
+            // Rotate Cubes
+            devCube1.rotation.x += 0.002;
+            devCube1.rotation.y += 0.003;
+            devCube2.rotation.x -= 0.003;
+            devCube2.rotation.z += 0.002;
+
+            // Animate Symbols
+            symbolSprites.forEach(s => {
+                s.mesh.position.y += s.speedY;
+                s.mesh.position.x += s.speedX;
+                if (s.mesh.position.y > 40) {
+                    s.mesh.position.y = -40;
+                }
+            });
+
+            // Animate Network Nodes & Connections
+            const pos = particlesGeo.attributes.position.array;
+            let lineIdx = 0;
+
+            for (let i = 0; i < particleCount; i++) {
+                let px = pos[i * 3] + particleVel[i].x;
+                let py = pos[i * 3 + 1] + particleVel[i].y;
+                let pz = pos[i * 3 + 2] + particleVel[i].z;
+
+                if (px > 40 || px < -40) particleVel[i].x *= -1;
+                if (py > 40 || py < -40) particleVel[i].y *= -1;
+                if (pz > 20 || pz < -20) particleVel[i].z *= -1;
+
+                pos[i * 3] = px;
+                pos[i * 3 + 1] = py;
+                pos[i * 3 + 2] = pz;
+
+                for (let j = i + 1; j < particleCount; j++) {
+                    const px2 = pos[j * 3];
+                    const py2 = pos[j * 3 + 1];
+                    const pz2 = pos[j * 3 + 2];
+
+                    const distSq = (px - px2) ** 2 + (py - py2) ** 2 + (pz - pz2) ** 2;
+
+                    if (distSq < 150) {
+                        linePosArray[lineIdx++] = px;
+                        linePosArray[lineIdx++] = py;
+                        linePosArray[lineIdx++] = pz;
+                        linePosArray[lineIdx++] = px2;
+                        linePosArray[lineIdx++] = py2;
+                        linePosArray[lineIdx++] = pz2;
+                    }
+                }
+            }
+
+            particlesGeo.attributes.position.needsUpdate = true;
+            linesGeo.setDrawRange(0, lineIdx / 3);
+            linesGeo.attributes.position.needsUpdate = true;
+
+            // Global Scene Rotation
+            sceneBg.rotation.y = Math.sin(clockBg.getElapsedTime() * 0.1) * 0.15;
+            sceneBg.rotation.x = Math.cos(clockBg.getElapsedTime() * 0.05) * 0.08;
+
+            rendererBg.render(sceneBg, cameraBg);
+        }
+        animateGlobalBg();
+
+        // Handle Resizing
+        window.addEventListener('resize', () => {
+            cameraBg.aspect = window.innerWidth / window.innerHeight;
+            cameraBg.updateProjectionMatrix();
+            rendererBg.setSize(window.innerWidth, window.innerHeight);
+        });
+    }
+
     // ─── SMOOTH SCROLL FOR ALL ANCHORS ───
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function (e) {
@@ -627,4 +1065,31 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     });
+
+    // ─── SCROLL PROGRESS INDICATOR ───
+    const scrollProgress = document.getElementById('scroll-progress');
+    window.addEventListener('scroll', () => {
+        const totalHeight = document.body.scrollHeight - window.innerHeight;
+        const progress = (window.scrollY / totalHeight) * 100;
+        if (scrollProgress) {
+            scrollProgress.style.width = progress + '%';
+        }
+    });
+
+    // ─── THEME TOGGLE (handled in sidebar section above) ───
+
+    // ─── PRELOADER ───
+    const preloader = document.getElementById('preloader');
+    if (preloader) {
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                preloader.classList.add('hidden');
+            }, 800); // Small delay to let the animation show
+        });
+
+        // Fallback in case load event already fired or takes too long
+        setTimeout(() => {
+            preloader.classList.add('hidden');
+        }, 3000);
+    }
 });

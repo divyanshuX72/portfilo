@@ -5,10 +5,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description"
-        content="Divyanshu kanojia — Frontend Developer &amp; Diploma Computer Engineering student from Palghar, Maharashtra. Building modern, performant web experiences.">
-    <meta name="keywords" content="Divyanshu kanojia, Frontend Developer, Portfolio, Web Developer, React, JavaScript">
-    <meta name="author" content="Divyanshu kanojia">
-    <title>Divyanshu kanojia | Frontend Developer</title>
+        content="Divyanshu Kanojia — Professional Frontend Developer & Full Stack Engineer. Specializing in modern, performant, and advanced web applications. Silicon Valley standards.">
+    <meta name="keywords"
+        content="Divyanshu Kanojia, Frontend Developer, Software Engineer, Portfolio, Full Stack Developer, Web Developer, JavaScript, React, Node.js">
+    <meta name="author" content="Divyanshu Kanojia">
+    <meta property="og:title" content="Divyanshu Kanojia | Professional Software Engineer">
+    <meta property="og:description"
+        content="Professional developer portfolio of Divyanshu Kanojia. View projects, skills, and experience.">
+    <meta property="og:type" content="website">
+    <meta name="theme-color" content="#050a0e">
+    <title>Divyanshu Kanojia | Frontend Developer & Software Engineer</title>
 
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -28,33 +34,67 @@
 </head>
 
 <body>
+    <!-- ─── PRELOADER ─── -->
+    <div id="preloader" class="preloader">
+        <div class="loader-content">
+            <span class="logo-bracket">&lt;</span>DK<span class="logo-bracket"> /&gt;</span>
+            <div class="loader-bar-bg">
+                <div class="loader-bar-fill"></div>
+            </div>
+            <div class="loader-text">Initializing components...</div>
+        </div>
+    </div>
+
+    <!-- ─── SCROLL PROGRESS INDICATOR ─── -->
+    <div class="scroll-progress-container">
+        <div class="scroll-progress-bar" id="scroll-progress"></div>
+    </div>
+
+    <!-- Global 3D Background -->
+    <canvas id="global-3d-bg" class="global-3d-bg"></canvas>
 
     <!-- ═══════════════════════════════════════════════ -->
-    <!-- NAVIGATION                                      -->
+    <!-- NAVIGATION — PREMIUM SIDEBAR                    -->
     <!-- ═══════════════════════════════════════════════ -->
     <nav id="navbar" class="navbar">
         <div class="nav-container">
-            <a href="#hero" class="nav-logo">
+            <a href="#hero" class="nav-logo" aria-label="Home">
                 <span class="logo-bracket">&lt;</span>DK<span class="logo-bracket"> /&gt;</span>
             </a>
-            <ul class="nav-links" id="navLinks">
-                <li><a href="#hero" class="nav-link active">Home</a></li>
-                <li><a href="#about" class="nav-link">About</a></li>
-                <li><a href="#skills" class="nav-link">Skills</a></li>
-                <li><a href="#projects" class="nav-link">Projects</a></li>
-                <li><a href="#experience" class="nav-link">Experience</a></li>
-                <li><a href="#achievements" class="nav-link">Achievements</a></li>
-                <li><a href="#education" class="nav-link">Education</a></li>
-                <li><a href="#contact" class="nav-link">Contact</a></li>
-            </ul>
-            <a href="#contact" class="nav-cta">Hire Me</a>
-            <button class="hamburger" id="hamburger" aria-label="Toggle navigation">
+            <button class="hamburger" id="hamburger" aria-label="Toggle navigation menu">
                 <span class="bar"></span>
                 <span class="bar"></span>
                 <span class="bar"></span>
             </button>
         </div>
     </nav>
+
+    <!-- Sidebar Overlay -->
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+    <!-- Sidebar Menu -->
+    <aside class="sidebar" id="sidebar" aria-label="Main menu">
+        <button class="sidebar-close" id="sidebarClose" aria-label="Close menu">
+            <span>&times;</span>
+        </button>
+        <ul class="sidebar-links" id="sidebarLinks">
+            <li class="sidebar-link-item"><a href="#hero" class="sidebar-link active" data-index="0">Home</a></li>
+            <li class="sidebar-link-item"><a href="#about" class="sidebar-link" data-index="1">About</a></li>
+            <li class="sidebar-link-item"><a href="#skills" class="sidebar-link" data-index="2">Skills</a></li>
+            <li class="sidebar-link-item"><a href="#projects" class="sidebar-link" data-index="3">Projects</a></li>
+            <li class="sidebar-link-item"><a href="#experience" class="sidebar-link" data-index="4">Experience</a></li>
+            <li class="sidebar-link-item"><a href="#achievements" class="sidebar-link" data-index="5">Achievements</a>
+            </li>
+            <li class="sidebar-link-item"><a href="#education" class="sidebar-link" data-index="6">Education</a></li>
+            <li class="sidebar-link-item"><a href="#contact" class="sidebar-link" data-index="7">Contact</a></li>
+        </ul>
+        <div class="sidebar-footer">
+            <button class="theme-toggle-sidebar" id="theme-toggle" aria-label="Toggle Dark/Light Mode">
+                <i class="fas fa-moon" id="themeIcon"></i>
+                <span class="theme-label">Dark Mode</span>
+            </button>
+        </div>
+    </aside>
 
     <!-- ═══════════════════════════════════════════════ -->
     <!-- HERO SECTION                                    -->
@@ -65,71 +105,70 @@
 
         <div class="hero-layout">
 
-            <!-- ── LEFT: Text Content ── -->
-            <div class="hero-left" data-aos="fade-right" data-aos-delay="200">
+            <!-- ── MOBILE HERO (Centered Single Column) ── -->
+            <div class="hero-mobile-center">
 
-                <!-- Profile Card with glowing border -->
-                <div class="profile-card">
-                    <div class="profile-glow"></div>
-                    <div class="profile-avatar">
-                        <div class="avatar-placeholder">
-                            <i class="fas fa-user-astronaut"></i>
-                            <span>DK</span>
+                <!-- Avatar Circle with glowing gold border -->
+                <div class="hero-avatar-wrap">
+                    <div class="hero-avatar-ring">
+                        <div class="hero-avatar">
+                            <span class="hero-avatar-initials">DK</span>
                         </div>
-                        <div class="avatar-status">
-                            <span class="status-dot"></span>
-                            <span>Available for Hire</span>
-                        </div>
-                    </div>
-                    <div class="profile-info">
-                        <h1 class="hero-name">Divyanshu <span class="gold-text">Kanojia</span></h1>
-                        <div class="hero-title-wrapper">
-                            <span class="typewriter" id="typewriter"></span>
-                            <span class="cursor">|</span>
-                        </div>
-                        <p class="hero-description">
-                            Crafting immersive digital experiences with code &amp; creativity.<br>
-                            <i class="fas fa-map-marker-alt"></i> Palghar, Maharashtra, India
-                        </p>
                     </div>
                 </div>
 
-                <!-- Greeting Badge -->
-                <p class="hero-greeting" data-aos="fade-down" data-aos-delay="100">
-                    <span class="code-tag">&lt;hello world /&gt;</span>
-                </p>
+                <!-- Available for Hire Badge -->
+                <div class="available-badge">
+                    <span class="available-dot"></span>
+                    <span>Available for Hire</span>
+                </div>
+
+                <!-- Name -->
+                <h1 class="hero-name-centered">
+                    Divyanshu <span class="hero-name-grad">Kanojia</span>
+                </h1>
+
+                <!-- Role typewriter -->
+                <div class="hero-role-wrapper">
+                    <span class="typewriter" id="typewriter"></span><span class="cursor">|</span>
+                </div>
+
+                <!-- Tagline -->
+                <p class="hero-tagline">Crafting immersive digital experiences with code &amp; creativity</p>
+
+                <!-- Location -->
+                <p class="hero-location"><i class="fas fa-map-marker-alt"></i> Palghar, Maharashtra, India</p>
 
                 <!-- CTA Buttons -->
-                <div class="hero-cta" data-aos="fade-up" data-aos-delay="600">
-                    <a href="#projects" class="btn btn-primary" id="btn-view-projects">
+                <div class="hero-cta-stack">
+                    <a href="#projects" class="btn-hero btn-hero-gold" id="btn-view-projects">
                         <i class="fas fa-rocket"></i> View Projects
                     </a>
-                    <a href="resume.pdf" download class="btn btn-outline" id="btn-download-resume">
+                    <a href="resume.pdf" download class="btn-hero btn-hero-outline" id="btn-download-resume">
                         <i class="fas fa-download"></i> Download Resume
                     </a>
-                    <a href="#contact" class="btn btn-neon" id="btn-contact-me">
+                    <a href="#contact" class="btn-hero btn-hero-green" id="btn-contact-me">
                         <i class="fas fa-paper-plane"></i> Contact Me
                     </a>
                 </div>
 
                 <!-- Social Icons -->
-                <div class="hero-social" data-aos="fade-up" data-aos-delay="800">
+                <div class="hero-social-row">
                     <a href="https://github.com/divyanshuX72" target="_blank" rel="noopener" class="social-icon"
                         aria-label="GitHub"><i class="fab fa-github"></i></a>
                     <a href="https://linkedin.com/in/divyanshu-kanojiya" target="_blank" rel="noopener"
                         class="social-icon" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
                     <a href="https://twitter.com/divyanshuX72" target="_blank" rel="noopener" class="social-icon"
-                        aria-label="Twitter"><i class="fab fa-x-twitter"></i></a>
-                    <a href="mailto:divyanshu@example.com" class="social-icon" aria-label="Email">
-                        <i class="fas fa-envelope"></i>
-                    </a>
+                        aria-label="X / Twitter"><i class="fab fa-x-twitter"></i></a>
+                    <a href="mailto:divyanshu.kanojia.72@gmail.com" class="social-icon" aria-label="Email"><i
+                            class="fas fa-envelope"></i></a>
                 </div>
+
             </div>
 
-            <!-- ── RIGHT: 3D Canvas ── -->
+            <!-- ── RIGHT: 3D Canvas (desktop only) ── -->
             <div class="hero-right" data-aos="fade-left" data-aos-delay="400">
                 <canvas id="hero-canvas" class="hero-canvas-3d"></canvas>
-                <!-- Floating dev object labels -->
                 <div class="floating-badge badge-1"><i class="fab fa-react"></i> React</div>
                 <div class="floating-badge badge-2"><i class="fab fa-js-square"></i> JS</div>
                 <div class="floating-badge badge-3"><i class="fas fa-brain"></i> AI</div>
@@ -213,114 +252,285 @@
     </section>
 
     <!-- ═══════════════════════════════════════════════ -->
-    <!-- SKILLS SECTION                                  -->
+    <!-- SKILLS SECTION — HACKER TERMINAL STYLE         -->
     <!-- ═══════════════════════════════════════════════ -->
-    <section id="skills" class="section skills-section">
+    <section id="skills" class="section skills-section hacker-skills">
+        <!-- Matrix Rain Canvas Background -->
+        <canvas id="matrixCanvas" class="matrix-canvas"></canvas>
+        <div class="hacker-overlay"></div>
+
         <div class="container">
             <div class="section-header" data-aos="fade-up">
                 <span class="section-tag">&lt;skills&gt;</span>
                 <h2 class="section-title">My <span class="gold-text">Skills</span></h2>
                 <div class="section-line"></div>
+                <p class="section-subtitle hacker-subtitle">
+                    <i class="fas fa-terminal"></i> root@divyanshu:~$ cat skills.log
+                </p>
             </div>
-            <div class="skills-grid">
-                <!-- Frontend -->
-                <div class="skill-card" data-aos="fade-up" data-aos-delay="100">
-                    <div class="skill-icon"><i class="fab fa-html5"></i></div>
-                    <h4 class="skill-name">HTML5</h4>
-                    <div class="skill-bar">
-                        <div class="skill-progress" data-width="95"></div>
+
+            <div class="terminal-grid">
+
+                <!-- ─── TERMINAL PANEL 1: Programming ─── -->
+                <div class="terminal-panel" data-aos="fade-up" data-aos-delay="100">
+                    <div class="terminal-header">
+                        <div class="terminal-dots">
+                            <span class="t-dot t-red"></span>
+                            <span class="t-dot t-yellow"></span>
+                            <span class="t-dot t-green"></span>
+                        </div>
+                        <span class="terminal-title"><i class="fas fa-code"></i> programming.sh</span>
+                        <span class="terminal-status">● RUNNING</span>
                     </div>
-                    <span class="skill-percent">95%</span>
-                </div>
-                <div class="skill-card" data-aos="fade-up" data-aos-delay="150">
-                    <div class="skill-icon"><i class="fab fa-css3-alt"></i></div>
-                    <h4 class="skill-name">CSS3</h4>
-                    <div class="skill-bar">
-                        <div class="skill-progress" data-width="90"></div>
+                    <div class="terminal-body">
+                        <div class="terminal-scanline"></div>
+                        <div class="terminal-cmd">
+                            <span class="cmd-prompt">$</span> ./scan --module="programming"
+                        </div>
+                        <div class="terminal-output">
+                            <span class="output-line">[INFO] Loading programming skills...</span>
+                        </div>
+
+                        <!-- Skill: Python -->
+                        <div class="hacker-skill-item" data-skill-width="80">
+                            <div class="skill-label-row">
+                                <span class="skill-icon-hack"><i class="fab fa-python"></i></span>
+                                <span class="skill-name-hack">Python</span>
+                                <span class="skill-pct-hack">80%</span>
+                            </div>
+                            <div class="skill-bar-hack">
+                                <div class="skill-fill-hack" data-width="80"></div>
+                                <div class="skill-bar-glow"></div>
+                            </div>
+                        </div>
+
+                        <!-- Skill: HTML -->
+                        <div class="hacker-skill-item" data-skill-width="90">
+                            <div class="skill-label-row">
+                                <span class="skill-icon-hack"><i class="fab fa-html5"></i></span>
+                                <span class="skill-name-hack">HTML</span>
+                                <span class="skill-pct-hack">90%</span>
+                            </div>
+                            <div class="skill-bar-hack">
+                                <div class="skill-fill-hack" data-width="90"></div>
+                                <div class="skill-bar-glow"></div>
+                            </div>
+                        </div>
+
+                        <!-- Skill: JavaScript -->
+                        <div class="hacker-skill-item" data-skill-width="85">
+                            <div class="skill-label-row">
+                                <span class="skill-icon-hack"><i class="fab fa-js-square"></i></span>
+                                <span class="skill-name-hack">JavaScript</span>
+                                <span class="skill-pct-hack">85%</span>
+                            </div>
+                            <div class="skill-bar-hack">
+                                <div class="skill-fill-hack" data-width="85"></div>
+                                <div class="skill-bar-glow"></div>
+                            </div>
+                        </div>
+
+                        <div class="terminal-output terminal-footer-line">
+                            <span class="output-success">✓ 3 skills loaded successfully</span>
+                        </div>
                     </div>
-                    <span class="skill-percent">90%</span>
                 </div>
-                <div class="skill-card" data-aos="fade-up" data-aos-delay="200">
-                    <div class="skill-icon"><i class="fab fa-js-square"></i></div>
-                    <h4 class="skill-name">JavaScript</h4>
-                    <div class="skill-bar">
-                        <div class="skill-progress" data-width="85"></div>
+
+                <!-- ─── TERMINAL PANEL 2: Frontend ─── -->
+                <div class="terminal-panel" data-aos="fade-up" data-aos-delay="200">
+                    <div class="terminal-header">
+                        <div class="terminal-dots">
+                            <span class="t-dot t-red"></span>
+                            <span class="t-dot t-yellow"></span>
+                            <span class="t-dot t-green"></span>
+                        </div>
+                        <span class="terminal-title"><i class="fas fa-palette"></i> frontend.sh</span>
+                        <span class="terminal-status">● RUNNING</span>
                     </div>
-                    <span class="skill-percent">85%</span>
-                </div>
-                <div class="skill-card" data-aos="fade-up" data-aos-delay="250">
-                    <div class="skill-icon"><i class="fab fa-react"></i></div>
-                    <h4 class="skill-name">React</h4>
-                    <div class="skill-bar">
-                        <div class="skill-progress" data-width="75"></div>
+                    <div class="terminal-body">
+                        <div class="terminal-scanline"></div>
+                        <div class="terminal-cmd">
+                            <span class="cmd-prompt">$</span> ./scan --module="frontend"
+                        </div>
+                        <div class="terminal-output">
+                            <span class="output-line">[INFO] Loading frontend skills...</span>
+                        </div>
+
+                        <!-- Skill: Responsive UI -->
+                        <div class="hacker-skill-item" data-skill-width="88">
+                            <div class="skill-label-row">
+                                <span class="skill-icon-hack"><i class="fas fa-mobile-alt"></i></span>
+                                <span class="skill-name-hack">Responsive UI</span>
+                                <span class="skill-pct-hack">88%</span>
+                            </div>
+                            <div class="skill-bar-hack">
+                                <div class="skill-fill-hack" data-width="88"></div>
+                                <div class="skill-bar-glow"></div>
+                            </div>
+                        </div>
+
+                        <!-- Skill: Layout Design -->
+                        <div class="hacker-skill-item" data-skill-width="82">
+                            <div class="skill-label-row">
+                                <span class="skill-icon-hack"><i class="fas fa-th-large"></i></span>
+                                <span class="skill-name-hack">Layout Design</span>
+                                <span class="skill-pct-hack">82%</span>
+                            </div>
+                            <div class="skill-bar-hack">
+                                <div class="skill-fill-hack" data-width="82"></div>
+                                <div class="skill-bar-glow"></div>
+                            </div>
+                        </div>
+
+                        <!-- Skill: UI Implementation -->
+                        <div class="hacker-skill-item" data-skill-width="86">
+                            <div class="skill-label-row">
+                                <span class="skill-icon-hack"><i class="fas fa-object-group"></i></span>
+                                <span class="skill-name-hack">UI Implementation</span>
+                                <span class="skill-pct-hack">86%</span>
+                            </div>
+                            <div class="skill-bar-hack">
+                                <div class="skill-fill-hack" data-width="86"></div>
+                                <div class="skill-bar-glow"></div>
+                            </div>
+                        </div>
+
+                        <div class="terminal-output terminal-footer-line">
+                            <span class="output-success">✓ 3 skills loaded successfully</span>
+                        </div>
                     </div>
-                    <span class="skill-percent">75%</span>
                 </div>
-                <div class="skill-card" data-aos="fade-up" data-aos-delay="300">
-                    <div class="skill-icon"><i class="fab fa-bootstrap"></i></div>
-                    <h4 class="skill-name">Bootstrap</h4>
-                    <div class="skill-bar">
-                        <div class="skill-progress" data-width="88"></div>
+
+                <!-- ─── TERMINAL PANEL 3: Tools ─── -->
+                <div class="terminal-panel" data-aos="fade-up" data-aos-delay="300">
+                    <div class="terminal-header">
+                        <div class="terminal-dots">
+                            <span class="t-dot t-red"></span>
+                            <span class="t-dot t-yellow"></span>
+                            <span class="t-dot t-green"></span>
+                        </div>
+                        <span class="terminal-title"><i class="fas fa-tools"></i> tools.sh</span>
+                        <span class="terminal-status">● RUNNING</span>
                     </div>
-                    <span class="skill-percent">88%</span>
-                </div>
-                <div class="skill-card" data-aos="fade-up" data-aos-delay="350">
-                    <div class="skill-icon"><i class="fab fa-sass"></i></div>
-                    <h4 class="skill-name">Sass</h4>
-                    <div class="skill-bar">
-                        <div class="skill-progress" data-width="70"></div>
+                    <div class="terminal-body">
+                        <div class="terminal-scanline"></div>
+                        <div class="terminal-cmd">
+                            <span class="cmd-prompt">$</span> ./scan --module="tools"
+                        </div>
+                        <div class="terminal-output">
+                            <span class="output-line">[INFO] Loading tools &amp; databases...</span>
+                        </div>
+
+                        <!-- Skill: MySQL -->
+                        <div class="hacker-skill-item" data-skill-width="75">
+                            <div class="skill-label-row">
+                                <span class="skill-icon-hack"><i class="fas fa-database"></i></span>
+                                <span class="skill-name-hack">MySQL</span>
+                                <span class="skill-pct-hack">75%</span>
+                            </div>
+                            <div class="skill-bar-hack">
+                                <div class="skill-fill-hack" data-width="75"></div>
+                                <div class="skill-bar-glow"></div>
+                            </div>
+                        </div>
+
+                        <!-- Skill: Excel -->
+                        <div class="hacker-skill-item" data-skill-width="70">
+                            <div class="skill-label-row">
+                                <span class="skill-icon-hack"><i class="fas fa-file-excel"></i></span>
+                                <span class="skill-name-hack">Excel</span>
+                                <span class="skill-pct-hack">70%</span>
+                            </div>
+                            <div class="skill-bar-hack">
+                                <div class="skill-fill-hack" data-width="70"></div>
+                                <div class="skill-bar-glow"></div>
+                            </div>
+                        </div>
+
+                        <!-- Skill: Database Fundamentals -->
+                        <div class="hacker-skill-item" data-skill-width="78">
+                            <div class="skill-label-row">
+                                <span class="skill-icon-hack"><i class="fas fa-server"></i></span>
+                                <span class="skill-name-hack">Database Fundamentals</span>
+                                <span class="skill-pct-hack">78%</span>
+                            </div>
+                            <div class="skill-bar-hack">
+                                <div class="skill-fill-hack" data-width="78"></div>
+                                <div class="skill-bar-glow"></div>
+                            </div>
+                        </div>
+
+                        <div class="terminal-output terminal-footer-line">
+                            <span class="output-success">✓ 3 skills loaded successfully</span>
+                        </div>
                     </div>
-                    <span class="skill-percent">70%</span>
                 </div>
-                <!-- Tools -->
-                <div class="skill-card" data-aos="fade-up" data-aos-delay="400">
-                    <div class="skill-icon"><i class="fab fa-git-alt"></i></div>
-                    <h4 class="skill-name">Git &amp; GitHub</h4>
-                    <div class="skill-bar">
-                        <div class="skill-progress" data-width="80"></div>
+
+                <!-- ─── TERMINAL PANEL 4: Soft Skills ─── -->
+                <div class="terminal-panel" data-aos="fade-up" data-aos-delay="400">
+                    <div class="terminal-header">
+                        <div class="terminal-dots">
+                            <span class="t-dot t-red"></span>
+                            <span class="t-dot t-yellow"></span>
+                            <span class="t-dot t-green"></span>
+                        </div>
+                        <span class="terminal-title"><i class="fas fa-brain"></i> softskills.sh</span>
+                        <span class="terminal-status">● RUNNING</span>
                     </div>
-                    <span class="skill-percent">80%</span>
-                </div>
-                <div class="skill-card" data-aos="fade-up" data-aos-delay="450">
-                    <div class="skill-icon"><i class="fab fa-figma"></i></div>
-                    <h4 class="skill-name">Figma</h4>
-                    <div class="skill-bar">
-                        <div class="skill-progress" data-width="72"></div>
+                    <div class="terminal-body">
+                        <div class="terminal-scanline"></div>
+                        <div class="terminal-cmd">
+                            <span class="cmd-prompt">$</span> ./scan --module="soft_skills"
+                        </div>
+                        <div class="terminal-output">
+                            <span class="output-line">[INFO] Loading soft skills...</span>
+                        </div>
+
+                        <!-- Skill: Problem Solving -->
+                        <div class="hacker-skill-item" data-skill-width="92">
+                            <div class="skill-label-row">
+                                <span class="skill-icon-hack"><i class="fas fa-puzzle-piece"></i></span>
+                                <span class="skill-name-hack">Problem Solving</span>
+                                <span class="skill-pct-hack">92%</span>
+                            </div>
+                            <div class="skill-bar-hack">
+                                <div class="skill-fill-hack" data-width="92"></div>
+                                <div class="skill-bar-glow"></div>
+                            </div>
+                        </div>
+
+                        <!-- Skill: Analytical Thinking -->
+                        <div class="hacker-skill-item" data-skill-width="88">
+                            <div class="skill-label-row">
+                                <span class="skill-icon-hack"><i class="fas fa-chart-line"></i></span>
+                                <span class="skill-name-hack">Analytical Thinking</span>
+                                <span class="skill-pct-hack">88%</span>
+                            </div>
+                            <div class="skill-bar-hack">
+                                <div class="skill-fill-hack" data-width="88"></div>
+                                <div class="skill-bar-glow"></div>
+                            </div>
+                        </div>
+
+                        <!-- Skill: Team Collaboration -->
+                        <div class="hacker-skill-item" data-skill-width="85">
+                            <div class="skill-label-row">
+                                <span class="skill-icon-hack"><i class="fas fa-users"></i></span>
+                                <span class="skill-name-hack">Team Collaboration</span>
+                                <span class="skill-pct-hack">85%</span>
+                            </div>
+                            <div class="skill-bar-hack">
+                                <div class="skill-fill-hack" data-width="85"></div>
+                                <div class="skill-bar-glow"></div>
+                            </div>
+                        </div>
+
+                        <div class="terminal-output terminal-footer-line">
+                            <span class="output-success">✓ 3 skills loaded successfully</span>
+                        </div>
                     </div>
-                    <span class="skill-percent">72%</span>
                 </div>
-                <div class="skill-card" data-aos="fade-up" data-aos-delay="500">
-                    <div class="skill-icon"><i class="fab fa-node-js"></i></div>
-                    <h4 class="skill-name">Node.js</h4>
-                    <div class="skill-bar">
-                        <div class="skill-progress" data-width="60"></div>
-                    </div>
-                    <span class="skill-percent">60%</span>
-                </div>
-                <div class="skill-card" data-aos="fade-up" data-aos-delay="550">
-                    <div class="skill-icon"><i class="fas fa-database"></i></div>
-                    <h4 class="skill-name">MongoDB</h4>
-                    <div class="skill-bar">
-                        <div class="skill-progress" data-width="55"></div>
-                    </div>
-                    <span class="skill-percent">55%</span>
-                </div>
-                <div class="skill-card" data-aos="fade-up" data-aos-delay="600">
-                    <div class="skill-icon"><i class="fab fa-python"></i></div>
-                    <h4 class="skill-name">Python</h4>
-                    <div class="skill-bar">
-                        <div class="skill-progress" data-width="65"></div>
-                    </div>
-                    <span class="skill-percent">65%</span>
-                </div>
-                <div class="skill-card" data-aos="fade-up" data-aos-delay="650">
-                    <div class="skill-icon"><i class="fas fa-terminal"></i></div>
-                    <h4 class="skill-name">Terminal / CLI</h4>
-                    <div class="skill-bar">
-                        <div class="skill-progress" data-width="78"></div>
-                    </div>
-                    <span class="skill-percent">78%</span>
-                </div>
+
             </div>
             <span class="section-tag section-tag-end" data-aos="fade-up">&lt;/skills&gt;</span>
         </div>
@@ -377,6 +587,23 @@
     </section>
 
     <!-- ═══════════════════════════════════════════════ -->
+    <!-- GITHUB CONTRIBUTIONS                            -->
+    <!-- ═══════════════════════════════════════════════ -->
+    <section id="github-contributions" class="section github-section">
+        <div class="container">
+            <div class="section-header" data-aos="fade-up">
+                <span class="section-tag">&lt;contributions&gt;</span>
+                <h2 class="section-title">GitHub <span class="gold-text">Activity</span></h2>
+                <div class="section-line"></div>
+            </div>
+            <div class="github-graph-container" data-aos="fade-up" data-aos-delay="200">
+                <img src="https://ghchart.rshah.org/00FF9C/divyanshuX72" alt="Divyanshu's GitHub Activity Graph"
+                    class="github-chart" loading="lazy">
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════ -->
     <!-- EXPERIENCE SECTION                              -->
     <!-- ═══════════════════════════════════════════════ -->
     <section id="experience" class="section experience-section">
@@ -386,51 +613,27 @@
                 <h2 class="section-title">Work <span class="gold-text">Experience</span></h2>
                 <div class="section-line"></div>
             </div>
-            <div class="timeline">
-                <div class="timeline-item" data-aos="fade-up" data-aos-delay="200">
-                    <div class="timeline-marker"></div>
-                    <div class="timeline-content">
-                        <span class="timeline-date"><i class="fas fa-calendar-alt"></i> 2025 — Present</span>
-                        <h3 class="timeline-title">Frontend Developer <span class="gold-text">@ Freelance</span></h3>
-                        <p class="timeline-desc">
-                            Building responsive, performance-optimized web applications for clients. Working with modern
-                            frameworks, crafting pixel-perfect UI/UX, and delivering production-ready code.
-                        </p>
-                        <div class="timeline-tags">
-                            <span>React</span><span>JavaScript</span><span>CSS</span><span>Figma</span>
-                        </div>
+
+            <div class="experience-grid">
+                <!-- Experience 1 -->
+                <div class="exp-card" data-aos="fade-up" data-aos-delay="200">
+                    <div class="exp-card-header">
+                        <h3 class="exp-title">Full Stack Developer &amp; Digital Marketing</h3>
+                        <span class="exp-date"><i class="fas fa-calendar-alt"></i> 2025 – Present</span>
                     </div>
+                    <div class="exp-company"><i class="fas fa-building"></i> Wavelength Enterprises</div>
                 </div>
-                <div class="timeline-item" data-aos="fade-up" data-aos-delay="400">
-                    <div class="timeline-marker"></div>
-                    <div class="timeline-content">
-                        <span class="timeline-date"><i class="fas fa-calendar-alt"></i> 2024 — 2025</span>
-                        <h3 class="timeline-title">Web Development Intern <span class="gold-text">@ Startup</span></h3>
-                        <p class="timeline-desc">
-                            Collaborated with the design and engineering team to build and maintain client-facing web
-                            applications. Implemented responsive layouts, integrated APIs, and improved site
-                            performance.
-                        </p>
-                        <div class="timeline-tags">
-                            <span>HTML</span><span>CSS</span><span>JavaScript</span><span>Git</span>
-                        </div>
+
+                <!-- Experience 2 -->
+                <div class="exp-card" data-aos="fade-up" data-aos-delay="400">
+                    <div class="exp-card-header">
+                        <h3 class="exp-title">Junior Accountant</h3>
+                        <span class="exp-date"><i class="fas fa-calendar-alt"></i> 2022 – Present</span>
                     </div>
-                </div>
-                <div class="timeline-item" data-aos="fade-up" data-aos-delay="600">
-                    <div class="timeline-marker"></div>
-                    <div class="timeline-content">
-                        <span class="timeline-date"><i class="fas fa-calendar-alt"></i> 2023 — 2024</span>
-                        <h3 class="timeline-title">Open Source Contributor <span class="gold-text">@ GitHub</span></h3>
-                        <p class="timeline-desc">
-                            Actively contributed to open-source projects, submitted pull requests for bug fixes and
-                            feature enhancements, and participated in collaborative development workflows.
-                        </p>
-                        <div class="timeline-tags">
-                            <span>Git</span><span>GitHub</span><span>Open Source</span>
-                        </div>
-                    </div>
+                    <div class="exp-company"><i class="fas fa-building"></i> Lilavati Product</div>
                 </div>
             </div>
+
             <span class="section-tag section-tag-end" data-aos="fade-up">&lt;/experience&gt;</span>
         </div>
     </section>
@@ -445,44 +648,60 @@
                 <h2 class="section-title">My <span class="gold-text">Achievements</span></h2>
                 <div class="section-line"></div>
             </div>
-            <div class="achievements-grid">
-                <div class="achievement-card" data-aos="zoom-in" data-aos-delay="100">
-                    <div class="achievement-icon"><i class="fas fa-trophy"></i></div>
-                    <h3 class="achievement-title">Hackathon Finalist</h3>
-                    <p class="achievement-desc">Reached the finals of a state-level hackathon with an innovative
-                        web-based solution for local businesses.</p>
+
+            <div class="timeline achievements-timeline">
+                <!-- Achievement 1 -->
+                <div class="timeline-item" data-aos="fade-up" data-aos-delay="100">
+                    <div class="achievement-marker">
+                        <i class="fas fa-trophy"></i>
+                    </div>
+                    <div class="timeline-content achievement-content">
+                        <h3 class="timeline-title">Finalist – AI Hackathon 2.0 <span class="gold-text">@ GDG
+                                Mumbai</span></h3>
+                        <p class="timeline-desc">Secured a finalist position by building an innovative AI-driven
+                            solution during the competitive hackathon organized by Google Developer Groups Mumbai.</p>
+                    </div>
                 </div>
-                <div class="achievement-card" data-aos="zoom-in" data-aos-delay="200">
-                    <div class="achievement-icon"><i class="fas fa-certificate"></i></div>
-                    <h3 class="achievement-title">Web Development Certified</h3>
-                    <p class="achievement-desc">Earned certifications in Full-Stack Web Development from recognized
-                        online platforms.</p>
+
+                <!-- Achievement 2 -->
+                <div class="timeline-item" data-aos="fade-up" data-aos-delay="200">
+                    <div class="achievement-marker">
+                        <i class="fas fa-medal"></i>
+                    </div>
+                    <div class="timeline-content achievement-content">
+                        <h3 class="timeline-title">1st Prize – Hack Your Way <span class="gold-text">@
+                                Technocratz</span></h3>
+                        <p class="timeline-desc">Emerged as the winner by developing a standout, high-performance web
+                            application addressing the core problem statement.</p>
+                    </div>
                 </div>
-                <div class="achievement-card" data-aos="zoom-in" data-aos-delay="300">
-                    <div class="achievement-icon"><i class="fas fa-code-branch"></i></div>
-                    <h3 class="achievement-title">Open Source Contributor</h3>
-                    <p class="achievement-desc">Contributed to popular open-source repositories with accepted pull
-                        requests and community recognition.</p>
+
+                <!-- Achievement 3 -->
+                <div class="timeline-item" data-aos="fade-up" data-aos-delay="300">
+                    <div class="achievement-marker">
+                        <i class="fas fa-award"></i>
+                    </div>
+                    <div class="timeline-content achievement-content">
+                        <h3 class="timeline-title">1st Prize <span class="gold-text">@ Gyantech Hackathon</span></h3>
+                        <p class="timeline-desc">Awarded first place for designing and building an intuitive, scalable,
+                            and fully functional solution under challenging time constraints.</p>
+                    </div>
                 </div>
-                <div class="achievement-card" data-aos="zoom-in" data-aos-delay="400">
-                    <div class="achievement-icon"><i class="fas fa-star"></i></div>
-                    <h3 class="achievement-title">Top Student Developer</h3>
-                    <p class="achievement-desc">Recognized as the top-performing student in computer engineering
-                        coursework and practical labs.</p>
-                </div>
-                <div class="achievement-card" data-aos="zoom-in" data-aos-delay="500">
-                    <div class="achievement-icon"><i class="fas fa-users"></i></div>
-                    <h3 class="achievement-title">Community Lead</h3>
-                    <p class="achievement-desc">Led and organized coding workshops, tech meetups, and developer
-                        community events at the college level.</p>
-                </div>
-                <div class="achievement-card" data-aos="zoom-in" data-aos-delay="600">
-                    <div class="achievement-icon"><i class="fas fa-award"></i></div>
-                    <h3 class="achievement-title">Project Excellence Award</h3>
-                    <p class="achievement-desc">Awarded for outstanding project presentation and innovative solution
-                        design in inter-college competitions.</p>
+
+                <!-- Achievement 4 -->
+                <div class="timeline-item" data-aos="fade-up" data-aos-delay="400">
+                    <div class="achievement-marker">
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <div class="timeline-content achievement-content">
+                        <h3 class="timeline-title">Internal Selection <span class="gold-text">@ Smart India
+                                Hackathon</span></h3>
+                        <p class="timeline-desc">Successfully passed the rigorous internal campus selection rounds to
+                            represent the college at the prestigious national-level Smart India Hackathon.</p>
+                    </div>
                 </div>
             </div>
+
             <span class="section-tag section-tag-end" data-aos="fade-up">&lt;/achievements&gt;</span>
         </div>
     </section>
@@ -544,7 +763,8 @@
                     <div class="contact-card">
                         <div class="contact-card-icon"><i class="fas fa-envelope"></i></div>
                         <h4>Email</h4>
-                        <p>divyanshu@example.com</p>
+                        <p><a href="mailto:divyanshu.kanojia.72@gmail.com"
+                                class="contact-link">divyanshu.kanojia.72@gmail.com</a></p>
                     </div>
                     <div class="contact-card">
                         <div class="contact-card-icon"><i class="fas fa-map-marker-alt"></i></div>
@@ -554,7 +774,7 @@
                     <div class="contact-card">
                         <div class="contact-card-icon"><i class="fas fa-phone"></i></div>
                         <h4>Phone</h4>
-                        <p>+91 XXXXX XXXXX</p>
+                        <p><a href="tel:+918483807255" class="contact-link">+91 8483807255</a></p>
                     </div>
                     <div class="contact-socials">
                         <h4>Find me on</h4>
@@ -563,10 +783,8 @@
                                 aria-label="GitHub"><i class="fab fa-github"></i></a>
                             <a href="https://linkedin.com/in/divyanshu-kanojiya" target="_blank" rel="noopener"
                                 aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
-                            <a href="https://twitter.com/divyanshuX72" target="_blank" rel="noopener"
-                                aria-label="Twitter"><i class="fab fa-x-twitter"></i></a>
-                            <a href="https://instagram.com/divyanshuX72" target="_blank" rel="noopener"
-                                aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                            <a href="https://x.com/DivyanshuX72" target="_blank" rel="noopener" aria-label="X"><i
+                                    class="fab fa-x-twitter"></i></a>
                         </div>
                     </div>
                 </div>
@@ -591,12 +809,13 @@
                         <label for="message">Your Message</label>
                         <span class="form-line"></span>
                     </div>
-                    <button type="submit" class="btn btn-primary btn-submit">
+                    <button type="submit" class="btn btn-neon btn-submit btn-glow-animate">
                         <i class="fas fa-paper-plane"></i> Send Message
                     </button>
                     <div class="form-status" id="formStatus"></div>
                 </form>
             </div>
+
             <span class="section-tag section-tag-end" data-aos="fade-up">&lt;/contact&gt;</span>
         </div>
     </section>
@@ -644,10 +863,10 @@
     <!-- ═══════════════════════════════════════════════ -->
     <!-- SCRIPTS                                         -->
     <!-- ═══════════════════════════════════════════════ -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    <script src="script.js"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+    <script defer src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script defer src="script.js"></script>
 </body>
 
 </html>

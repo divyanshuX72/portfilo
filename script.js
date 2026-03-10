@@ -125,7 +125,6 @@ document.addEventListener('DOMContentLoaded', () => {
     // ─── TYPEWRITER ───
     const typewriterEl = document.getElementById('typewriter');
     const phrases = [
-        'Frontend Developer',
         'Full Stack Developer',
         'AI Project Builder',
         'Web Application Engineer',
@@ -689,192 +688,191 @@ document.addEventListener('DOMContentLoaded', () => {
     if (typeof THREE !== 'undefined') {
         const isMobile = window.innerWidth < 768;
         const canvas = document.getElementById('hero-canvas');
-        if (!canvas) return;
 
-        if (isMobile) {
-            canvas.style.display = 'none';
-            // Stop setting up three JS on small screens completely
-            return;
-        }
+        if (canvas && !isMobile) {
+            // Desktop only: set up the full 3D hero scene
+            const container = canvas.parentElement;
+            const W = container.clientWidth || 600;
+            const H = container.clientHeight || 520;
 
-        // Get the right-panel container size
-        const container = canvas.parentElement;
-        const W = container.clientWidth || 600;
-        const H = container.clientHeight || 520;
+            const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true });
+            renderer.setSize(W, H);
+            renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 
-        const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true });
-        renderer.setSize(W, H);
-        renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+            const scene = new THREE.Scene();
+            const camera = new THREE.PerspectiveCamera(55, W / H, 0.1, 1000);
+            camera.position.z = 6;
 
-        const scene = new THREE.Scene();
-        const camera = new THREE.PerspectiveCamera(55, W / H, 0.1, 1000);
-        camera.position.z = 6;
+            // ── LIGHTS ──
+            const ambientLight = new THREE.AmbientLight(0xffffff, 0.3);
+            scene.add(ambientLight);
 
-        // ── LIGHTS ──
-        const ambientLight = new THREE.AmbientLight(0xffffff, 0.3);
-        scene.add(ambientLight);
+            const pointLight1 = new THREE.PointLight(0xC8A96A, 2, 20); // Gold
+            pointLight1.position.set(4, 4, 4);
+            scene.add(pointLight1);
 
-        const pointLight1 = new THREE.PointLight(0xC8A96A, 2, 20); // Gold
-        pointLight1.position.set(4, 4, 4);
-        scene.add(pointLight1);
+            const pointLight2 = new THREE.PointLight(0x00FF9C, 1.5, 20); // Neon
+            pointLight2.position.set(-4, -2, 3);
+            scene.add(pointLight2);
 
-        const pointLight2 = new THREE.PointLight(0x00FF9C, 1.5, 20); // Neon
-        pointLight2.position.set(-4, -2, 3);
-        scene.add(pointLight2);
+            const pointLight3 = new THREE.PointLight(0x0B1F3A, 1, 15); // Navy
+            pointLight3.position.set(0, -4, -2);
+            scene.add(pointLight3);
 
-        const pointLight3 = new THREE.PointLight(0x0B1F3A, 1, 15); // Navy
-        pointLight3.position.set(0, -4, -2);
-        scene.add(pointLight3);
+            // ── HELPER: wireframe mesh ──
+            function makeWire(geometry, color, opacity = 0.7) {
+                return new THREE.Mesh(geometry, new THREE.MeshBasicMaterial({
+                    color, wireframe: true, transparent: true, opacity
+                }));
+            }
 
-        // ── HELPER: wireframe mesh ──
-        function makeWire(geometry, color, opacity = 0.7) {
-            return new THREE.Mesh(geometry, new THREE.MeshBasicMaterial({
-                color, wireframe: true, transparent: true, opacity
-            }));
-        }
+            // ── HELPER: solid mesh ──
+            function makeSolid(geometry, color, emissive = 0x000000) {
+                return new THREE.Mesh(geometry, new THREE.MeshPhongMaterial({
+                    color,
+                    emissive,
+                    emissiveIntensity: 0.4,
+                    shininess: 90,
+                    transparent: true,
+                    opacity: 0.85
+                }));
+            }
 
-        // ── HELPER: solid mesh ──
-        function makeSolid(geometry, color, emissive = 0x000000) {
-            return new THREE.Mesh(geometry, new THREE.MeshPhongMaterial({
-                color,
-                emissive,
-                emissiveIntensity: 0.4,
-                shininess: 90,
+            // ── OBJECTS ARRAY ──
+            const objects = [];
+
+            // 1. Central rotating icosahedron (wireframe gold)
+            const icoGeo = new THREE.IcosahedronGeometry(1.4, 1);
+            const icoMesh = makeWire(icoGeo, 0xC8A96A, 0.6);
+            scene.add(icoMesh);
+            objects.push({ mesh: icoMesh, rx: 0.004, ry: 0.006, orbit: false });
+
+            // Inner icosahedron (wireframe neon, slower counter-spin)
+            const innerIcoGeo = new THREE.IcosahedronGeometry(1.0, 0);
+            const innerIco = makeWire(innerIcoGeo, 0x00FF9C, 0.35);
+            scene.add(innerIco);
+            objects.push({ mesh: innerIco, rx: -0.005, ry: -0.003, orbit: false });
+
+            // 2. Floating torus (solid gold) — orbiting
+            const torusGeo = new THREE.TorusGeometry(0.5, 0.18, 14, 40);
+            const torusMesh = makeSolid(torusGeo, 0xC8A96A, 0xa88b4a);
+            torusMesh.position.set(2.4, 1.0, 0);
+            scene.add(torusMesh);
+            objects.push({ mesh: torusMesh, rx: 0.02, ry: 0.01, orbit: true, orbitR: 2.6, orbitSpeed: 0.006, orbitAngle: 0.0, orbitY: 1.0 });
+
+            // 3. Floating octahedron (wireframe neon) — orbiting
+            const octGeo = new THREE.OctahedronGeometry(0.55, 0);
+            const octMesh = makeWire(octGeo, 0x00FF9C, 0.8);
+            octMesh.position.set(-2.4, -0.8, 0.5);
+            scene.add(octMesh);
+            objects.push({ mesh: octMesh, rx: 0.01, ry: 0.015, orbit: true, orbitR: 2.5, orbitSpeed: 0.008, orbitAngle: Math.PI, orbitY: -0.8 });
+
+            // 4. Floating box (solid navy emissive) — orbiting
+            const boxGeo = new THREE.BoxGeometry(0.55, 0.55, 0.55);
+            const boxMesh = makeSolid(boxGeo, 0x0B1F3A, 0x00FF9C);
+            boxMesh.position.set(1.8, -1.6, 0.3);
+            scene.add(boxMesh);
+            objects.push({ mesh: boxMesh, rx: 0.012, ry: 0.018, orbit: true, orbitR: 2.2, orbitSpeed: 0.007, orbitAngle: Math.PI * 0.5, orbitY: -1.6 });
+
+            // 5. Floating tetrahedron (wireframe gold) — orbiting
+            const tetraGeo = new THREE.TetrahedronGeometry(0.6, 0);
+            const tetraMesh = makeWire(tetraGeo, 0xdcc48e, 0.8);
+            tetraMesh.position.set(-1.6, 1.8, -0.2);
+            scene.add(tetraMesh);
+            objects.push({ mesh: tetraMesh, rx: 0.014, ry: 0.010, orbit: true, orbitR: 2.4, orbitSpeed: 0.005, orbitAngle: Math.PI * 1.5, orbitY: 1.8 });
+
+            // 6. Floating dodecahedron (solid neon dim) — orbiting
+            const dodGeo = new THREE.DodecahedronGeometry(0.42, 0);
+            const dodMesh = makeSolid(dodGeo, 0x003322, 0x00FF9C);
+            dodMesh.position.set(-0.5, -2.2, 0.8);
+            scene.add(dodMesh);
+            objects.push({ mesh: dodMesh, rx: 0.016, ry: 0.012, orbit: true, orbitR: 2.3, orbitSpeed: 0.009, orbitAngle: Math.PI * 0.75, orbitY: -2.2 });
+
+            // ── STAR FIELD (background floating dots) ──
+            const starGeo = new THREE.BufferGeometry();
+            const starCount = 280;
+            const starPos = new Float32Array(starCount * 3);
+            for (let i = 0; i < starCount * 3; i++) {
+                starPos[i] = (Math.random() - 0.5) * 14;
+            }
+            starGeo.setAttribute('position', new THREE.BufferAttribute(starPos, 3));
+            const starMat = new THREE.PointsMaterial({
+                color: 0xC8A96A,
+                size: 0.025,
                 transparent: true,
-                opacity: 0.85
-            }));
-        }
+                opacity: 0.7
+            });
+            const stars = new THREE.Points(starGeo, starMat);
+            scene.add(stars);
 
-        // ── OBJECTS ARRAY ──
-        const objects = [];
-
-        // 1. Central rotating icosahedron (wireframe gold)
-        const icoGeo = new THREE.IcosahedronGeometry(1.4, 1);
-        const icoMesh = makeWire(icoGeo, 0xC8A96A, 0.6);
-        scene.add(icoMesh);
-        objects.push({ mesh: icoMesh, rx: 0.004, ry: 0.006, orbit: false });
-
-        // Inner icosahedron (wireframe neon, slower counter-spin)
-        const innerIcoGeo = new THREE.IcosahedronGeometry(1.0, 0);
-        const innerIco = makeWire(innerIcoGeo, 0x00FF9C, 0.35);
-        scene.add(innerIco);
-        objects.push({ mesh: innerIco, rx: -0.005, ry: -0.003, orbit: false });
-
-        // 2. Floating torus (solid gold) — orbiting
-        const torusGeo = new THREE.TorusGeometry(0.5, 0.18, 14, 40);
-        const torusMesh = makeSolid(torusGeo, 0xC8A96A, 0xa88b4a);
-        torusMesh.position.set(2.4, 1.0, 0);
-        scene.add(torusMesh);
-        objects.push({ mesh: torusMesh, rx: 0.02, ry: 0.01, orbit: true, orbitR: 2.6, orbitSpeed: 0.006, orbitAngle: 0.0, orbitY: 1.0 });
-
-        // 3. Floating octahedron (wireframe neon) — orbiting
-        const octGeo = new THREE.OctahedronGeometry(0.55, 0);
-        const octMesh = makeWire(octGeo, 0x00FF9C, 0.8);
-        octMesh.position.set(-2.4, -0.8, 0.5);
-        scene.add(octMesh);
-        objects.push({ mesh: octMesh, rx: 0.01, ry: 0.015, orbit: true, orbitR: 2.5, orbitSpeed: 0.008, orbitAngle: Math.PI, orbitY: -0.8 });
-
-        // 4. Floating box (solid navy emissive) — orbiting
-        const boxGeo = new THREE.BoxGeometry(0.55, 0.55, 0.55);
-        const boxMesh = makeSolid(boxGeo, 0x0B1F3A, 0x00FF9C);
-        boxMesh.position.set(1.8, -1.6, 0.3);
-        scene.add(boxMesh);
-        objects.push({ mesh: boxMesh, rx: 0.012, ry: 0.018, orbit: true, orbitR: 2.2, orbitSpeed: 0.007, orbitAngle: Math.PI * 0.5, orbitY: -1.6 });
-
-        // 5. Floating tetrahedron (wireframe gold) — orbiting
-        const tetraGeo = new THREE.TetrahedronGeometry(0.6, 0);
-        const tetraMesh = makeWire(tetraGeo, 0xdcc48e, 0.8);
-        tetraMesh.position.set(-1.6, 1.8, -0.2);
-        scene.add(tetraMesh);
-        objects.push({ mesh: tetraMesh, rx: 0.014, ry: 0.010, orbit: true, orbitR: 2.4, orbitSpeed: 0.005, orbitAngle: Math.PI * 1.5, orbitY: 1.8 });
-
-        // 6. Floating dodecahedron (solid neon dim) — orbiting
-        const dodGeo = new THREE.DodecahedronGeometry(0.42, 0);
-        const dodMesh = makeSolid(dodGeo, 0x003322, 0x00FF9C);
-        dodMesh.position.set(-0.5, -2.2, 0.8);
-        scene.add(dodMesh);
-        objects.push({ mesh: dodMesh, rx: 0.016, ry: 0.012, orbit: true, orbitR: 2.3, orbitSpeed: 0.009, orbitAngle: Math.PI * 0.75, orbitY: -2.2 });
-
-        // ── STAR FIELD (background floating dots) ──
-        const starGeo = new THREE.BufferGeometry();
-        const starCount = 280;
-        const starPos = new Float32Array(starCount * 3);
-        for (let i = 0; i < starCount * 3; i++) {
-            starPos[i] = (Math.random() - 0.5) * 14;
-        }
-        starGeo.setAttribute('position', new THREE.BufferAttribute(starPos, 3));
-        const starMat = new THREE.PointsMaterial({
-            color: 0xC8A96A,
-            size: 0.025,
-            transparent: true,
-            opacity: 0.7
-        });
-        const stars = new THREE.Points(starGeo, starMat);
-        scene.add(stars);
-
-        // ── MOUSE TRACKING ──
-        let mouseX = 0, mouseY = 0;
-        const heroSection = document.getElementById('hero');
-        heroSection.addEventListener('mousemove', (e) => {
-            mouseX = (e.clientX / window.innerWidth - 0.5) * 2;
-            mouseY = (e.clientY / window.innerHeight - 0.5) * 2;
-        });
-
-        // ── LIGHT ANIMATION VARS ──
-        let lightAngle = 0;
-
-        // ── ANIMATION LOOP ──
-        function animate() {
-            requestAnimationFrame(animate);
-
-            const t = Date.now() * 0.001;
-
-            // Orbiting light 1 (gold)
-            lightAngle += 0.008;
-            pointLight1.position.x = Math.cos(lightAngle) * 5;
-            pointLight1.position.z = Math.sin(lightAngle) * 5;
-
-            // Pulsing light 2 (neon)
-            pointLight2.intensity = 1.5 + Math.sin(t * 1.5) * 0.5;
-
-            // Animate each object
-            objects.forEach(obj => {
-                obj.mesh.rotation.x += obj.rx;
-                obj.mesh.rotation.y += obj.ry;
-
-                if (obj.orbit) {
-                    obj.orbitAngle += obj.orbitSpeed;
-                    obj.mesh.position.x = Math.cos(obj.orbitAngle) * obj.orbitR;
-                    obj.mesh.position.z = Math.sin(obj.orbitAngle) * 0.8;
-                    // Bob vertically
-                    obj.mesh.position.y = obj.orbitY + Math.sin(t * 1.2 + obj.orbitAngle) * 0.3;
-                }
+            // ── MOUSE TRACKING ──
+            let mouseX = 0, mouseY = 0;
+            const heroSection = document.getElementById('hero');
+            heroSection.addEventListener('mousemove', (e) => {
+                mouseX = (e.clientX / window.innerWidth - 0.5) * 2;
+                mouseY = (e.clientY / window.innerHeight - 0.5) * 2;
             });
 
-            stars.rotation.y += 0.0003;
-            stars.rotation.x += 0.0001;
+            // ── LIGHT ANIMATION VARS ──
+            let lightAngle = 0;
 
-            // Subtle mouse parallax on the whole scene
-            scene.rotation.x += (mouseY * 0.08 - scene.rotation.x) * 0.05;
-            scene.rotation.y += (mouseX * 0.12 - scene.rotation.y) * 0.05;
+            // ── ANIMATION LOOP ──
+            function animate() {
+                requestAnimationFrame(animate);
 
-            renderer.render(scene, camera);
+                const t = Date.now() * 0.001;
+
+                // Orbiting light 1 (gold)
+                lightAngle += 0.008;
+                pointLight1.position.x = Math.cos(lightAngle) * 5;
+                pointLight1.position.z = Math.sin(lightAngle) * 5;
+
+                // Pulsing light 2 (neon)
+                pointLight2.intensity = 1.5 + Math.sin(t * 1.5) * 0.5;
+
+                // Animate each object
+                objects.forEach(obj => {
+                    obj.mesh.rotation.x += obj.rx;
+                    obj.mesh.rotation.y += obj.ry;
+
+                    if (obj.orbit) {
+                        obj.orbitAngle += obj.orbitSpeed;
+                        obj.mesh.position.x = Math.cos(obj.orbitAngle) * obj.orbitR;
+                        obj.mesh.position.z = Math.sin(obj.orbitAngle) * 0.8;
+                        // Bob vertically
+                        obj.mesh.position.y = obj.orbitY + Math.sin(t * 1.2 + obj.orbitAngle) * 0.3;
+                    }
+                });
+
+                stars.rotation.y += 0.0003;
+                stars.rotation.x += 0.0001;
+
+                // Subtle mouse parallax on the whole scene
+                scene.rotation.x += (mouseY * 0.08 - scene.rotation.x) * 0.05;
+                scene.rotation.y += (mouseX * 0.12 - scene.rotation.y) * 0.05;
+
+                renderer.render(scene, camera);
+            }
+            animate();
+
+            // ── RESIZE HANDLER ──
+            window.addEventListener('resize', () => {
+                const nW = container.clientWidth || window.innerWidth * 0.5;
+                const nH = container.clientHeight || 520;
+                camera.aspect = nW / nH;
+                camera.updateProjectionMatrix();
+                renderer.setSize(nW, nH);
+            });
+        } else if (canvas) {
+            // Mobile: hide the hero canvas, don't set up Three.js
+            canvas.style.display = 'none';
         }
-        animate();
-
-        // ── RESIZE HANDLER ──
-        window.addEventListener('resize', () => {
-            const nW = container.clientWidth || window.innerWidth * 0.5;
-            const nH = container.clientHeight || 520;
-            camera.aspect = nW / nH;
-            camera.updateProjectionMatrix();
-            renderer.setSize(nW, nH);
-        });
     }
 
     // ─── THREE.JS — GLOBAL FUTURISTIC BACKGROUND ───
     const globalCanvas = document.getElementById('global-3d-bg');
-    if (globalCanvas && typeof THREE !== 'undefined') {
+    const isMobileGlobal = window.innerWidth < 768;
+    if (globalCanvas && typeof THREE !== 'undefined' && !isMobileGlobal) {
         const sceneBg = new THREE.Scene();
         const cameraBg = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 1000);
         cameraBg.position.z = 30;

@@ -208,6 +208,49 @@ document.addEventListener('DOMContentLoaded', () => {
     }, { threshold: 0.2 });
     document.querySelectorAll('.terminal-panel').forEach(panel => hackerSkillObserver.observe(panel));
 
+    // ─── SKILL CATEGORY FILTER TABS ───
+    const skillTabs = document.querySelectorAll('.skill-tab');
+    const skillPanels = document.querySelectorAll('.terminal-panel[data-skill-category]');
+
+    skillTabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+            // Update active tab
+            skillTabs.forEach(t => t.classList.remove('active'));
+            tab.classList.add('active');
+
+            const category = tab.getAttribute('data-category');
+
+            skillPanels.forEach(panel => {
+                const panelCategory = panel.getAttribute('data-skill-category');
+                
+                if (category === 'all' || panelCategory === category) {
+                    panel.classList.remove('skill-hidden');
+                    panel.classList.add('skill-visible');
+
+                    // Re-trigger progress bar animation for newly visible panels
+                    if (!panel.classList.contains('skills-animated')) {
+                        panel.classList.add('skills-animated');
+                        const items = panel.querySelectorAll('.hacker-skill-item');
+                        items.forEach((item, idx) => {
+                            setTimeout(() => {
+                                const fill = item.querySelector('.skill-fill-hack');
+                                const glow = item.querySelector('.skill-bar-glow');
+                                const w = fill.getAttribute('data-width') + '%';
+                                fill.style.setProperty('--fill-width', w);
+                                fill.classList.add('active');
+                                fill.style.width = w;
+                                if (glow) glow.style.width = w;
+                            }, idx * 200);
+                        });
+                    }
+                } else {
+                    panel.classList.add('skill-hidden');
+                    panel.classList.remove('skill-visible');
+                }
+            });
+        });
+    });
+
     // ─── MATRIX RAIN CANVAS ───
     const matrixCanvas = document.getElementById('matrixCanvas');
     if (matrixCanvas) {

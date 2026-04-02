@@ -262,50 +262,63 @@
                 </p>
             </div>
 
+            <!-- ─── SKILL CATEGORY FILTER TABS ─── -->
+            <div class="skill-filter-tabs" data-aos="fade-up" data-aos-delay="50">
+                <button class="skill-tab active" data-category="all"><i class="fas fa-layer-group"></i> All</button>
+                <button class="skill-tab" data-category="frontend"><i class="fas fa-palette"></i> Frontend</button>
+                <button class="skill-tab" data-category="backend"><i class="fas fa-server"></i> Backend</button>
+                <button class="skill-tab" data-category="languages"><i class="fas fa-code"></i> Languages</button>
+                <button class="skill-tab" data-category="databases"><i class="fas fa-database"></i> Databases</button>
+                <button class="skill-tab" data-category="tools"><i class="fas fa-tools"></i> Tools</button>
+                <button class="skill-tab" data-category="other"><i class="fas fa-star"></i> Other</button>
+            </div>
+
             <div class="terminal-grid">
 
-                <!-- ─── TERMINAL PANEL 1: Programming ─── -->
-                <div class="terminal-panel" data-aos="fade-up" data-aos-delay="100">
+                <!-- ═══════════════════════════════════════ -->
+                <!-- TERMINAL PANEL 1: Frontend Development -->
+                <!-- ═══════════════════════════════════════ -->
+                <div class="terminal-panel" data-aos="fade-up" data-aos-delay="100" data-skill-category="frontend">
                     <div class="terminal-header">
                         <div class="terminal-dots">
                             <span class="t-dot t-red"></span>
                             <span class="t-dot t-yellow"></span>
                             <span class="t-dot t-green"></span>
                         </div>
-                        <span class="terminal-title"><i class="fas fa-code"></i> programming.sh</span>
+                        <span class="terminal-title"><i class="fas fa-palette"></i> frontend.sh</span>
                         <span class="terminal-status">● RUNNING</span>
                     </div>
                     <div class="terminal-body">
                         <div class="terminal-scanline"></div>
                         <div class="terminal-cmd">
-                            <span class="cmd-prompt">$</span> ./scan --module="programming"
+                            <span class="cmd-prompt">$</span> ./scan --module="frontend"
                         </div>
                         <div class="terminal-output">
-                            <span class="output-line">[INFO] Loading programming skills...</span>
+                            <span class="output-line">[INFO] Loading frontend development skills...</span>
                         </div>
 
-                        <!-- Skill: Python -->
-                        <div class="hacker-skill-item" data-skill-width="80">
+                        <!-- Skill: HTML5 -->
+                        <div class="hacker-skill-item" data-skill-width="92">
                             <div class="skill-label-row">
-                                <span class="skill-icon-hack"><i class="fab fa-python"></i></span>
-                                <span class="skill-name-hack">Python</span>
-                                <span class="skill-pct-hack">80%</span>
+                                <span class="skill-icon-hack"><i class="fab fa-html5"></i></span>
+                                <span class="skill-name-hack">HTML5</span>
+                                <span class="skill-pct-hack">92%</span>
                             </div>
                             <div class="skill-bar-hack">
-                                <div class="skill-fill-hack" data-width="80"></div>
+                                <div class="skill-fill-hack" data-width="92"></div>
                                 <div class="skill-bar-glow"></div>
                             </div>
                         </div>
 
-                        <!-- Skill: HTML -->
-                        <div class="hacker-skill-item" data-skill-width="90">
+                        <!-- Skill: CSS3 -->
+                        <div class="hacker-skill-item" data-skill-width="88">
                             <div class="skill-label-row">
-                                <span class="skill-icon-hack"><i class="fab fa-html5"></i></span>
-                                <span class="skill-name-hack">HTML</span>
-                                <span class="skill-pct-hack">90%</span>
+                                <span class="skill-icon-hack"><i class="fab fa-css3-alt"></i></span>
+                                <span class="skill-name-hack">CSS3</span>
+                                <span class="skill-pct-hack">88%</span>
                             </div>
                             <div class="skill-bar-hack">
-                                <div class="skill-fill-hack" data-width="90"></div>
+                                <div class="skill-fill-hack" data-width="88"></div>
                                 <div class="skill-bar-glow"></div>
                             </div>
                         </div>
@@ -323,50 +336,11 @@
                             </div>
                         </div>
 
-                        <div class="terminal-output terminal-footer-line">
-                            <span class="output-success">✓ 3 skills loaded successfully</span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- ─── TERMINAL PANEL 2: Frontend ─── -->
-                <div class="terminal-panel" data-aos="fade-up" data-aos-delay="200">
-                    <div class="terminal-header">
-                        <div class="terminal-dots">
-                            <span class="t-dot t-red"></span>
-                            <span class="t-dot t-yellow"></span>
-                            <span class="t-dot t-green"></span>
-                        </div>
-                        <span class="terminal-title"><i class="fas fa-palette"></i> frontend.sh</span>
-                        <span class="terminal-status">● RUNNING</span>
-                    </div>
-                    <div class="terminal-body">
-                        <div class="terminal-scanline"></div>
-                        <div class="terminal-cmd">
-                            <span class="cmd-prompt">$</span> ./scan --module="frontend"
-                        </div>
-                        <div class="terminal-output">
-                            <span class="output-line">[INFO] Loading frontend skills...</span>
-                        </div>
-
-                        <!-- Skill: Responsive UI -->
-                        <div class="hacker-skill-item" data-skill-width="88">
-                            <div class="skill-label-row">
-                                <span class="skill-icon-hack"><i class="fas fa-mobile-alt"></i></span>
-                                <span class="skill-name-hack">Responsive UI</span>
-                                <span class="skill-pct-hack">88%</span>
-                            </div>
-                            <div class="skill-bar-hack">
-                                <div class="skill-fill-hack" data-width="88"></div>
-                                <div class="skill-bar-glow"></div>
-                            </div>
-                        </div>
-
-                        <!-- Skill: Layout Design -->
+                        <!-- Skill: Tailwind CSS -->
                         <div class="hacker-skill-item" data-skill-width="82">
                             <div class="skill-label-row">
-                                <span class="skill-icon-hack"><i class="fas fa-th-large"></i></span>
-                                <span class="skill-name-hack">Layout Design</span>
+                                <span class="skill-icon-hack"><i class="fas fa-wind"></i></span>
+                                <span class="skill-name-hack">Tailwind CSS</span>
                                 <span class="skill-pct-hack">82%</span>
                             </div>
                             <div class="skill-bar-hack">
@@ -375,15 +349,255 @@
                             </div>
                         </div>
 
-                        <!-- Skill: UI Implementation -->
-                        <div class="hacker-skill-item" data-skill-width="86">
+                        <!-- Skill: React.js -->
+                        <div class="hacker-skill-item" data-skill-width="80">
                             <div class="skill-label-row">
-                                <span class="skill-icon-hack"><i class="fas fa-object-group"></i></span>
-                                <span class="skill-name-hack">UI Implementation</span>
-                                <span class="skill-pct-hack">86%</span>
+                                <span class="skill-icon-hack"><i class="fab fa-react"></i></span>
+                                <span class="skill-name-hack">React.js</span>
+                                <span class="skill-pct-hack">80%</span>
                             </div>
                             <div class="skill-bar-hack">
-                                <div class="skill-fill-hack" data-width="86"></div>
+                                <div class="skill-fill-hack" data-width="80"></div>
+                                <div class="skill-bar-glow"></div>
+                            </div>
+                        </div>
+
+                        <!-- Skill: Next.js -->
+                        <div class="hacker-skill-item" data-skill-width="75">
+                            <div class="skill-label-row">
+                                <span class="skill-icon-hack"><i class="fas fa-forward"></i></span>
+                                <span class="skill-name-hack">Next.js</span>
+                                <span class="skill-pct-hack">75%</span>
+                            </div>
+                            <div class="skill-bar-hack">
+                                <div class="skill-fill-hack" data-width="75"></div>
+                                <div class="skill-bar-glow"></div>
+                            </div>
+                        </div>
+
+                        <div class="terminal-output terminal-footer-line">
+                            <span class="output-success">✓ 6 skills loaded successfully</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ═══════════════════════════════════════ -->
+                <!-- TERMINAL PANEL 2: Backend Development  -->
+                <!-- ═══════════════════════════════════════ -->
+                <div class="terminal-panel" data-aos="fade-up" data-aos-delay="200" data-skill-category="backend">
+                    <div class="terminal-header">
+                        <div class="terminal-dots">
+                            <span class="t-dot t-red"></span>
+                            <span class="t-dot t-yellow"></span>
+                            <span class="t-dot t-green"></span>
+                        </div>
+                        <span class="terminal-title"><i class="fas fa-server"></i> backend.sh</span>
+                        <span class="terminal-status">● RUNNING</span>
+                    </div>
+                    <div class="terminal-body">
+                        <div class="terminal-scanline"></div>
+                        <div class="terminal-cmd">
+                            <span class="cmd-prompt">$</span> ./scan --module="backend"
+                        </div>
+                        <div class="terminal-output">
+                            <span class="output-line">[INFO] Loading backend development skills...</span>
+                        </div>
+
+                        <!-- Skill: Node.js -->
+                        <div class="hacker-skill-item" data-skill-width="83">
+                            <div class="skill-label-row">
+                                <span class="skill-icon-hack"><i class="fab fa-node-js"></i></span>
+                                <span class="skill-name-hack">Node.js</span>
+                                <span class="skill-pct-hack">83%</span>
+                            </div>
+                            <div class="skill-bar-hack">
+                                <div class="skill-fill-hack" data-width="83"></div>
+                                <div class="skill-bar-glow"></div>
+                            </div>
+                        </div>
+
+                        <!-- Skill: Express.js -->
+                        <div class="hacker-skill-item" data-skill-width="80">
+                            <div class="skill-label-row">
+                                <span class="skill-icon-hack"><i class="fas fa-route"></i></span>
+                                <span class="skill-name-hack">Express.js</span>
+                                <span class="skill-pct-hack">80%</span>
+                            </div>
+                            <div class="skill-bar-hack">
+                                <div class="skill-fill-hack" data-width="80"></div>
+                                <div class="skill-bar-glow"></div>
+                            </div>
+                        </div>
+
+                        <!-- Skill: REST APIs -->
+                        <div class="hacker-skill-item" data-skill-width="85">
+                            <div class="skill-label-row">
+                                <span class="skill-icon-hack"><i class="fas fa-exchange-alt"></i></span>
+                                <span class="skill-name-hack">REST APIs</span>
+                                <span class="skill-pct-hack">85%</span>
+                            </div>
+                            <div class="skill-bar-hack">
+                                <div class="skill-fill-hack" data-width="85"></div>
+                                <div class="skill-bar-glow"></div>
+                            </div>
+                        </div>
+
+                        <!-- Skill: Authentication (JWT) -->
+                        <div class="hacker-skill-item" data-skill-width="78">
+                            <div class="skill-label-row">
+                                <span class="skill-icon-hack"><i class="fas fa-shield-alt"></i></span>
+                                <span class="skill-name-hack">Authentication (JWT)</span>
+                                <span class="skill-pct-hack">78%</span>
+                            </div>
+                            <div class="skill-bar-hack">
+                                <div class="skill-fill-hack" data-width="78"></div>
+                                <div class="skill-bar-glow"></div>
+                            </div>
+                        </div>
+
+                        <div class="terminal-output terminal-footer-line">
+                            <span class="output-success">✓ 4 skills loaded successfully</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ═══════════════════════════════════════ -->
+                <!-- TERMINAL PANEL 3: Programming Languages -->
+                <!-- ═══════════════════════════════════════ -->
+                <div class="terminal-panel" data-aos="fade-up" data-aos-delay="300" data-skill-category="languages">
+                    <div class="terminal-header">
+                        <div class="terminal-dots">
+                            <span class="t-dot t-red"></span>
+                            <span class="t-dot t-yellow"></span>
+                            <span class="t-dot t-green"></span>
+                        </div>
+                        <span class="terminal-title"><i class="fas fa-code"></i> languages.sh</span>
+                        <span class="terminal-status">● RUNNING</span>
+                    </div>
+                    <div class="terminal-body">
+                        <div class="terminal-scanline"></div>
+                        <div class="terminal-cmd">
+                            <span class="cmd-prompt">$</span> ./scan --module="languages"
+                        </div>
+                        <div class="terminal-output">
+                            <span class="output-line">[INFO] Loading programming languages...</span>
+                        </div>
+
+                        <!-- Skill: Java -->
+                        <div class="hacker-skill-item" data-skill-width="82">
+                            <div class="skill-label-row">
+                                <span class="skill-icon-hack"><i class="fab fa-java"></i></span>
+                                <span class="skill-name-hack">Java</span>
+                                <span class="skill-pct-hack">82%</span>
+                            </div>
+                            <div class="skill-bar-hack">
+                                <div class="skill-fill-hack" data-width="82"></div>
+                                <div class="skill-bar-glow"></div>
+                            </div>
+                        </div>
+
+                        <!-- Skill: Python -->
+                        <div class="hacker-skill-item" data-skill-width="80">
+                            <div class="skill-label-row">
+                                <span class="skill-icon-hack"><i class="fab fa-python"></i></span>
+                                <span class="skill-name-hack">Python</span>
+                                <span class="skill-pct-hack">80%</span>
+                            </div>
+                            <div class="skill-bar-hack">
+                                <div class="skill-fill-hack" data-width="80"></div>
+                                <div class="skill-bar-glow"></div>
+                            </div>
+                        </div>
+
+                        <!-- Skill: JavaScript -->
+                        <div class="hacker-skill-item" data-skill-width="85">
+                            <div class="skill-label-row">
+                                <span class="skill-icon-hack"><i class="fab fa-js-square"></i></span>
+                                <span class="skill-name-hack">JavaScript</span>
+                                <span class="skill-pct-hack">85%</span>
+                            </div>
+                            <div class="skill-bar-hack">
+                                <div class="skill-fill-hack" data-width="85"></div>
+                                <div class="skill-bar-glow"></div>
+                            </div>
+                        </div>
+
+                        <!-- Skill: C++ -->
+                        <div class="hacker-skill-item" data-skill-width="72">
+                            <div class="skill-label-row">
+                                <span class="skill-icon-hack"><i class="fas fa-cogs"></i></span>
+                                <span class="skill-name-hack">C++</span>
+                                <span class="skill-pct-hack">72%</span>
+                            </div>
+                            <div class="skill-bar-hack">
+                                <div class="skill-fill-hack" data-width="72"></div>
+                                <div class="skill-bar-glow"></div>
+                            </div>
+                        </div>
+
+                        <div class="terminal-output terminal-footer-line">
+                            <span class="output-success">✓ 4 skills loaded successfully</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ═══════════════════════════════════════ -->
+                <!-- TERMINAL PANEL 4: Databases            -->
+                <!-- ═══════════════════════════════════════ -->
+                <div class="terminal-panel" data-aos="fade-up" data-aos-delay="400" data-skill-category="databases">
+                    <div class="terminal-header">
+                        <div class="terminal-dots">
+                            <span class="t-dot t-red"></span>
+                            <span class="t-dot t-yellow"></span>
+                            <span class="t-dot t-green"></span>
+                        </div>
+                        <span class="terminal-title"><i class="fas fa-database"></i> databases.sh</span>
+                        <span class="terminal-status">● RUNNING</span>
+                    </div>
+                    <div class="terminal-body">
+                        <div class="terminal-scanline"></div>
+                        <div class="terminal-cmd">
+                            <span class="cmd-prompt">$</span> ./scan --module="databases"
+                        </div>
+                        <div class="terminal-output">
+                            <span class="output-line">[INFO] Loading database skills...</span>
+                        </div>
+
+                        <!-- Skill: MongoDB -->
+                        <div class="hacker-skill-item" data-skill-width="80">
+                            <div class="skill-label-row">
+                                <span class="skill-icon-hack"><i class="fas fa-leaf"></i></span>
+                                <span class="skill-name-hack">MongoDB</span>
+                                <span class="skill-pct-hack">80%</span>
+                            </div>
+                            <div class="skill-bar-hack">
+                                <div class="skill-fill-hack" data-width="80"></div>
+                                <div class="skill-bar-glow"></div>
+                            </div>
+                        </div>
+
+                        <!-- Skill: MySQL -->
+                        <div class="hacker-skill-item" data-skill-width="78">
+                            <div class="skill-label-row">
+                                <span class="skill-icon-hack"><i class="fas fa-database"></i></span>
+                                <span class="skill-name-hack">MySQL</span>
+                                <span class="skill-pct-hack">78%</span>
+                            </div>
+                            <div class="skill-bar-hack">
+                                <div class="skill-fill-hack" data-width="78"></div>
+                                <div class="skill-bar-glow"></div>
+                            </div>
+                        </div>
+
+                        <!-- Skill: Firebase -->
+                        <div class="hacker-skill-item" data-skill-width="75">
+                            <div class="skill-label-row">
+                                <span class="skill-icon-hack"><i class="fas fa-fire"></i></span>
+                                <span class="skill-name-hack">Firebase</span>
+                                <span class="skill-pct-hack">75%</span>
+                            </div>
+                            <div class="skill-bar-hack">
+                                <div class="skill-fill-hack" data-width="75"></div>
                                 <div class="skill-bar-glow"></div>
                             </div>
                         </div>
@@ -394,8 +608,10 @@
                     </div>
                 </div>
 
-                <!-- ─── TERMINAL PANEL 3: Tools ─── -->
-                <div class="terminal-panel" data-aos="fade-up" data-aos-delay="300">
+                <!-- ═══════════════════════════════════════ -->
+                <!-- TERMINAL PANEL 5: Tools & Platforms    -->
+                <!-- ═══════════════════════════════════════ -->
+                <div class="terminal-panel" data-aos="fade-up" data-aos-delay="500" data-skill-category="tools">
                     <div class="terminal-header">
                         <div class="terminal-dots">
                             <span class="t-dot t-red"></span>
@@ -411,40 +627,172 @@
                             <span class="cmd-prompt">$</span> ./scan --module="tools"
                         </div>
                         <div class="terminal-output">
-                            <span class="output-line">[INFO] Loading tools &amp; databases...</span>
+                            <span class="output-line">[INFO] Loading tools &amp; platforms...</span>
                         </div>
 
-                        <!-- Skill: MySQL -->
-                        <div class="hacker-skill-item" data-skill-width="75">
+                        <!-- Skill: Git -->
+                        <div class="hacker-skill-item" data-skill-width="88">
                             <div class="skill-label-row">
-                                <span class="skill-icon-hack"><i class="fas fa-database"></i></span>
-                                <span class="skill-name-hack">MySQL</span>
-                                <span class="skill-pct-hack">75%</span>
+                                <span class="skill-icon-hack"><i class="fab fa-git-alt"></i></span>
+                                <span class="skill-name-hack">Git</span>
+                                <span class="skill-pct-hack">88%</span>
                             </div>
                             <div class="skill-bar-hack">
-                                <div class="skill-fill-hack" data-width="75"></div>
+                                <div class="skill-fill-hack" data-width="88"></div>
                                 <div class="skill-bar-glow"></div>
                             </div>
                         </div>
 
-                        <!-- Skill: Excel -->
-                        <div class="hacker-skill-item" data-skill-width="70">
+                        <!-- Skill: GitHub -->
+                        <div class="hacker-skill-item" data-skill-width="90">
                             <div class="skill-label-row">
-                                <span class="skill-icon-hack"><i class="fas fa-file-excel"></i></span>
-                                <span class="skill-name-hack">Excel</span>
-                                <span class="skill-pct-hack">70%</span>
+                                <span class="skill-icon-hack"><i class="fab fa-github"></i></span>
+                                <span class="skill-name-hack">GitHub</span>
+                                <span class="skill-pct-hack">90%</span>
                             </div>
                             <div class="skill-bar-hack">
-                                <div class="skill-fill-hack" data-width="70"></div>
+                                <div class="skill-fill-hack" data-width="90"></div>
                                 <div class="skill-bar-glow"></div>
                             </div>
                         </div>
 
-                        <!-- Skill: Database Fundamentals -->
+                        <!-- Skill: VS Code -->
+                        <div class="hacker-skill-item" data-skill-width="92">
+                            <div class="skill-label-row">
+                                <span class="skill-icon-hack"><i class="fas fa-code"></i></span>
+                                <span class="skill-name-hack">VS Code</span>
+                                <span class="skill-pct-hack">92%</span>
+                            </div>
+                            <div class="skill-bar-hack">
+                                <div class="skill-fill-hack" data-width="92"></div>
+                                <div class="skill-bar-glow"></div>
+                            </div>
+                        </div>
+
+                        <!-- Skill: Netlify -->
                         <div class="hacker-skill-item" data-skill-width="78">
                             <div class="skill-label-row">
-                                <span class="skill-icon-hack"><i class="fas fa-server"></i></span>
-                                <span class="skill-name-hack">Database Fundamentals</span>
+                                <span class="skill-icon-hack"><i class="fas fa-cloud-upload-alt"></i></span>
+                                <span class="skill-name-hack">Netlify</span>
+                                <span class="skill-pct-hack">78%</span>
+                            </div>
+                            <div class="skill-bar-hack">
+                                <div class="skill-fill-hack" data-width="78"></div>
+                                <div class="skill-bar-glow"></div>
+                            </div>
+                        </div>
+
+                        <!-- Skill: Vercel -->
+                        <div class="hacker-skill-item" data-skill-width="80">
+                            <div class="skill-label-row">
+                                <span class="skill-icon-hack"><i class="fas fa-bolt"></i></span>
+                                <span class="skill-name-hack">Vercel</span>
+                                <span class="skill-pct-hack">80%</span>
+                            </div>
+                            <div class="skill-bar-hack">
+                                <div class="skill-fill-hack" data-width="80"></div>
+                                <div class="skill-bar-glow"></div>
+                            </div>
+                        </div>
+
+                        <!-- Skill: Postman -->
+                        <div class="hacker-skill-item" data-skill-width="82">
+                            <div class="skill-label-row">
+                                <span class="skill-icon-hack"><i class="fas fa-paper-plane"></i></span>
+                                <span class="skill-name-hack">Postman</span>
+                                <span class="skill-pct-hack">82%</span>
+                            </div>
+                            <div class="skill-bar-hack">
+                                <div class="skill-fill-hack" data-width="82"></div>
+                                <div class="skill-bar-glow"></div>
+                            </div>
+                        </div>
+
+                        <!-- Skill: Figma & Canva -->
+                        <div class="hacker-skill-item" data-skill-width="76">
+                            <div class="skill-label-row">
+                                <span class="skill-icon-hack"><i class="fab fa-figma"></i></span>
+                                <span class="skill-name-hack">Figma & Canva</span>
+                                <span class="skill-pct-hack">76%</span>
+                            </div>
+                            <div class="skill-bar-hack">
+                                <div class="skill-fill-hack" data-width="76"></div>
+                                <div class="skill-bar-glow"></div>
+                            </div>
+                        </div>
+
+                        <div class="terminal-output terminal-footer-line">
+                            <span class="output-success">✓ 7 skills loaded successfully</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ═══════════════════════════════════════ -->
+                <!-- TERMINAL PANEL 6: Other Skills         -->
+                <!-- ═══════════════════════════════════════ -->
+                <div class="terminal-panel" data-aos="fade-up" data-aos-delay="600" data-skill-category="other">
+                    <div class="terminal-header">
+                        <div class="terminal-dots">
+                            <span class="t-dot t-red"></span>
+                            <span class="t-dot t-yellow"></span>
+                            <span class="t-dot t-green"></span>
+                        </div>
+                        <span class="terminal-title"><i class="fas fa-star"></i> other_skills.sh</span>
+                        <span class="terminal-status">● RUNNING</span>
+                    </div>
+                    <div class="terminal-body">
+                        <div class="terminal-scanline"></div>
+                        <div class="terminal-cmd">
+                            <span class="cmd-prompt">$</span> ./scan --module="other_skills"
+                        </div>
+                        <div class="terminal-output">
+                            <span class="output-line">[INFO] Loading other skills...</span>
+                        </div>
+
+                        <!-- Skill: UI/UX Design -->
+                        <div class="hacker-skill-item" data-skill-width="84">
+                            <div class="skill-label-row">
+                                <span class="skill-icon-hack"><i class="fas fa-pen-nib"></i></span>
+                                <span class="skill-name-hack">UI/UX Design</span>
+                                <span class="skill-pct-hack">84%</span>
+                            </div>
+                            <div class="skill-bar-hack">
+                                <div class="skill-fill-hack" data-width="84"></div>
+                                <div class="skill-bar-glow"></div>
+                            </div>
+                        </div>
+
+                        <!-- Skill: Responsive Web Design -->
+                        <div class="hacker-skill-item" data-skill-width="90">
+                            <div class="skill-label-row">
+                                <span class="skill-icon-hack"><i class="fas fa-mobile-alt"></i></span>
+                                <span class="skill-name-hack">Responsive Web Design</span>
+                                <span class="skill-pct-hack">90%</span>
+                            </div>
+                            <div class="skill-bar-hack">
+                                <div class="skill-fill-hack" data-width="90"></div>
+                                <div class="skill-bar-glow"></div>
+                            </div>
+                        </div>
+
+                        <!-- Skill: API Integration -->
+                        <div class="hacker-skill-item" data-skill-width="82">
+                            <div class="skill-label-row">
+                                <span class="skill-icon-hack"><i class="fas fa-plug"></i></span>
+                                <span class="skill-name-hack">API Integration</span>
+                                <span class="skill-pct-hack">82%</span>
+                            </div>
+                            <div class="skill-bar-hack">
+                                <div class="skill-fill-hack" data-width="82"></div>
+                                <div class="skill-bar-glow"></div>
+                            </div>
+                        </div>
+
+                        <!-- Skill: Performance Optimization -->
+                        <div class="hacker-skill-item" data-skill-width="78">
+                            <div class="skill-label-row">
+                                <span class="skill-icon-hack"><i class="fas fa-tachometer-alt"></i></span>
+                                <span class="skill-name-hack">Performance Optimization</span>
                                 <span class="skill-pct-hack">78%</span>
                             </div>
                             <div class="skill-bar-hack">
@@ -454,77 +802,29 @@
                         </div>
 
                         <div class="terminal-output terminal-footer-line">
-                            <span class="output-success">✓ 3 skills loaded successfully</span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- ─── TERMINAL PANEL 4: Soft Skills ─── -->
-                <div class="terminal-panel" data-aos="fade-up" data-aos-delay="400">
-                    <div class="terminal-header">
-                        <div class="terminal-dots">
-                            <span class="t-dot t-red"></span>
-                            <span class="t-dot t-yellow"></span>
-                            <span class="t-dot t-green"></span>
-                        </div>
-                        <span class="terminal-title"><i class="fas fa-brain"></i> softskills.sh</span>
-                        <span class="terminal-status">● RUNNING</span>
-                    </div>
-                    <div class="terminal-body">
-                        <div class="terminal-scanline"></div>
-                        <div class="terminal-cmd">
-                            <span class="cmd-prompt">$</span> ./scan --module="soft_skills"
-                        </div>
-                        <div class="terminal-output">
-                            <span class="output-line">[INFO] Loading soft skills...</span>
-                        </div>
-
-                        <!-- Skill: Problem Solving -->
-                        <div class="hacker-skill-item" data-skill-width="92">
-                            <div class="skill-label-row">
-                                <span class="skill-icon-hack"><i class="fas fa-puzzle-piece"></i></span>
-                                <span class="skill-name-hack">Problem Solving</span>
-                                <span class="skill-pct-hack">92%</span>
-                            </div>
-                            <div class="skill-bar-hack">
-                                <div class="skill-fill-hack" data-width="92"></div>
-                                <div class="skill-bar-glow"></div>
-                            </div>
-                        </div>
-
-                        <!-- Skill: Analytical Thinking -->
-                        <div class="hacker-skill-item" data-skill-width="88">
-                            <div class="skill-label-row">
-                                <span class="skill-icon-hack"><i class="fas fa-chart-line"></i></span>
-                                <span class="skill-name-hack">Analytical Thinking</span>
-                                <span class="skill-pct-hack">88%</span>
-                            </div>
-                            <div class="skill-bar-hack">
-                                <div class="skill-fill-hack" data-width="88"></div>
-                                <div class="skill-bar-glow"></div>
-                            </div>
-                        </div>
-
-                        <!-- Skill: Team Collaboration -->
-                        <div class="hacker-skill-item" data-skill-width="85">
-                            <div class="skill-label-row">
-                                <span class="skill-icon-hack"><i class="fas fa-users"></i></span>
-                                <span class="skill-name-hack">Team Collaboration</span>
-                                <span class="skill-pct-hack">85%</span>
-                            </div>
-                            <div class="skill-bar-hack">
-                                <div class="skill-fill-hack" data-width="85"></div>
-                                <div class="skill-bar-glow"></div>
-                            </div>
-                        </div>
-
-                        <div class="terminal-output terminal-footer-line">
-                            <span class="output-success">✓ 3 skills loaded successfully</span>
+                            <span class="output-success">✓ 4 skills loaded successfully</span>
                         </div>
                     </div>
                 </div>
 
             </div>
+
+            <!-- ─── SKILL STATS SUMMARY ─── -->
+            <div class="skills-summary" data-aos="fade-up" data-aos-delay="200">
+                <div class="skill-stat-chip">
+                    <i class="fas fa-cubes"></i>
+                    <span><strong>28+</strong> Technologies</span>
+                </div>
+                <div class="skill-stat-chip">
+                    <i class="fas fa-layer-group"></i>
+                    <span><strong>6</strong> Categories</span>
+                </div>
+                <div class="skill-stat-chip">
+                    <i class="fas fa-rocket"></i>
+                    <span><strong>Full Stack</strong> Developer</span>
+                </div>
+            </div>
+
             <span class="section-tag section-tag-end" data-aos="fade-up">&lt;/skills&gt;</span>
         </div>
     </section>

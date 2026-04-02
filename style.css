@@ -3486,11 +3486,173 @@ body.sidebar-open {
     background: radial-gradient(ellipse at center, rgba(0, 255, 156, 0.5) 0%, transparent 70%);
 }
 
+/* ─── SKILL CATEGORY FILTER TABS ─── */
+.skill-filter-tabs {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 40px;
+}
+
+.skill-tab {
+    font-family: var(--font-code);
+    font-size: 13px;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.6);
+    background: rgba(0, 255, 156, 0.04);
+    border: 1px solid rgba(0, 255, 156, 0.12);
+    border-radius: 8px;
+    padding: 10px 18px;
+    cursor: pointer;
+    transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    letter-spacing: 0.3px;
+    position: relative;
+    overflow: hidden;
+}
+
+.skill-tab i {
+    font-size: 12px;
+    transition: all 0.3s ease;
+}
+
+.skill-tab::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(0, 255, 156, 0.06), transparent);
+    transition: left 0.5s ease;
+}
+
+.skill-tab:hover {
+    color: #00ff9c;
+    border-color: rgba(0, 255, 156, 0.35);
+    background: rgba(0, 255, 156, 0.08);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(0, 255, 156, 0.1);
+}
+
+.skill-tab:hover::before {
+    left: 100%;
+}
+
+.skill-tab:hover i {
+    transform: scale(1.2);
+    color: #00ff9c;
+    text-shadow: 0 0 8px rgba(0, 255, 156, 0.5);
+}
+
+.skill-tab.active {
+    color: #050a0e;
+    background: linear-gradient(135deg, #00ff9c, #00cc7a);
+    border-color: #00ff9c;
+    font-weight: 700;
+    box-shadow: 0 0 20px rgba(0, 255, 156, 0.3), 0 0 40px rgba(0, 255, 156, 0.1);
+    text-shadow: none;
+}
+
+.skill-tab.active i {
+    color: #050a0e;
+}
+
+/* ─── TERMINAL PANEL FILTER ANIMATION ─── */
+.terminal-panel.skill-hidden {
+    display: none !important;
+    animation: none;
+}
+
+.terminal-panel.skill-visible {
+    animation: terminalFadeIn 0.5s ease forwards;
+}
+
+@keyframes terminalFadeIn {
+    0% {
+        opacity: 0;
+        transform: translateY(20px) scale(0.95);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+/* ─── SKILLS SUMMARY CHIPS ─── */
+.skills-summary {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 16px;
+    margin-top: 48px;
+    padding-top: 32px;
+    border-top: 1px solid rgba(0, 255, 156, 0.06);
+}
+
+.skill-stat-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 24px;
+    background: rgba(0, 255, 156, 0.04);
+    border: 1px solid rgba(0, 255, 156, 0.15);
+    border-radius: 50px;
+    font-family: var(--font-code);
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.75);
+    transition: all 0.35s ease;
+    cursor: default;
+}
+
+.skill-stat-chip:hover {
+    background: rgba(0, 255, 156, 0.08);
+    border-color: rgba(0, 255, 156, 0.35);
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(0, 255, 156, 0.12);
+}
+
+.skill-stat-chip i {
+    font-size: 16px;
+    color: #00ff9c;
+    text-shadow: 0 0 8px rgba(0, 255, 156, 0.4);
+}
+
+.skill-stat-chip strong {
+    color: #00ff9c;
+    font-weight: 700;
+}
+
+/* 3-Column Grid for 6 terminal panels on desktop */
+@media (min-width: 993px) {
+    .terminal-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
 /* ─── RESPONSIVE TERMINAL GRID ─── */
 @media (max-width: 992px) {
     .terminal-grid {
-        grid-template-columns: 1fr;
+        grid-template-columns: repeat(2, 1fr);
         gap: 24px;
+    }
+}
+
+@media (max-width: 768px) {
+    .skill-filter-tabs {
+        gap: 8px;
+    }
+    .skill-tab {
+        padding: 8px 14px;
+        font-size: 12px;
+    }
+    .skills-summary {
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
     }
 }
 

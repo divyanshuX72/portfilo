@@ -1473,4 +1473,33 @@ document.addEventListener('DOMContentLoaded', () => {
 
     animatedCanvases.forEach(canvas => canvasVisibilityObserver.observe(canvas));
 
+    // ─── SEO: LAZY IMAGE LOADED CLASS (for CSS fade-in) ───
+    document.querySelectorAll('img[loading="lazy"]').forEach(img => {
+        if (img.complete) {
+            img.classList.add('loaded');
+        } else {
+            img.addEventListener('load', () => img.classList.add('loaded'), { once: true });
+            img.addEventListener('error', () => img.classList.add('loaded'), { once: true });
+        }
+    });
+
+    // ─── SEO: SMOOTH SCROLL FOR ANCHOR LINKS ───
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            const targetId = this.getAttribute('href');
+            if (targetId === '#') return;
+            const target = document.querySelector(targetId);
+            if (target) {
+                e.preventDefault();
+                const offset = 80; // navbar height
+                const top = target.getBoundingClientRect().top + window.scrollY - offset;
+                window.scrollTo({ top, behavior: 'smooth' });
+                // Update URL without page jump for SEO clean URLs
+                if (history.pushState) {
+                    history.pushState(null, null, targetId);
+                }
+            }
+        });
+    });
+
 });

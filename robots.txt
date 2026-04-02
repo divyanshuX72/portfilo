@@ -1,0 +1,16 @@
+# robots.txt for Divyanshu Kanojia Portfolio
+# https://divyanshukanojia.dev
+
+User-agent: *
+Allow: /
+Allow: /index.html
+Allow: /sitemap.xml
+
+# Disallow non-essential resources
+Disallow: /.git/
+
+# Sitemap location
+Sitemap: https://divyanshukanojia.dev/sitemap.xml
+
+# Crawl-delay (optional, be polite to crawlers)
+Crawl-delay: 1

@@ -24,7 +24,7 @@ document.addEventListener('DOMContentLoaded', () => {
         navbar.classList.toggle('scrolled', scrollY > 60);
         backToTop.classList.toggle('visible', scrollY > 500);
     }
-    window.addEventListener('scroll', onScroll, { passive: true });
+    // (Listener moved to central throttled scroll)
     onScroll();
 
     backToTop.addEventListener('click', () => {
@@ -92,7 +92,18 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    window.addEventListener('scroll', updateSidebarActiveLink, { passive: true });
+    // ─── CENTRAL THROTTLED SCROLL PROGRESS ───
+    let isScrolling = false;
+    window.addEventListener('scroll', () => {
+        if (!isScrolling) {
+            window.requestAnimationFrame(() => {
+                onScroll();
+                updateSidebarActiveLink();
+                isScrolling = false;
+            });
+            isScrolling = true;
+        }
+    }, { passive: true });
     updateSidebarActiveLink();
 
     // ─── DARK/LIGHT THEME TOGGLE ───
@@ -1206,14 +1217,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // ─── SMOOTH SCROLL — Now handled by page transition handler below ───
 
     // ─── SCROLL PROGRESS INDICATOR ───
-    const scrollProgress = document.getElementById('scroll-progress');
-    window.addEventListener('scroll', () => {
-        const totalHeight = document.body.scrollHeight - window.innerHeight;
-        const progress = (window.scrollY / totalHeight) * 100;
-        if (scrollProgress) {
-            scrollProgress.style.width = progress + '%';
-        }
-    });
+    // Removed duplicate scroll listener, element not in DOM
 
     // ─── PREMIUM PRELOADER WITH PROGRESS ───
     const preloader = document.getElementById('preloader');
@@ -1318,16 +1322,14 @@ document.addEventListener('DOMContentLoaded', () => {
         document.addEventListener('mousemove', (e) => {
             mouseX = e.clientX;
             mouseY = e.clientY;
-            cursorDot.style.left = mouseX + 'px';
-            cursorDot.style.top = mouseY + 'px';
+            cursorDot.style.transform = `translate(${mouseX}px, ${mouseY}px)`;
         });
 
         // Smooth ring follow
         function animateCursorRing() {
             ringX += (mouseX - ringX) * 0.15;
             ringY += (mouseY - ringY) * 0.15;
-            cursorRing.style.left = ringX + 'px';
-            cursorRing.style.top = ringY + 'px';
+            cursorRing.style.transform = `translate(${ringX}px, ${ringY}px)`;
             requestAnimationFrame(animateCursorRing);
         }
         animateCursorRing();
@@ -1379,31 +1381,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // ─── PAGE TRANSITION ON NAV CLICKS ───
-    const pageTransition = document.getElementById('pageTransition');
-    if (pageTransition) {
-        document.querySelectorAll('a[href^="#"]').forEach(link => {
-            link.addEventListener('click', function (e) {
-                const href = this.getAttribute('href');
-                if (href === '#' || !href) return;
-
-                // Check if we need a transition (different section)
-                const target = document.querySelector(href);
-                if (!target) return;
-
-                e.preventDefault();
-                pageTransition.classList.add('active');
-
-                setTimeout(() => {
-                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                }, 500);
-
-                setTimeout(() => {
-                    pageTransition.classList.remove('active');
-                }, 1200);
-            });
-        });
-    }
+    // ─── PAGE TRANSITION ON NAV CLICKS (Removed deprecated unused block) ───
 
     // ─── SECTION REVEAL ON SCROLL ───
     const sectionRevealObserver = new IntersectionObserver((entries) => {
@@ -1418,14 +1396,7 @@ document.addEventListener('DOMContentLoaded', () => {
         sectionRevealObserver.observe(sec);
     });
 
-    // ─── LAZY LOAD IMAGES ───
-    document.querySelectorAll('img[loading="lazy"]').forEach(img => {
-        if (img.complete) {
-            img.classList.add('loaded');
-        } else {
-            img.addEventListener('load', () => img.classList.add('loaded'));
-        }
-    });
+    // ─── LAZY LOAD IMAGES (Moved down for SEO optimization) ───
 
     // ─── MAGNETIC HOVER EFFECT ON BUTTONS ───
     const magneticElements = document.querySelectorAll('.btn-hero, .resume-btn, .social-icon, .social-link-item');

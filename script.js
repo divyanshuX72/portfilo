@@ -222,7 +222,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             skillPanels.forEach(panel => {
                 const panelCategory = panel.getAttribute('data-skill-category');
-                
+
                 if (category === 'all' || panelCategory === category) {
                     panel.classList.remove('skill-hidden');
                     panel.classList.add('skill-visible');
@@ -361,23 +361,23 @@ document.addEventListener('DOMContentLoaded', () => {
             name: 'Wavelength-Enterprise-Site',
             displayName: 'Wavelength Enterprise Site',
             description: 'A full-featured enterprise website for Wavelength — a luxury interior design firm. Features a dark luxury aesthetic, service showcase, and contact system.',
-            language: 'HTML',
-            topics: ['web', 'html', 'css', 'javascript'],
+            language: 'PHP',
+            topics: ['web', 'php', 'css', 'javascript'],
             githubUrl: 'https://github.com/divyanshuX72',
             featured: true,
             icon: 'fas fa-building',
             categories: ['web']
         },
         {
-            name: 'Java-Banking-Application',
-            displayName: 'Java Banking Application',
-            description: 'A feature-rich Java banking application with OOP architecture, account management, secure transactions, and interest calculation using inheritance and polymorphism.',
-            language: 'Java',
-            topics: ['java', 'banking', 'oop'],
-            githubUrl: 'https://github.com/divyanshuX72',
+            name: 'MedSupplyAI',
+            displayName: 'MedSupplyAI',
+            description: 'An AI-powered pharmaceutical inventory system that predicts stock needs, automates orders, and optimizes medical supplies using advanced analytics.',
+            language: 'JavaScript',
+            topics: ['ai', 'medical', 'inventory', 'web'],
+            githubUrl: 'https://github.com/divyanshuX72/MedSupplyAI',
             featured: true,
-            icon: 'fas fa-university',
-            categories: ['java']
+            icon: 'fas fa-heartbeat',
+            categories: ['web']
         },
         {
             name: 'C-Language-Banking-Management-System',
@@ -411,7 +411,6 @@ document.addEventListener('DOMContentLoaded', () => {
         return [...cats];
     }
 
-    // Language icons / colors
     const LANG_META = {
         'JavaScript': { icon: 'fab fa-js-square', color: '#f7df1e' },
         'TypeScript': { icon: 'fab fa-js-square', color: '#3178c6' },
@@ -421,6 +420,7 @@ document.addEventListener('DOMContentLoaded', () => {
         'Java': { icon: 'fab fa-java', color: '#ED8B00' },
         'C': { icon: 'fas fa-code', color: '#A8B9CC' },
         'C++': { icon: 'fas fa-code', color: '#00599C' },
+        'PHP': { icon: 'fab fa-php', color: '#777BB4' },
     };
 
     // Icon for unknown repos
@@ -445,7 +445,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Mock preview content per project type
     function getMockPreview(icon, langColor, lang, name, featured) {
         const lname = (name || '').toLowerCase();
-        const isWeb = ['html', 'css', 'javascript', 'typescript'].includes(lang.toLowerCase());
+        const isWeb = ['html', 'css', 'javascript', 'typescript', 'php'].includes(lang.toLowerCase());
         const isJava = lang.toLowerCase() === 'java';
         const isPy = lang.toLowerCase() === 'python';
         const isC = ['c', 'c++'].includes(lang.toLowerCase());
@@ -625,29 +625,21 @@ document.addEventListener('DOMContentLoaded', () => {
         const errorEl = document.getElementById('projectsError');
 
         try {
-            let githubRepos = null;
-            const cached = sessionStorage.getItem('github_repos');
-
-            if (cached) {
-                githubRepos = JSON.parse(cached);
-            } else {
-                const res = await fetch(GITHUB_API);
-                if (!res.ok) throw new Error('GitHub API error');
-                githubRepos = await res.json();
-                sessionStorage.setItem('github_repos', JSON.stringify(githubRepos));
-            }
+            const res = await fetch(GITHUB_API);
+            if (!res.ok) throw new Error('GitHub API error');
+            const githubRepos = await res.json();
 
             // Filter out forks, sort by updated
             const liveRepos = githubRepos
                 .filter(r => !r.fork)
                 .sort((a, b) => new Date(b.updated_at) - new Date(a.updated_at));
 
-            // Names of curated projects we already have
-            const curatedNames = new Set(CURATED_PROJECTS.map(c => c.name));
+            // Names of curated projects we already have (case-insensitive deduplication)
+            const curatedNames = new Set(CURATED_PROJECTS.map(c => c.name.toLowerCase()));
 
             // Mark non-duplicated live repos
             const extraRepos = liveRepos
-                .filter(r => !curatedNames.has(r.name))
+                .filter(r => !curatedNames.has(r.name.toLowerCase()))
                 .map(r => ({ ...r })); // plain GitHub objects
 
             // Combine: curated first (marked), then extra GitHub repos

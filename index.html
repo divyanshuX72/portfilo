@@ -31,6 +31,9 @@
 
     <!-- Main Stylesheet -->
     <link rel="stylesheet" href="style.css">
+
+    <!-- EmailJS SDK -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 </head>
 
 <body>
@@ -1041,75 +1044,163 @@
     </section>
 
     <!-- ═══════════════════════════════════════════════ -->
-    <!-- CONTACT SECTION                                 -->
+    <!-- CONTACT SECTION — PREMIUM UPGRADE              -->
     <!-- ═══════════════════════════════════════════════ -->
     <section id="contact" class="section contact-section">
+        <!-- Animated background particles for contact section -->
+        <div class="contact-bg-effects">
+            <div class="contact-orb contact-orb-1"></div>
+            <div class="contact-orb contact-orb-2"></div>
+            <div class="contact-orb contact-orb-3"></div>
+        </div>
+
         <div class="container">
             <div class="section-header" data-aos="fade-up">
                 <span class="section-tag">&lt;contact&gt;</span>
                 <h2 class="section-title">Get In <span class="gold-text">Touch</span></h2>
                 <div class="section-line"></div>
-                <p class="section-subtitle">Have a project in mind or just want to say hello? Let's connect!</p>
+                <p class="section-subtitle">Have a project in mind or just want to say hello? I'd love to hear from you. Let's build something amazing together.</p>
             </div>
+
             <div class="contact-grid">
+                <!-- ── LEFT: Contact Information ── -->
                 <div class="contact-info" data-aos="fade-right" data-aos-delay="200">
-                    <div class="contact-card">
+                    <div class="contact-info-header">
+                        <h3 class="contact-info-title"><i class="fas fa-terminal"></i> Contact Information</h3>
+                        <p class="contact-info-desc">Feel free to reach out through any of the channels below. I'll get back to you as soon as possible.</p>
+                    </div>
+
+                    <div class="contact-card" id="contact-card-email">
+                        <div class="contact-card-glow"></div>
                         <div class="contact-card-icon"><i class="fas fa-envelope"></i></div>
-                        <h4>Email</h4>
-                        <p><a href="mailto:divyanshu.kanojia.72@gmail.com"
-                                class="contact-link">divyanshu.kanojia.72@gmail.com</a></p>
+                        <div class="contact-card-body">
+                            <h4>Email</h4>
+                            <p><a href="mailto:divyanshu.kanojia.72@gmail.com" class="contact-link">divyanshu.kanojia.72@gmail.com</a></p>
+                        </div>
+                        <div class="contact-card-arrow"><i class="fas fa-arrow-right"></i></div>
                     </div>
-                    <div class="contact-card">
+
+                    <div class="contact-card" id="contact-card-phone">
+                        <div class="contact-card-glow"></div>
+                        <div class="contact-card-icon"><i class="fas fa-phone-alt"></i></div>
+                        <div class="contact-card-body">
+                            <h4>Phone</h4>
+                            <p><a href="tel:+918483807255" class="contact-link">+91 84838 07255</a></p>
+                        </div>
+                        <div class="contact-card-arrow"><i class="fas fa-arrow-right"></i></div>
+                    </div>
+
+                    <div class="contact-card" id="contact-card-location">
+                        <div class="contact-card-glow"></div>
                         <div class="contact-card-icon"><i class="fas fa-map-marker-alt"></i></div>
-                        <h4>Location</h4>
-                        <p>Mumbai, Maharashtra, India</p>
+                        <div class="contact-card-body">
+                            <h4>Location</h4>
+                            <p>Vasai East, Maharashtra, India</p>
+                        </div>
+                        <div class="contact-card-arrow"><i class="fas fa-location-arrow"></i></div>
                     </div>
-                    <div class="contact-card">
-                        <div class="contact-card-icon"><i class="fas fa-phone"></i></div>
-                        <h4>Phone</h4>
-                        <p><a href="tel:+918483807255" class="contact-link">+91 8483807255</a></p>
-                    </div>
+
                     <div class="contact-socials">
-                        <h4>Find me on</h4>
+                        <h4>Connect with me</h4>
                         <div class="contact-social-links">
-                            <a href="https://github.com/divyanshuX72" target="_blank" rel="noopener"
-                                aria-label="GitHub"><i class="fab fa-github"></i></a>
-                            <a href="https://linkedin.com/in/divyanshu-kanojia" target="_blank" rel="noopener"
-                                aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
-                            <a href="https://x.com/DivyanshuX72" target="_blank" rel="noopener" aria-label="X"><i
-                                    class="fab fa-x-twitter"></i></a>
+                            <a href="https://github.com/divyanshuX72" target="_blank" rel="noopener" aria-label="GitHub" class="social-link-item">
+                                <i class="fab fa-github"></i>
+                                <span class="social-tooltip">GitHub</span>
+                            </a>
+                            <a href="https://linkedin.com/in/divyanshu-kanojia" target="_blank" rel="noopener" aria-label="LinkedIn" class="social-link-item">
+                                <i class="fab fa-linkedin-in"></i>
+                                <span class="social-tooltip">LinkedIn</span>
+                            </a>
+                            <a href="https://x.com/DivyanshuX72" target="_blank" rel="noopener" aria-label="X" class="social-link-item">
+                                <i class="fab fa-x-twitter"></i>
+                                <span class="social-tooltip">X / Twitter</span>
+                            </a>
+                            <a href="mailto:divyanshu.kanojia.72@gmail.com" aria-label="Email" class="social-link-item">
+                                <i class="fas fa-envelope"></i>
+                                <span class="social-tooltip">Email</span>
+                            </a>
                         </div>
                     </div>
                 </div>
-                <form class="contact-form" id="contactForm" data-aos="fade-left" data-aos-delay="400">
-                    <div class="form-group">
-                        <input type="text" id="name" name="name" placeholder=" " required>
-                        <label for="name">Your Name</label>
-                        <span class="form-line"></span>
+
+                <!-- ── RIGHT: Contact Form ── -->
+                <div class="contact-form-wrapper" data-aos="fade-left" data-aos-delay="400">
+                    <div class="contact-form-card">
+                        <div class="form-card-border"></div>
+                        <div class="form-card-header">
+                            <div class="form-terminal-dots">
+                                <span class="ft-dot ft-red"></span>
+                                <span class="ft-dot ft-yellow"></span>
+                                <span class="ft-dot ft-green"></span>
+                            </div>
+                            <span class="form-terminal-title"><i class="fas fa-paper-plane"></i> send_message.sh</span>
+                        </div>
+                        <form class="contact-form" id="contactForm">
+                            <div class="form-group" id="form-group-name">
+                                <div class="form-field-glow"></div>
+                                <input type="text" id="contact-name" name="from_name" placeholder=" " required autocomplete="name">
+                                <label for="contact-name"><i class="fas fa-user"></i> Your Name</label>
+                                <span class="form-line"></span>
+                                <span class="form-focus-ring"></span>
+                            </div>
+                            <div class="form-group" id="form-group-email">
+                                <div class="form-field-glow"></div>
+                                <input type="email" id="contact-email" name="from_email" placeholder=" " required autocomplete="email">
+                                <label for="contact-email"><i class="fas fa-at"></i> Your Email</label>
+                                <span class="form-line"></span>
+                                <span class="form-focus-ring"></span>
+                            </div>
+                            <div class="form-group" id="form-group-message">
+                                <div class="form-field-glow"></div>
+                                <textarea id="contact-message" name="message" rows="5" placeholder=" " required></textarea>
+                                <label for="contact-message"><i class="fas fa-comment-alt"></i> Your Message</label>
+                                <span class="form-line"></span>
+                                <span class="form-focus-ring"></span>
+                            </div>
+                            <button type="submit" class="btn-contact-submit" id="contactSubmitBtn">
+                                <span class="btn-submit-content">
+                                    <i class="fas fa-paper-plane"></i>
+                                    <span>Send Message</span>
+                                </span>
+                                <span class="btn-submit-loading">
+                                    <i class="fas fa-circle-notch fa-spin"></i>
+                                    <span>Sending...</span>
+                                </span>
+                                <span class="btn-submit-success">
+                                    <i class="fas fa-check-circle"></i>
+                                    <span>Sent!</span>
+                                </span>
+                                <div class="btn-glow-effect"></div>
+                                <div class="btn-ripple-container"></div>
+                            </button>
+                        </form>
                     </div>
-                    <div class="form-group">
-                        <input type="email" id="email" name="email" placeholder=" " required>
-                        <label for="email">Your Email</label>
-                        <span class="form-line"></span>
-                    </div>
-                    <div class="form-group">
-                        <input type="text" id="subject" name="subject" placeholder=" " required>
-                        <label for="subject">Subject</label>
-                        <span class="form-line"></span>
-                    </div>
-                    <div class="form-group">
-                        <textarea id="message" name="message" rows="5" placeholder=" " required></textarea>
-                        <label for="message">Your Message</label>
-                        <span class="form-line"></span>
-                    </div>
-                    <button type="submit" class="btn btn-neon btn-submit btn-glow-animate">
-                        <i class="fas fa-paper-plane"></i> Send Message
-                    </button>
-                    <div class="form-status" id="formStatus"></div>
-                </form>
+                </div>
             </div>
 
             <span class="section-tag section-tag-end" data-aos="fade-up">&lt;/contact&gt;</span>
+        </div>
+
+        <!-- Success Notification Toast -->
+        <div class="contact-toast" id="contactToast">
+            <div class="toast-icon"><i class="fas fa-check-circle"></i></div>
+            <div class="toast-content">
+                <h4 class="toast-title">Message Sent Successfully!</h4>
+                <p class="toast-desc">Thank you for reaching out. I'll get back to you shortly.</p>
+            </div>
+            <button class="toast-close" id="toastClose" aria-label="Close notification"><i class="fas fa-times"></i></button>
+            <div class="toast-progress" id="toastProgress"></div>
+        </div>
+
+        <!-- Error Notification Toast -->
+        <div class="contact-toast contact-toast-error" id="contactToastError">
+            <div class="toast-icon"><i class="fas fa-exclamation-circle"></i></div>
+            <div class="toast-content">
+                <h4 class="toast-title">Oops! Something went wrong</h4>
+                <p class="toast-desc" id="errorToastDesc">Please try again or email me directly.</p>
+            </div>
+            <button class="toast-close" id="toastCloseError" aria-label="Close notification"><i class="fas fa-times"></i></button>
+            <div class="toast-progress" id="toastProgressError"></div>
         </div>
     </section>
 

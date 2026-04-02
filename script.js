@@ -1184,18 +1184,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // ─── SMOOTH SCROLL FOR ALL ANCHORS ───
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function (e) {
-            const href = this.getAttribute('href');
-            if (href === '#') return;
-            e.preventDefault();
-            const target = document.querySelector(href);
-            if (target) {
-                target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-            }
-        });
-    });
+    // ─── SMOOTH SCROLL — Now handled by page transition handler below ───
 
     // ─── SCROLL PROGRESS INDICATOR ───
     const scrollProgress = document.getElementById('scroll-progress');
@@ -1207,20 +1196,245 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // ─── THEME TOGGLE (handled in sidebar section above) ───
-
-    // ─── PRELOADER ───
+    // ─── PREMIUM PRELOADER WITH PROGRESS ───
     const preloader = document.getElementById('preloader');
     if (preloader) {
+        const loaderBarFill = document.getElementById('loaderBarFill');
+        const loaderRingFill = document.getElementById('loaderRingFill');
+        const loaderPercent = document.getElementById('loaderPercent');
+        const loaderText = document.getElementById('loaderText');
+        const circumference = 2 * Math.PI * 45; // r=45
+
+        const loadingMessages = [
+            'Initializing components...',
+            'Loading Three.js scene...',
+            'Rendering particles...',
+            'Compiling stylesheets...',
+            'Fetching GitHub data...',
+            'Optimizing assets...',
+            'Almost there...',
+            'Ready!'
+        ];
+
+        let progress = 0;
+        let msgIdx = 0;
+
+        function updateLoader(p) {
+            progress = Math.min(p, 100);
+            if (loaderBarFill) loaderBarFill.style.width = progress + '%';
+            if (loaderRingFill) {
+                const offset = circumference - (progress / 100) * circumference;
+                loaderRingFill.style.strokeDashoffset = offset;
+            }
+            if (loaderPercent) loaderPercent.textContent = Math.round(progress) + '%';
+
+            // Update message
+            const newIdx = Math.min(Math.floor(progress / (100 / loadingMessages.length)), loadingMessages.length - 1);
+            if (newIdx !== msgIdx && loaderText) {
+                msgIdx = newIdx;
+                loaderText.style.opacity = '0';
+                setTimeout(() => {
+                    loaderText.textContent = loadingMessages[msgIdx];
+                    loaderText.style.opacity = '0.8';
+                }, 150);
+            }
+        }
+
+        // Simulate loading progress
+        function simulateLoading() {
+            const interval = setInterval(() => {
+                if (progress < 90) {
+                    progress += Math.random() * 12 + 3;
+                    updateLoader(progress);
+                } else {
+                    clearInterval(interval);
+                }
+            }, 200);
+        }
+        simulateLoading();
+
+        // Complete on window load
         window.addEventListener('load', () => {
+            updateLoader(100);
             setTimeout(() => {
                 preloader.classList.add('hidden');
-            }, 800); // Small delay to let the animation show
+                // Trigger entrance animation for hero content
+                document.body.classList.add('loaded');
+            }, 600);
         });
 
-        // Fallback in case load event already fired or takes too long
+        // Fallback
         setTimeout(() => {
-            preloader.classList.add('hidden');
-        }, 3000);
+            updateLoader(100);
+            setTimeout(() => preloader.classList.add('hidden'), 400);
+        }, 4000);
     }
+
+    // ─── ANIMATED CUSTOM CURSOR ───
+    const cursorDot = document.getElementById('cursorDot');
+    const cursorRing = document.getElementById('cursorRing');
+    const isTouchDevice = ('ontouchstart' in window) || window.innerWidth < 768;
+
+    if (cursorDot && cursorRing && !isTouchDevice) {
+        let mouseX = 0, mouseY = 0;
+        let ringX = 0, ringY = 0;
+
+        document.addEventListener('mousemove', (e) => {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+            cursorDot.style.left = mouseX + 'px';
+            cursorDot.style.top = mouseY + 'px';
+        });
+
+        // Smooth ring follow
+        function animateCursorRing() {
+            ringX += (mouseX - ringX) * 0.15;
+            ringY += (mouseY - ringY) * 0.15;
+            cursorRing.style.left = ringX + 'px';
+            cursorRing.style.top = ringY + 'px';
+            requestAnimationFrame(animateCursorRing);
+        }
+        animateCursorRing();
+
+        // Hover effects on interactive elements
+        const hoverTargets = document.querySelectorAll('a, button, .btn, .btn-hero, .resume-btn, .filter-btn, .skill-tab, .social-icon, .social-link-item, .project-card, .hamburger, .sidebar-close');
+        hoverTargets.forEach(el => {
+            el.addEventListener('mouseenter', () => {
+                cursorDot.classList.add('cursor-hover');
+                cursorRing.classList.add('cursor-hover');
+            });
+            el.addEventListener('mouseleave', () => {
+                cursorDot.classList.remove('cursor-hover');
+                cursorRing.classList.remove('cursor-hover');
+            });
+        });
+
+        // Text cursor on inputs/textareas
+        const textTargets = document.querySelectorAll('input, textarea');
+        textTargets.forEach(el => {
+            el.addEventListener('mouseenter', () => {
+                cursorDot.classList.add('cursor-text');
+                cursorRing.classList.add('cursor-text');
+            });
+            el.addEventListener('mouseleave', () => {
+                cursorDot.classList.remove('cursor-text');
+                cursorRing.classList.remove('cursor-text');
+            });
+        });
+
+        // Click animation
+        document.addEventListener('mousedown', () => {
+            cursorDot.classList.add('cursor-click');
+            cursorRing.classList.add('cursor-click');
+        });
+        document.addEventListener('mouseup', () => {
+            cursorDot.classList.remove('cursor-click');
+            cursorRing.classList.remove('cursor-click');
+        });
+
+        // Hide cursor when leaving window
+        document.addEventListener('mouseleave', () => {
+            cursorDot.style.opacity = '0';
+            cursorRing.style.opacity = '0';
+        });
+        document.addEventListener('mouseenter', () => {
+            cursorDot.style.opacity = '1';
+            cursorRing.style.opacity = '1';
+        });
+    }
+
+    // ─── PAGE TRANSITION ON NAV CLICKS ───
+    const pageTransition = document.getElementById('pageTransition');
+    if (pageTransition) {
+        document.querySelectorAll('a[href^="#"]').forEach(link => {
+            link.addEventListener('click', function (e) {
+                const href = this.getAttribute('href');
+                if (href === '#' || !href) return;
+
+                // Check if we need a transition (different section)
+                const target = document.querySelector(href);
+                if (!target) return;
+
+                e.preventDefault();
+                pageTransition.classList.add('active');
+
+                setTimeout(() => {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }, 500);
+
+                setTimeout(() => {
+                    pageTransition.classList.remove('active');
+                }, 1200);
+            });
+        });
+    }
+
+    // ─── SECTION REVEAL ON SCROLL ───
+    const sectionRevealObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('section-in-view');
+            }
+        });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.section, .hero-section').forEach(sec => {
+        sectionRevealObserver.observe(sec);
+    });
+
+    // ─── LAZY LOAD IMAGES ───
+    document.querySelectorAll('img[loading="lazy"]').forEach(img => {
+        if (img.complete) {
+            img.classList.add('loaded');
+        } else {
+            img.addEventListener('load', () => img.classList.add('loaded'));
+        }
+    });
+
+    // ─── MAGNETIC HOVER EFFECT ON BUTTONS ───
+    const magneticElements = document.querySelectorAll('.btn-hero, .resume-btn, .social-icon, .social-link-item');
+    if (window.innerWidth > 768) {
+        magneticElements.forEach(el => {
+            el.addEventListener('mousemove', (e) => {
+                const rect = el.getBoundingClientRect();
+                const x = e.clientX - rect.left - rect.width / 2;
+                const y = e.clientY - rect.top - rect.height / 2;
+                el.style.transform = `translate(${x * 0.3}px, ${y * 0.3}px)`;
+            });
+            el.addEventListener('mouseleave', () => {
+                el.style.transform = 'translate(0, 0)';
+            });
+        });
+    }
+
+    // ─── FLOATING TECH ICONS — MOUSE PARALLAX ───
+    const floatingIcons = document.getElementById('floatingTechIcons');
+    if (floatingIcons && window.innerWidth > 768) {
+        document.addEventListener('mousemove', (e) => {
+            const x = (e.clientX / window.innerWidth - 0.5) * 10;
+            const y = (e.clientY / window.innerHeight - 0.5) * 10;
+            floatingIcons.style.transform = `translate(${x}px, ${y}px)`;
+        });
+    }
+
+    // ─── ENHANCED DARK/LIGHT MODE — SMOOTH TRANSITION ───
+    // (Working with existing theme toggle, but adding smooth body transition)
+    document.body.style.transition = 'background-color 0.5s ease, color 0.5s ease';
+
+    // ─── PERFORMANCE: INTERSECTION-BASED ANIMATION PAUSE ───
+    // Pause animations on off-screen sections for performance
+    const animatedCanvases = document.querySelectorAll('canvas');
+    const canvasVisibilityObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            const canvas = entry.target;
+            if (entry.isIntersecting) {
+                canvas.style.willChange = 'auto';
+            } else {
+                canvas.style.willChange = 'auto';
+            }
+        });
+    }, { threshold: 0 });
+
+    animatedCanvases.forEach(canvas => canvasVisibilityObserver.observe(canvas));
+
 });

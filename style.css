@@ -7579,17 +7579,109 @@ img.loaded {
     /* -- CONTACT -- */
     .contact-grid {
         grid-template-columns: 1fr;
-        gap: 28px;
+        gap: 32px;
     }
-    .contact-form {
-        padding: 24px 20px;
-        gap: 18px;
+    .contact-info-header {
+        text-align: center;
+        margin-bottom: 12px;
     }
-    .contact-form-card {
+    .contact-info-title {
+        font-size: 22px;
+        justify-content: center;
+    }
+    .contact-info-desc {
+        font-size: 15px;
+        text-align: center;
+        line-height: 1.7;
+    }
+    .contact-card {
+        padding: 18px 22px;
+        gap: 16px;
         border-radius: 14px;
     }
+    .contact-card-icon {
+        width: 50px;
+        height: 50px;
+        font-size: 22px;
+        border-radius: 14px;
+    }
+    .contact-card-body h4 {
+        font-size: 16px;
+        margin-bottom: 4px;
+    }
+    .contact-card-body p {
+        font-size: 14px;
+        white-space: normal;
+        overflow: visible;
+        text-overflow: unset;
+    }
+    .contact-socials {
+        text-align: center;
+        margin-top: 16px;
+        padding-top: 20px;
+    }
+    .contact-socials h4 {
+        font-size: 17px;
+        margin-bottom: 18px;
+    }
     .contact-social-links {
-        gap: 10px;
+        gap: 14px;
+        justify-content: center;
+    }
+    .social-link-item {
+        width: 52px;
+        height: 52px;
+        font-size: 22px;
+        border-radius: 14px;
+    }
+    .contact-form-card {
+        border-radius: 16px;
+    }
+    .contact-form {
+        padding: 28px 22px 24px;
+        gap: 22px;
+    }
+    .form-card-header {
+        padding: 14px 20px;
+    }
+    .form-terminal-title {
+        font-size: 13px;
+    }
+    .form-group input,
+    .form-group textarea {
+        padding: 18px 20px;
+        font-size: 16px;
+        border-radius: 12px;
+    }
+    .form-group textarea {
+        min-height: 130px;
+    }
+    .form-group label {
+        left: 20px;
+        top: 18px;
+        font-size: 15px;
+    }
+    .form-group input:focus ~ label,
+    .form-group input:not(:placeholder-shown) ~ label,
+    .form-group textarea:focus ~ label,
+    .form-group textarea:not(:placeholder-shown) ~ label {
+        font-size: 12px;
+        left: 16px;
+    }
+    .btn-contact-submit {
+        padding: 18px 32px;
+        font-size: 16px;
+        border-radius: 14px;
+        letter-spacing: 0.5px;
+    }
+    .btn-submit-content,
+    .btn-submit-loading,
+    .btn-submit-success {
+        font-size: 16px;
+    }
+    .ft-dot {
+        width: 12px;
+        height: 12px;
     }
     .contact-toast {
         left: 12px;
@@ -8116,63 +8208,87 @@ img.loaded {
     }
 
     /* -- CONTACT -- */
+    .contact-grid {
+        gap: 28px;
+    }
     .contact-info-title {
-        font-size: 18px;
+        font-size: 20px;
     }
     .contact-info-desc {
-        font-size: 13px;
+        font-size: 14px;
     }
     .contact-card {
-        padding: 14px 16px;
-        gap: 12px;
+        padding: 16px 18px;
+        gap: 14px;
         border-radius: 12px;
     }
     .contact-card-icon {
-        width: 40px;
-        height: 40px;
-        font-size: 16px;
-        border-radius: 10px;
+        width: 46px;
+        height: 46px;
+        font-size: 20px;
+        border-radius: 12px;
     }
     .contact-card-body h4 {
-        font-size: 14px;
+        font-size: 15px;
     }
     .contact-card-body p {
-        font-size: 12px;
+        font-size: 13px;
+        white-space: normal;
+        overflow: visible;
+        text-overflow: unset;
+    }
+    .contact-socials h4 {
+        font-size: 16px;
     }
     .contact-social-links {
-        gap: 8px;
+        gap: 10px;
+        justify-content: center;
     }
     .social-link-item {
-        width: 42px;
-        height: 42px;
-        font-size: 17px;
-        border-radius: 10px;
+        width: 48px;
+        height: 48px;
+        font-size: 20px;
+        border-radius: 12px;
     }
     .contact-form {
-        padding: 20px 16px;
-        gap: 16px;
+        padding: 24px 18px;
+        gap: 20px;
     }
     .form-card-header {
-        padding: 12px 16px;
+        padding: 12px 18px;
     }
     .form-terminal-title {
-        font-size: 11px;
+        font-size: 12px;
     }
     .form-group input,
     .form-group textarea {
-        padding: 15px 16px;
-        font-size: 14px;
-        border-radius: 10px;
+        padding: 16px 18px;
+        font-size: 16px;
+        border-radius: 12px;
+    }
+    .form-group textarea {
+        min-height: 120px;
     }
     .form-group label {
-        left: 16px;
-        top: 15px;
-        font-size: 13px;
+        left: 18px;
+        top: 16px;
+        font-size: 14px;
+    }
+    .form-group input:focus ~ label,
+    .form-group input:not(:placeholder-shown) ~ label,
+    .form-group textarea:focus ~ label,
+    .form-group textarea:not(:placeholder-shown) ~ label {
+        font-size: 11px;
+        left: 14px;
     }
     .btn-contact-submit {
-        padding: 15px 24px;
-        font-size: 14px;
+        padding: 16px 28px;
+        font-size: 16px;
         border-radius: 12px;
+    }
+    .ft-dot {
+        width: 11px;
+        height: 11px;
     }
     .contact-toast {
         left: 10px;
@@ -8183,10 +8299,10 @@ img.loaded {
         gap: 12px;
     }
     .toast-title {
-        font-size: 14px;
+        font-size: 15px;
     }
     .toast-desc {
-        font-size: 12px;
+        font-size: 13px;
     }
 
     /* -- BLOG -- */
@@ -8463,10 +8579,42 @@ img.loaded {
     }
 
     .contact-card {
-        padding: 12px 14px;
+        padding: 14px 16px;
+        gap: 12px;
+    }
+    .contact-card-icon {
+        width: 42px;
+        height: 42px;
+        font-size: 18px;
+    }
+    .contact-card-body h4 {
+        font-size: 14px;
+    }
+    .contact-card-body p {
+        font-size: 12px;
     }
     .contact-form {
-        padding: 16px 12px;
+        padding: 20px 14px;
+        gap: 18px;
+    }
+    .form-group input,
+    .form-group textarea {
+        padding: 16px;
+        font-size: 16px;
+    }
+    .form-group label {
+        left: 16px;
+        top: 16px;
+        font-size: 13px;
+    }
+    .btn-contact-submit {
+        padding: 16px 24px;
+        font-size: 15px;
+    }
+    .social-link-item {
+        width: 44px;
+        height: 44px;
+        font-size: 18px;
     }
 
     .nav-logo {

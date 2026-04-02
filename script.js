@@ -662,6 +662,25 @@ document.addEventListener('DOMContentLoaded', () => {
 
     loadProjects();
 
+    // ─── GITHUB STATS CARDS (Populate from API) ───
+    async function loadGitHubStats() {
+        try {
+            const res = await fetch(GITHUB_API);
+            if (!res.ok) return;
+            const repos = await res.json();
+            const publicRepos = repos.filter(r => !r.fork);
+            const totalStars = publicRepos.reduce((sum, r) => sum + (r.stargazers_count || 0), 0);
+
+            const repoEl = document.getElementById('ghRepoCount');
+            const starEl = document.getElementById('ghStarCount');
+            if (repoEl) repoEl.textContent = publicRepos.length + '+';
+            if (starEl) starEl.textContent = totalStars > 0 ? totalStars + '' : '⭐';
+        } catch (e) {
+            // Keep defaults
+        }
+    }
+    loadGitHubStats();
+
     // ─── CONTACT FORM (EmailJS Integration) ───
     // Initialize EmailJS — Replace with your actual keys from https://www.emailjs.com/
     const EMAILJS_PUBLIC_KEY   = 'YOUR_PUBLIC_KEY';    // ← Replace this
@@ -1208,12 +1227,14 @@ document.addEventListener('DOMContentLoaded', () => {
         const loadingMessages = [
             'Initializing components...',
             'Loading Three.js scene...',
-            'Rendering particles...',
+            'Rendering particle systems...',
             'Compiling stylesheets...',
-            'Fetching GitHub data...',
-            'Optimizing assets...',
-            'Almost there...',
-            'Ready!'
+            'Connecting to GitHub API...',
+            'Fetching repositories...',
+            'Optimizing performance...',
+            'Building UI components...',
+            'Almost ready...',
+            'Launching portfolio ✨'
         ];
 
         let progress = 0;
@@ -1228,46 +1249,61 @@ document.addEventListener('DOMContentLoaded', () => {
             }
             if (loaderPercent) loaderPercent.textContent = Math.round(progress) + '%';
 
-            // Update message
+            // Update message with smooth fade
             const newIdx = Math.min(Math.floor(progress / (100 / loadingMessages.length)), loadingMessages.length - 1);
             if (newIdx !== msgIdx && loaderText) {
                 msgIdx = newIdx;
                 loaderText.style.opacity = '0';
+                loaderText.style.transform = 'translateY(6px)';
                 setTimeout(() => {
                     loaderText.textContent = loadingMessages[msgIdx];
                     loaderText.style.opacity = '0.8';
-                }, 150);
+                    loaderText.style.transform = 'translateY(0)';
+                }, 200);
             }
         }
 
-        // Simulate loading progress
+        // Simulate loading progress — SLOWER & more realistic
         function simulateLoading() {
             const interval = setInterval(() => {
-                if (progress < 90) {
-                    progress += Math.random() * 12 + 3;
+                if (progress < 85) {
+                    // Slower increments with natural variation
+                    const increment = Math.random() * 5 + 2; // 2-7% per step
+                    progress += increment;
                     updateLoader(progress);
                 } else {
                     clearInterval(interval);
                 }
-            }, 200);
+            }, 350); // 350ms intervals (slower)
         }
         simulateLoading();
 
-        // Complete on window load
+        // Complete on window load — show 100% for a beat before dismissing
         window.addEventListener('load', () => {
+            // Smoothly fill to 100%
+            let fillInterval = setInterval(() => {
+                if (progress < 100) {
+                    progress += 2;
+                    updateLoader(Math.min(progress, 100));
+                } else {
+                    clearInterval(fillInterval);
+                    // Hold at 100% briefly so user can see "Launching portfolio ✨"
+                    setTimeout(() => {
+                        preloader.classList.add('hidden');
+                        document.body.classList.add('loaded');
+                    }, 1000);
+                }
+            }, 40);
+        });
+
+        // Fallback — longer timeout
+        setTimeout(() => {
             updateLoader(100);
             setTimeout(() => {
                 preloader.classList.add('hidden');
-                // Trigger entrance animation for hero content
                 document.body.classList.add('loaded');
-            }, 600);
-        });
-
-        // Fallback
-        setTimeout(() => {
-            updateLoader(100);
-            setTimeout(() => preloader.classList.add('hidden'), 400);
-        }, 4000);
+            }, 800);
+        }, 6000);
     }
 
     // ─── ANIMATED CUSTOM CURSOR ───

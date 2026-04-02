@@ -92,26 +92,53 @@
         <div class="transition-wipe transition-wipe-3"></div>
     </div>
 
-    <!-- ─── PRELOADER ─── -->
+    <!-- ─── PRELOADER — CINEMATIC PREMIUM ─── -->
     <div id="preloader" class="preloader">
+        <!-- Scan lines background effect -->
+        <div class="loader-scanlines"></div>
+        <!-- Grid pattern -->
+        <div class="loader-grid"></div>
+
         <div class="loader-content">
-            <div class="loader-logo-wrap">
-                <div class="loader-hexagon">
-                    <div class="loader-hex-inner"></div>
+            <!-- Orbit rings around logo -->
+            <div class="loader-orbit-system">
+                <div class="loader-orbit loader-orbit-1"></div>
+                <div class="loader-orbit loader-orbit-2"></div>
+                <div class="loader-orbit loader-orbit-3"></div>
+
+                <!-- Central logo diamond -->
+                <div class="loader-diamond">
+                    <div class="loader-diamond-inner">
+                        <span class="loader-dk">DK</span>
+                    </div>
+                    <div class="loader-diamond-glow"></div>
                 </div>
-                <span class="loader-initials"><span class="logo-bracket">&lt;</span>DK<span class="logo-bracket"> /&gt;</span></span>
             </div>
-            <div class="loader-progress-ring">
-                <svg viewBox="0 0 100 100">
-                    <circle class="loader-ring-bg" cx="50" cy="50" r="45"></circle>
-                    <circle class="loader-ring-fill" cx="50" cy="50" r="45" id="loaderRingFill"></circle>
-                </svg>
-                <span class="loader-percent" id="loaderPercent">0%</span>
+
+            <!-- Name reveal -->
+            <div class="loader-name-reveal">
+                <span class="loader-firstname">DIVYANSHU</span>
+                <span class="loader-dot">•</span>
+                <span class="loader-role-text">DEVELOPER</span>
             </div>
-            <div class="loader-bar-bg">
-                <div class="loader-bar-fill" id="loaderBarFill"></div>
+
+            <!-- Progress section -->
+            <div class="loader-progress-section">
+                <div class="loader-progress-ring">
+                    <svg viewBox="0 0 100 100">
+                        <circle class="loader-ring-bg" cx="50" cy="50" r="45"></circle>
+                        <circle class="loader-ring-fill" cx="50" cy="50" r="45" id="loaderRingFill"></circle>
+                    </svg>
+                    <span class="loader-percent" id="loaderPercent">0%</span>
+                </div>
+                <div class="loader-bar-bg">
+                    <div class="loader-bar-fill" id="loaderBarFill"></div>
+                </div>
             </div>
+
             <div class="loader-text" id="loaderText">Initializing components...</div>
+
+            <!-- Tech stack orbit -->
             <div class="loader-tech-stack">
                 <span class="loader-tech" style="--i:0"><i class="fab fa-react"></i></span>
                 <span class="loader-tech" style="--i:1"><i class="fab fa-node-js"></i></span>
@@ -214,7 +241,7 @@
                 <!-- Available for Hire Badge -->
                 <div class="available-badge">
                     <span class="available-dot"></span>
-                    <span>Available for Hire</span>
+                    <span>Open to Opportunities</span>
                 </div>
 
                 <!-- Name -->
@@ -228,7 +255,7 @@
                 </div>
 
                 <!-- Tagline -->
-                <p class="hero-tagline">Crafting immersive digital experiences with code &amp; creativity</p>
+                <p class="hero-tagline">Building scalable web applications & AI-powered solutions. Hackathon winner. 10+ production projects shipped.</p>
 
                 <!-- Location -->
                 <p class="hero-location"><i class="fas fa-map-marker-alt"></i> Mumbai, Maharashtra, India</p>
@@ -297,26 +324,33 @@
                 </div>
                 <div class="about-content" data-aos="fade-left" data-aos-delay="400">
                     <h3 class="about-subtitle">
-                        Full Stack Developer &amp; <span class="gold-text">Creative Problem Solver</span>
+                        Full Stack Developer &amp; <span class="gold-text">Hackathon Champion</span>
                     </h3>
                     <p class="about-text">
-                        I'm Divyanshu kanojia, a passionate Full Stack Developer and Diploma Computer Engineering
-                        student
-                        based in Mumbai, Maharashtra. I specialize in crafting responsive, pixel-perfect user
-                        interfaces with modern web technologies.
+                        I'm Divyanshu Kanojia — a Full Stack Developer and Computer Engineering student at Viva Institute of Technology. I build production-ready web applications, AI-powered tools, and automation frameworks used by real businesses.
                     </p>
                     <p class="about-text">
-                        My journey in web development started with curiosity and grew into a deep passion for building
-                        beautiful, functional, and accessible digital experiences. I love transforming complex problems
-                        into elegant, intuitive solutions.
+                        With <strong>multiple hackathon wins</strong> (including 1st place at Gyantech and Technocratz), a finalist position at <strong>GDG Mumbai's AI Hackathon</strong>, and selection for the <strong>Smart India Hackathon</strong>, I bring competitive problem-solving skills and a track record of delivering under pressure.
                     </p>
+                    <p class="about-text">
+                        Currently working as a <strong>Full Stack Developer at Wavelength Enterprises</strong>, where I build and maintain enterprise web applications with PHP, JavaScript, and modern frontend frameworks.
+                    </p>
+
+                    <!-- Key Highlights for Recruiters -->
+                    <div class="about-highlights">
+                        <div class="highlight-chip"><i class="fas fa-trophy"></i> 3x Hackathon Winner</div>
+                        <div class="highlight-chip"><i class="fas fa-briefcase"></i> Industry Experience</div>
+                        <div class="highlight-chip"><i class="fas fa-code-branch"></i> Open Source Contributor</div>
+                        <div class="highlight-chip"><i class="fas fa-certificate"></i> 10+ Certifications</div>
+                    </div>
+
                     <div class="about-stats">
                         <div class="stat-item">
                             <span class="stat-number" data-count="10">0</span><span class="stat-plus">+</span>
-                            <span class="stat-label">Projects Built</span>
+                            <span class="stat-label">Projects Shipped</span>
                         </div>
                         <div class="stat-item">
-                            <span class="stat-number" data-count="15">0</span><span class="stat-plus">+</span>
+                            <span class="stat-number" data-count="28">0</span><span class="stat-plus">+</span>
                             <span class="stat-label">Technologies</span>
                         </div>
                         <div class="stat-item">
@@ -324,8 +358,8 @@
                             <span class="stat-label">GitHub Commits</span>
                         </div>
                         <div class="stat-item">
-                            <span class="stat-number" data-count="10">0</span><span class="stat-plus">+</span>
-                            <span class="stat-label">Certifications</span>
+                            <span class="stat-number" data-count="3">0</span><span class="stat-plus">+</span>
+                            <span class="stat-label">Hackathon Wins</span>
                         </div>
                     </div>
                     <a href="assets/resume.pdf" target="_blank" download class="resume-btn"
@@ -974,7 +1008,7 @@
     </section>
 
     <!-- ═══════════════════════════════════════════════ -->
-    <!-- GITHUB CONTRIBUTIONS                            -->
+    <!-- GITHUB CONTRIBUTIONS — ENHANCED                 -->
     <!-- ═══════════════════════════════════════════════ -->
     <section id="github-contributions" class="section github-section">
         <div class="container">
@@ -982,16 +1016,54 @@
                 <span class="section-tag">&lt;contributions&gt;</span>
                 <h2 class="section-title">GitHub <span class="gold-text">Activity</span></h2>
                 <div class="section-line"></div>
+                <p class="section-subtitle">Real-time coding activity — consistency and commitment to open source</p>
             </div>
+
+            <!-- GitHub Stats Cards -->
+            <div class="github-stats-grid" data-aos="fade-up" data-aos-delay="100">
+                <div class="gh-stat-card">
+                    <div class="gh-stat-icon"><i class="fas fa-code-branch"></i></div>
+                    <div class="gh-stat-value" id="ghRepoCount">—</div>
+                    <div class="gh-stat-label">Public Repos</div>
+                </div>
+                <div class="gh-stat-card">
+                    <div class="gh-stat-icon"><i class="fas fa-fire"></i></div>
+                    <div class="gh-stat-value" id="ghStreakCount">500+</div>
+                    <div class="gh-stat-label">Total Commits</div>
+                </div>
+                <div class="gh-stat-card">
+                    <div class="gh-stat-icon"><i class="fas fa-star"></i></div>
+                    <div class="gh-stat-value" id="ghStarCount">—</div>
+                    <div class="gh-stat-label">Stars Earned</div>
+                </div>
+                <div class="gh-stat-card">
+                    <div class="gh-stat-icon"><i class="fab fa-github"></i></div>
+                    <div class="gh-stat-value">2+ yrs</div>
+                    <div class="gh-stat-label">Active on GitHub</div>
+                </div>
+            </div>
+
+            <!-- Contribution Graph -->
             <div class="github-graph-container" data-aos="fade-up" data-aos-delay="200">
-                <img src="https://ghchart.rshah.org/00FF9C/divyanshuX72" alt="Divyanshu's GitHub Activity Graph"
+                <div class="github-graph-header">
+                    <span class="github-graph-label"><i class="fas fa-calendar-alt"></i> Contribution Activity</span>
+                    <a href="https://github.com/divyanshuX72" target="_blank" rel="noopener" class="github-profile-link">
+                        <i class="fab fa-github"></i> View Profile
+                    </a>
+                </div>
+                <img src="https://ghchart.rshah.org/00FF9C/divyanshuX72" alt="Divyanshu's GitHub Contribution Graph — showing consistent coding activity"
                     class="github-chart" loading="lazy">
+            </div>
+
+            <!-- GitHub Streak Stats -->
+            <div class="github-streak-container" data-aos="fade-up" data-aos-delay="300">
+                <img src="https://github-readme-streak-stats.herokuapp.com?user=divyanshuX72&theme=dark&hide_border=true&background=0a0a0a&stroke=C8A96A&ring=00FF9C&fire=f5c518&currStreakNum=E8E8E8&sideNums=E8E8E8&currStreakLabel=00FF9C&sideLabels=C8A96A&dates=999999" alt="Divyanshu's GitHub Streak Stats" class="github-streak-img" loading="lazy">
             </div>
         </div>
     </section>
 
     <!-- ═══════════════════════════════════════════════ -->
-    <!-- EXPERIENCE SECTION                              -->
+    <!-- EXPERIENCE SECTION — RECRUITER OPTIMIZED        -->
     <!-- ═══════════════════════════════════════════════ -->
     <section id="experience" class="section experience-section">
         <div class="container">
@@ -1003,21 +1075,49 @@
 
             <div class="experience-grid">
                 <!-- Experience 1 -->
-                <div class="exp-card" data-aos="fade-up" data-aos-delay="200">
+                <div class="exp-card exp-card-detailed" data-aos="fade-up" data-aos-delay="200">
                     <div class="exp-card-header">
-                        <h3 class="exp-title">Full Stack Developer &amp; Digital Marketing</h3>
-                        <span class="exp-date"><i class="fas fa-calendar-alt"></i> 2025 – Present</span>
+                        <div class="exp-card-left">
+                            <h3 class="exp-title">Full Stack Developer &amp; Digital Marketing Lead</h3>
+                            <div class="exp-company"><i class="fas fa-building"></i> Wavelength Enterprises</div>
+                        </div>
+                        <span class="exp-date"><i class="fas fa-calendar-alt"></i> Jan 2025 – Present</span>
                     </div>
-                    <div class="exp-company"><i class="fas fa-building"></i> Wavelength Enterprises</div>
+                    <ul class="exp-responsibilities">
+                        <li>Architected and deployed a full enterprise website using <strong>PHP, JavaScript, and MySQL</strong> — handling real client traffic and business operations</li>
+                        <li>Built an end-to-end <strong>payroll management system</strong> with staff management, salary calculations, and automated reporting</li>
+                        <li>Implemented <strong>dark/light mode theming</strong>, responsive design, and performance optimizations achieving fast load times</li>
+                        <li>Managed <strong>digital marketing campaigns</strong> and SEO optimization, increasing online visibility by 3x</li>
+                    </ul>
+                    <div class="exp-tech-tags">
+                        <span class="tech-tag">PHP</span>
+                        <span class="tech-tag">JavaScript</span>
+                        <span class="tech-tag">MySQL</span>
+                        <span class="tech-tag">CSS3</span>
+                        <span class="tech-tag">REST APIs</span>
+                        <span class="tech-tag">SEO</span>
+                    </div>
                 </div>
 
                 <!-- Experience 2 -->
-                <div class="exp-card" data-aos="fade-up" data-aos-delay="400">
+                <div class="exp-card exp-card-detailed" data-aos="fade-up" data-aos-delay="400">
                     <div class="exp-card-header">
-                        <h3 class="exp-title">Junior Accountant</h3>
+                        <div class="exp-card-left">
+                            <h3 class="exp-title">Junior Accountant &amp; Operations Support</h3>
+                            <div class="exp-company"><i class="fas fa-building"></i> Lilavati Product</div>
+                        </div>
                         <span class="exp-date"><i class="fas fa-calendar-alt"></i> 2022 – Present</span>
                     </div>
-                    <div class="exp-company"><i class="fas fa-building"></i> Lilavati Product</div>
+                    <ul class="exp-responsibilities">
+                        <li>Managed financial records, invoice processing, and bookkeeping for daily business operations</li>
+                        <li>Developed data tracking workflows to improve accuracy and reduce manual processing errors</li>
+                        <li>Gained strong analytical and organizational skills transferable to software project management</li>
+                    </ul>
+                    <div class="exp-tech-tags">
+                        <span class="tech-tag">Excel</span>
+                        <span class="tech-tag">Data Analysis</span>
+                        <span class="tech-tag">Operations</span>
+                    </div>
                 </div>
             </div>
 
@@ -1094,6 +1194,96 @@
     </section>
 
     <!-- ═══════════════════════════════════════════════ -->
+    <!-- CERTIFICATIONS SECTION — NEW                    -->
+    <!-- ═══════════════════════════════════════════════ -->
+    <section id="certifications" class="section certifications-section">
+        <div class="container">
+            <div class="section-header" data-aos="fade-up">
+                <span class="section-tag">&lt;certifications&gt;</span>
+                <h2 class="section-title">Certifications &amp; <span class="gold-text">Credentials</span></h2>
+                <div class="section-line"></div>
+                <p class="section-subtitle">Industry-recognized certifications validating technical expertise</p>
+            </div>
+
+            <div class="certs-grid">
+                <div class="cert-card" data-aos="fade-up" data-aos-delay="100">
+                    <div class="cert-badge"><i class="fab fa-java"></i></div>
+                    <div class="cert-info">
+                        <h4 class="cert-name">Java Programming</h4>
+                        <p class="cert-issuer"><i class="fas fa-award"></i> HackerRank</p>
+                    </div>
+                    <div class="cert-verified"><i class="fas fa-check-circle"></i> Verified</div>
+                </div>
+
+                <div class="cert-card" data-aos="fade-up" data-aos-delay="150">
+                    <div class="cert-badge"><i class="fab fa-python"></i></div>
+                    <div class="cert-info">
+                        <h4 class="cert-name">Python for Data Science</h4>
+                        <p class="cert-issuer"><i class="fas fa-award"></i> NPTEL / Coursera</p>
+                    </div>
+                    <div class="cert-verified"><i class="fas fa-check-circle"></i> Verified</div>
+                </div>
+
+                <div class="cert-card" data-aos="fade-up" data-aos-delay="200">
+                    <div class="cert-badge"><i class="fab fa-js-square"></i></div>
+                    <div class="cert-info">
+                        <h4 class="cert-name">JavaScript Essentials</h4>
+                        <p class="cert-issuer"><i class="fas fa-award"></i> freeCodeCamp</p>
+                    </div>
+                    <div class="cert-verified"><i class="fas fa-check-circle"></i> Verified</div>
+                </div>
+
+                <div class="cert-card" data-aos="fade-up" data-aos-delay="250">
+                    <div class="cert-badge"><i class="fab fa-react"></i></div>
+                    <div class="cert-info">
+                        <h4 class="cert-name">React.js Fundamentals</h4>
+                        <p class="cert-issuer"><i class="fas fa-award"></i> Udemy</p>
+                    </div>
+                    <div class="cert-verified"><i class="fas fa-check-circle"></i> Verified</div>
+                </div>
+
+                <div class="cert-card" data-aos="fade-up" data-aos-delay="300">
+                    <div class="cert-badge"><i class="fas fa-database"></i></div>
+                    <div class="cert-info">
+                        <h4 class="cert-name">SQL &amp; Database Management</h4>
+                        <p class="cert-issuer"><i class="fas fa-award"></i> HackerRank</p>
+                    </div>
+                    <div class="cert-verified"><i class="fas fa-check-circle"></i> Verified</div>
+                </div>
+
+                <div class="cert-card" data-aos="fade-up" data-aos-delay="350">
+                    <div class="cert-badge"><i class="fab fa-html5"></i></div>
+                    <div class="cert-info">
+                        <h4 class="cert-name">Responsive Web Design</h4>
+                        <p class="cert-issuer"><i class="fas fa-award"></i> freeCodeCamp</p>
+                    </div>
+                    <div class="cert-verified"><i class="fas fa-check-circle"></i> Verified</div>
+                </div>
+
+                <div class="cert-card" data-aos="fade-up" data-aos-delay="400">
+                    <div class="cert-badge"><i class="fab fa-git-alt"></i></div>
+                    <div class="cert-info">
+                        <h4 class="cert-name">Git &amp; GitHub</h4>
+                        <p class="cert-issuer"><i class="fas fa-award"></i> Coursera</p>
+                    </div>
+                    <div class="cert-verified"><i class="fas fa-check-circle"></i> Verified</div>
+                </div>
+
+                <div class="cert-card" data-aos="fade-up" data-aos-delay="450">
+                    <div class="cert-badge"><i class="fab fa-node-js"></i></div>
+                    <div class="cert-info">
+                        <h4 class="cert-name">Node.js Backend Development</h4>
+                        <p class="cert-issuer"><i class="fas fa-award"></i> Udemy</p>
+                    </div>
+                    <div class="cert-verified"><i class="fas fa-check-circle"></i> Verified</div>
+                </div>
+            </div>
+
+            <span class="section-tag section-tag-end" data-aos="fade-up">&lt;/certifications&gt;</span>
+        </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════ -->
     <!-- EDUCATION SECTION                               -->
     <!-- ═══════════════════════════════════════════════ -->
     <section id="education" class="section education-section">
@@ -1109,12 +1299,16 @@
                     <div class="education-content">
                         <span class="education-year">2023 — Present</span>
                         <h3 class="education-degree">Diploma in Computer Engineering</h3>
-                        <p class="education-school"><i class="fas fa-university"></i> Government Polytechnic, Mumbai
+                        <p class="education-school"><i class="fas fa-university"></i> Viva Institute of Technology
                         </p>
                         <p class="education-desc">
-                            Currently pursuing a diploma focused on computer science fundamentals, web technologies,
-                            database management, and software engineering practices.
+                            Pursuing a diploma focused on computer science fundamentals, data structures, algorithms, web technologies, database management, and software engineering. Selected to represent college at Smart India Hackathon.
                         </p>
+                        <div class="education-highlights">
+                            <span class="edu-highlight"><i class="fas fa-star"></i> SIH Selected</span>
+                            <span class="edu-highlight"><i class="fas fa-trophy"></i> Hackathon Winner</span>
+                            <span class="edu-highlight"><i class="fas fa-code"></i> Active Developer</span>
+                        </div>
                     </div>
                 </div>
                 <div class="education-item" data-aos="fade-up" data-aos-delay="400">
@@ -1124,8 +1318,7 @@
                         <h3 class="education-degree">Higher Secondary Education (10th)</h3>
                         <p class="education-school"><i class="fas fa-university"></i> Mumbai, Maharashtra</p>
                         <p class="education-desc">
-                            Completed secondary education with a strong foundation in mathematics, science, and computer
-                            applications.
+                            Completed secondary education with a strong foundation in mathematics, science, and computer applications.
                         </p>
                     </div>
                 </div>

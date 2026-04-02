@@ -662,33 +662,131 @@ document.addEventListener('DOMContentLoaded', () => {
 
     loadProjects();
 
-    // ─── CONTACT FORM ───
-    const form = document.getElementById('contactForm');
-    const formStatus = document.getElementById('formStatus');
+    // ─── CONTACT FORM (EmailJS Integration) ───
+    // Initialize EmailJS — Replace with your actual keys from https://www.emailjs.com/
+    const EMAILJS_PUBLIC_KEY   = 'YOUR_PUBLIC_KEY';    // ← Replace this
+    const EMAILJS_SERVICE_ID   = 'YOUR_SERVICE_ID';    // ← Replace this
+    const EMAILJS_TEMPLATE_ID  = 'YOUR_TEMPLATE_ID';   // ← Replace this
 
-    form.addEventListener('submit', (e) => {
-        e.preventDefault();
-        const name = document.getElementById('name').value.trim();
-        const email = document.getElementById('email').value.trim();
-        const subject = document.getElementById('subject').value.trim();
-        const message = document.getElementById('message').value.trim();
+    if (typeof emailjs !== 'undefined') {
+        emailjs.init(EMAILJS_PUBLIC_KEY);
+    }
 
-        if (!name || !email || !subject || !message) {
-            formStatus.textContent = 'Please fill in all fields.';
-            formStatus.className = 'form-status error';
-            return;
+    const form       = document.getElementById('contactForm');
+    const submitBtn  = document.getElementById('contactSubmitBtn');
+    const toast      = document.getElementById('contactToast');
+    const toastError = document.getElementById('contactToastError');
+    const toastClose = document.getElementById('toastClose');
+    const toastCloseError = document.getElementById('toastCloseError');
+
+    // Ripple effect on submit button click
+    if (submitBtn) {
+        submitBtn.addEventListener('click', function (e) {
+            const rippleContainer = this.querySelector('.btn-ripple-container');
+            if (!rippleContainer) return;
+            const rect = this.getBoundingClientRect();
+            const size = Math.max(rect.width, rect.height);
+            const ripple = document.createElement('span');
+            ripple.classList.add('btn-ripple');
+            ripple.style.width = ripple.style.height = size + 'px';
+            ripple.style.left = (e.clientX - rect.left - size / 2) + 'px';
+            ripple.style.top = (e.clientY - rect.top - size / 2) + 'px';
+            rippleContainer.appendChild(ripple);
+            setTimeout(() => ripple.remove(), 700);
+        });
+    }
+
+    // Show toast notification
+    function showToast(type) {
+        const target = type === 'success' ? toast : toastError;
+        if (!target) return;
+        const progress = target.querySelector('.toast-progress');
+
+        // Reset and show
+        target.classList.add('active');
+        if (progress) {
+            progress.classList.remove('active');
+            void progress.offsetHeight; // reflow
+            progress.classList.add('active');
         }
-        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-            formStatus.textContent = 'Please enter a valid email.';
-            formStatus.className = 'form-status error';
-            return;
-        }
 
-        formStatus.textContent = 'Message sent successfully! ✨';
-        formStatus.className = 'form-status success';
-        form.reset();
-        setTimeout(() => { formStatus.textContent = ''; }, 4000);
-    });
+        // Auto hide after 5s
+        setTimeout(() => hideToast(type), 5000);
+    }
+
+    function hideToast(type) {
+        const target = type === 'success' ? toast : toastError;
+        if (!target) return;
+        target.classList.remove('active');
+    }
+
+    // Toast close buttons
+    if (toastClose) toastClose.addEventListener('click', () => hideToast('success'));
+    if (toastCloseError) toastCloseError.addEventListener('click', () => hideToast('error'));
+
+    // Form submission handler
+    if (form) {
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const nameInput    = document.getElementById('contact-name');
+            const emailInput   = document.getElementById('contact-email');
+            const messageInput = document.getElementById('contact-message');
+
+            const name    = nameInput.value.trim();
+            const email   = emailInput.value.trim();
+            const message = messageInput.value.trim();
+
+            // Validate
+            if (!name || !email || !message) {
+                document.getElementById('errorToastDesc').textContent = 'Please fill in all fields.';
+                showToast('error');
+                return;
+            }
+            if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+                document.getElementById('errorToastDesc').textContent = 'Please enter a valid email address.';
+                showToast('error');
+                return;
+            }
+
+            // Loading state
+            submitBtn.classList.add('is-loading');
+            submitBtn.classList.remove('is-success');
+
+            try {
+                // Check if EmailJS is properly configured (not placeholder keys)
+                if (typeof emailjs !== 'undefined' && EMAILJS_PUBLIC_KEY !== 'YOUR_PUBLIC_KEY') {
+                    await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, {
+                        from_name: name,
+                        from_email: email,
+                        message: message,
+                        to_name: 'Divyanshu Kanojia'
+                    });
+                } else {
+                    // Simulate send for demo / unconfigured EmailJS
+                    await new Promise(resolve => setTimeout(resolve, 1500));
+                    console.log('📧 Contact form submitted (EmailJS not configured, simulated):', { name, email, message });
+                }
+
+                // Success state
+                submitBtn.classList.remove('is-loading');
+                submitBtn.classList.add('is-success');
+                showToast('success');
+                form.reset();
+
+                // Reset button after 3s
+                setTimeout(() => {
+                    submitBtn.classList.remove('is-success');
+                }, 3000);
+
+            } catch (err) {
+                console.error('EmailJS error:', err);
+                submitBtn.classList.remove('is-loading');
+                document.getElementById('errorToastDesc').textContent = 'Failed to send message. Please try again or email me directly.';
+                showToast('error');
+            }
+        });
+    }
 
     // ─── PARTICLES.JS ───
     if (typeof particlesJS !== 'undefined') {

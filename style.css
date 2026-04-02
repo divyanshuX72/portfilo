@@ -6326,3 +6326,1321 @@ img.loaded {
         display: none !important;
     }
 }
+
+/* ═══════════════════════════════════════════════════════════════════════
+   COMPREHENSIVE MOBILE-RESPONSIVE OVERHAUL
+   Ensures pixel-perfect layout on Mobile (320-480px), Tablet (481-768px),
+   Tablet Landscape (769-1024px), and Desktop (1025px+).
+   ═══════════════════════════════════════════════════════════════════════ */
+
+/* ────────────────────────────────────────────────────────────────
+   TABLET LANDSCAPE / SMALL LAPTOP (769px – 1024px)
+   ──────────────────────────────────────────────────────────────── */
+@media screen and (max-width: 1024px) {
+    /* -- HERO -- */
+    .hero-layout {
+        grid-template-columns: 1fr;
+        padding: 100px 24px 60px;
+        gap: 32px;
+    }
+    .hero-right {
+        height: 300px;
+        order: -1;
+    }
+    .hero-mobile-center {
+        align-items: center;
+        text-align: center;
+    }
+    .hero-tagline {
+        margin: 0 auto;
+    }
+    .hero-cta-stack {
+        align-items: center;
+        max-width: 360px;
+    }
+    .hero-social-row {
+        justify-content: center;
+    }
+
+    /* -- ABOUT -- */
+    .about-grid {
+        grid-template-columns: 1fr;
+        gap: 36px;
+    }
+    .about-image-wrapper {
+        order: -1;
+    }
+    .about-stats {
+        grid-template-columns: repeat(4, 1fr);
+    }
+
+    /* -- SKILLS -- */
+    .terminal-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+    }
+
+    /* -- PROJECTS -- */
+    .projects-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+    }
+
+    /* -- EXPERIENCE -- */
+    .experience-grid {
+        grid-template-columns: 1fr;
+        gap: 24px;
+    }
+
+    /* -- CONTACT -- */
+    .contact-grid {
+        grid-template-columns: 1fr;
+        gap: 36px;
+    }
+
+    /* -- GITHUB STATS -- */
+    .github-stats-grid {
+        grid-template-columns: repeat(4, 1fr);
+        gap: 14px;
+    }
+
+    /* -- CERTIFICATIONS -- */
+    .certs-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    /* -- BLOG -- */
+    .blog-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/* ────────────────────────────────────────────────────────────────
+   TABLET PORTRAIT (481px – 768px)
+   ──────────────────────────────────────────────────────────────── */
+@media screen and (max-width: 768px) {
+    /* -- GLOBAL -- */
+    .section {
+        padding: 64px 0;
+    }
+    .section-header {
+        margin-bottom: 40px;
+    }
+    .section-title {
+        font-size: clamp(24px, 5vw, 36px);
+    }
+    .section-tag-end {
+        margin-top: 40px;
+    }
+    .container {
+        padding: 0 16px;
+    }
+
+    /* -- HERO -- */
+    .hero-layout {
+        padding: 90px 16px 50px;
+        gap: 0;
+    }
+    .hero-right {
+        display: none;
+    }
+    .hero-mobile-center {
+        gap: 16px;
+    }
+    .hero-avatar-wrap,
+    .hero-avatar-ring {
+        width: 110px;
+        height: 110px;
+    }
+    .hero-avatar-initials {
+        font-size: 32px;
+    }
+    .hero-name-centered {
+        font-size: clamp(28px, 7vw, 42px);
+    }
+    .hero-role-wrapper {
+        font-size: clamp(15px, 3.5vw, 20px);
+    }
+    .hero-tagline {
+        font-size: 14px;
+        padding: 0 8px;
+    }
+    .hero-cta-stack {
+        max-width: 100%;
+        width: 100%;
+        padding: 0 8px;
+    }
+    .btn-hero {
+        padding: 13px 24px;
+        font-size: 14px;
+    }
+
+    /* -- ABOUT -- */
+    .about-grid {
+        grid-template-columns: 1fr;
+        gap: 32px;
+    }
+    .about-image-wrapper {
+        order: -1;
+    }
+    .about-image-frame {
+        width: 220px;
+        height: 280px;
+    }
+    .about-subtitle {
+        font-size: 20px;
+    }
+    .about-text {
+        font-size: 14px;
+    }
+    .about-stats {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 16px;
+        padding: 20px;
+    }
+    .stat-number {
+        font-size: 26px;
+    }
+    .about-highlights {
+        justify-content: center;
+    }
+    .highlight-chip {
+        font-size: 0.72rem;
+        padding: 6px 12px;
+    }
+
+    /* -- SKILLS -- */
+    .terminal-grid {
+        grid-template-columns: 1fr;
+        gap: 16px;
+    }
+    .terminal-panel {
+        width: 100%;
+        max-width: 100%;
+    }
+    .skill-filter-tabs {
+        gap: 6px;
+        margin-bottom: 28px;
+    }
+    .skill-tab {
+        padding: 8px 12px;
+        font-size: 11px;
+        gap: 5px;
+    }
+    .skill-tab i {
+        font-size: 10px;
+    }
+    .skills-summary {
+        flex-direction: column;
+        align-items: center;
+        gap: 8px;
+        margin-top: 32px;
+    }
+    .skill-stat-chip {
+        padding: 10px 18px;
+        font-size: 13px;
+    }
+
+    /* -- PROJECTS -- */
+    .projects-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+    .project-card {
+        max-width: 100%;
+    }
+    .project-filters {
+        gap: 8px;
+        margin-bottom: 32px;
+    }
+    .filter-btn {
+        padding: 8px 18px;
+        font-size: 13px;
+    }
+    .project-image {
+        height: 180px;
+    }
+    .project-info {
+        padding: 20px;
+    }
+    .project-name {
+        font-size: 18px;
+    }
+
+    /* -- EXPERIENCE -- */
+    .experience-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+    .exp-card {
+        padding: 24px;
+    }
+    .exp-title {
+        font-size: 20px;
+    }
+    .exp-company {
+        font-size: 16px;
+    }
+    .exp-responsibilities li {
+        font-size: 0.85rem;
+    }
+    .exp-tech-tags {
+        gap: 6px;
+    }
+    .tech-tag {
+        font-size: 0.68rem;
+        padding: 3px 10px;
+    }
+
+    /* -- ACHIEVEMENTS / TIMELINE -- */
+    .timeline {
+        padding-left: 32px;
+    }
+    .timeline::before {
+        left: 11px;
+    }
+    .timeline-marker {
+        left: -28px;
+        width: 12px;
+        height: 12px;
+    }
+    .achievement-marker {
+        left: -38px;
+        width: 36px;
+        height: 36px;
+        font-size: 15px;
+    }
+    .timeline-content {
+        padding: 22px;
+    }
+    .timeline-title {
+        font-size: 18px;
+    }
+    .timeline-desc {
+        font-size: 13px;
+    }
+
+    /* -- EDUCATION -- */
+    .education-timeline {
+        gap: 24px;
+    }
+    .education-item {
+        flex-direction: column;
+        gap: 12px;
+    }
+    .education-icon {
+        width: 48px;
+        height: 48px;
+        font-size: 20px;
+    }
+    .education-content {
+        padding: 22px;
+    }
+    .education-degree {
+        font-size: 18px;
+    }
+
+    /* -- GITHUB -- */
+    .github-stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+    }
+    .gh-stat-card {
+        padding: 18px 12px;
+    }
+    .gh-stat-value {
+        font-size: 1.4rem;
+    }
+    .gh-stat-label {
+        font-size: 0.68rem;
+    }
+    .github-graph-container {
+        padding: 16px;
+        justify-content: flex-start;
+    }
+    .github-graph-header {
+        flex-direction: column;
+        gap: 10px;
+        align-items: flex-start;
+    }
+    .github-streak-container {
+        margin-top: 20px;
+    }
+
+    /* -- CERTIFICATIONS -- */
+    .certs-grid {
+        grid-template-columns: 1fr;
+        gap: 12px;
+    }
+    .cert-card {
+        padding: 16px 18px;
+    }
+
+    /* -- CONTACT -- */
+    .contact-grid {
+        grid-template-columns: 1fr;
+        gap: 28px;
+    }
+    .contact-form {
+        padding: 24px 20px;
+        gap: 18px;
+    }
+    .contact-form-card {
+        border-radius: 14px;
+    }
+    .contact-social-links {
+        gap: 10px;
+    }
+    .contact-toast {
+        left: 12px;
+        right: 12px;
+        bottom: 12px;
+        min-width: unset;
+        max-width: unset;
+        padding: 16px 18px;
+    }
+
+    /* -- BLOG -- */
+    .blog-grid {
+        grid-template-columns: 1fr;
+        gap: 16px;
+    }
+    .blog-card {
+        padding: 22px;
+    }
+    .blog-title {
+        font-size: 18px;
+    }
+
+    /* -- FOOTER -- */
+    .footer {
+        padding: 36px 0 20px;
+    }
+    .footer-logo {
+        font-size: 24px;
+    }
+    .footer-links {
+        gap: 16px;
+    }
+    .footer-links a {
+        font-size: 13px;
+    }
+
+    /* -- SIDEBAR -- */
+    .sidebar {
+        width: 80vw;
+        max-width: none;
+        padding: 80px 24px 32px;
+    }
+    .sidebar-link {
+        font-size: 20px;
+        padding: 10px 16px;
+    }
+
+    /* -- PRELOADER -- */
+    .loader-orbit-system {
+        width: 160px;
+        height: 160px;
+    }
+    .loader-orbit-1 {
+        width: 160px;
+        height: 160px;
+    }
+    .loader-orbit-2 {
+        width: 130px;
+        height: 130px;
+    }
+    .loader-orbit-3 {
+        width: 100px;
+        height: 100px;
+    }
+    .loader-diamond {
+        width: 70px;
+        height: 70px;
+    }
+    .loader-dk {
+        font-size: 1.6rem;
+    }
+    .loader-bar-bg {
+        width: 160px;
+    }
+
+    /* -- BACK TO TOP -- */
+    .back-to-top {
+        bottom: 20px;
+        right: 20px;
+        width: 42px;
+        height: 42px;
+        font-size: 16px;
+    }
+}
+
+/* ────────────────────────────────────────────────────────────────
+   SMALL MOBILE (max-width: 480px)
+   ──────────────────────────────────────────────────────────────── */
+@media screen and (max-width: 480px) {
+    /* -- GLOBAL -- */
+    .section {
+        padding: 52px 0;
+    }
+    .section-header {
+        margin-bottom: 32px;
+    }
+    .section-title {
+        font-size: clamp(22px, 6vw, 30px);
+    }
+    .section-subtitle {
+        font-size: 13px;
+    }
+    .container {
+        padding: 0 14px;
+    }
+
+    /* -- HERO -- */
+    .hero-layout {
+        padding: 80px 14px 40px;
+    }
+    .hero-mobile-center {
+        gap: 14px;
+    }
+    .hero-avatar-wrap,
+    .hero-avatar-ring {
+        width: 96px;
+        height: 96px;
+    }
+    .hero-avatar-initials {
+        font-size: 28px;
+    }
+    .available-badge {
+        font-size: 11px;
+        padding: 5px 14px;
+        gap: 6px;
+    }
+    .available-dot {
+        width: 6px;
+        height: 6px;
+    }
+    .hero-name-centered {
+        font-size: clamp(24px, 8vw, 34px);
+        letter-spacing: -0.5px;
+    }
+    .hero-role-wrapper {
+        font-size: clamp(13px, 3.5vw, 17px);
+        min-height: 28px;
+    }
+    .hero-tagline {
+        font-size: 13px;
+        line-height: 1.6;
+        max-width: 100%;
+    }
+    .hero-location {
+        font-size: 12px;
+    }
+    .hero-cta-stack {
+        gap: 10px;
+        padding: 0 4px;
+    }
+    .btn-hero {
+        padding: 12px 20px;
+        font-size: 13px;
+        border-radius: 40px;
+    }
+    .hero-social-row {
+        gap: 10px;
+    }
+    .social-icon {
+        width: 40px;
+        height: 40px;
+        font-size: 16px;
+    }
+
+    /* -- ABOUT -- */
+    .about-image-frame {
+        width: 180px;
+        height: 240px;
+    }
+    .about-subtitle {
+        font-size: 18px;
+        text-align: center;
+    }
+    .about-text {
+        font-size: 13px;
+        line-height: 1.7;
+    }
+    .about-stats {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+        padding: 16px;
+    }
+    .stat-number {
+        font-size: 22px;
+    }
+    .stat-plus {
+        font-size: 18px;
+    }
+    .stat-label {
+        font-size: 10px;
+        letter-spacing: 0.5px;
+    }
+    .about-highlights {
+        gap: 8px;
+        justify-content: center;
+    }
+    .highlight-chip {
+        font-size: 0.68rem;
+        padding: 5px 10px;
+    }
+    .resume-btn {
+        padding: 12px 20px;
+        font-size: 13px;
+        border-radius: 32px;
+    }
+
+    /* -- SKILLS -- */
+    .terminal-grid {
+        grid-template-columns: 1fr;
+        gap: 14px;
+    }
+    .terminal-panel {
+        width: 100%;
+        max-width: 100%;
+    }
+    .terminal-header {
+        padding: 10px 14px;
+        gap: 8px;
+    }
+    .terminal-title {
+        font-size: 11px;
+    }
+    .terminal-status {
+        font-size: 9px;
+    }
+    .t-dot {
+        width: 9px;
+        height: 9px;
+    }
+    .terminal-body {
+        padding: 14px;
+    }
+    .terminal-cmd {
+        font-size: 11px;
+    }
+    .terminal-output {
+        font-size: 11px;
+    }
+    .hacker-skill-item {
+        padding: 8px 10px;
+        margin-bottom: 12px;
+    }
+    .skill-icon-hack {
+        width: 24px;
+        height: 24px;
+        font-size: 12px;
+    }
+    .skill-name-hack {
+        font-size: 12px;
+    }
+    .skill-pct-hack {
+        font-size: 11px;
+        min-width: 30px;
+    }
+    .skill-bar-hack {
+        height: 5px;
+    }
+    .skill-filter-tabs {
+        gap: 5px;
+        margin-bottom: 24px;
+    }
+    .skill-tab {
+        padding: 7px 10px;
+        font-size: 10px;
+        gap: 4px;
+        border-radius: 6px;
+    }
+    .skill-tab i {
+        font-size: 9px;
+    }
+    .skills-summary {
+        margin-top: 24px;
+        padding-top: 20px;
+    }
+    .skill-stat-chip {
+        padding: 8px 14px;
+        font-size: 12px;
+        gap: 8px;
+    }
+
+    /* -- PROJECTS -- */
+    .projects-grid {
+        grid-template-columns: 1fr;
+        gap: 16px;
+    }
+    .project-card {
+        max-width: 100%;
+    }
+    .project-filters {
+        gap: 6px;
+        margin-bottom: 24px;
+    }
+    .filter-btn {
+        padding: 7px 14px;
+        font-size: 12px;
+    }
+    .project-image {
+        height: 160px;
+    }
+    .project-info {
+        padding: 16px;
+    }
+    .project-name {
+        font-size: 16px;
+        margin-bottom: 8px;
+    }
+    .project-desc {
+        font-size: 13px;
+        margin-bottom: 12px;
+    }
+    .project-tags span {
+        font-size: 10px;
+        padding: 3px 8px;
+    }
+    .project-meta {
+        gap: 4px;
+    }
+    .project-lang {
+        font-size: 10px;
+        padding: 3px 8px;
+    }
+    .project-footer {
+        margin-top: 12px;
+        padding-top: 12px;
+    }
+    .project-github-link {
+        font-size: 12px;
+    }
+    .projects-cta {
+        margin-top: 32px;
+    }
+    .mock-browser-bar,
+    .mock-terminal-bar,
+    .mock-editor-bar {
+        padding: 6px 10px;
+    }
+
+    /* -- EXPERIENCE -- */
+    .experience-grid {
+        grid-template-columns: 1fr;
+        gap: 16px;
+    }
+    .exp-card {
+        padding: 20px;
+    }
+    .exp-card-header {
+        margin-bottom: 16px;
+        gap: 12px;
+    }
+    .exp-title {
+        font-size: 18px;
+    }
+    .exp-company {
+        font-size: 15px;
+        gap: 8px;
+    }
+    .exp-company i {
+        font-size: 16px;
+    }
+    .exp-date {
+        font-size: 11px;
+        padding: 5px 10px;
+    }
+    .exp-responsibilities {
+        margin: 12px 0;
+        gap: 8px;
+    }
+    .exp-responsibilities li {
+        font-size: 0.82rem;
+        padding-left: 20px;
+    }
+    .exp-tech-tags {
+        gap: 5px;
+        margin-top: 10px;
+        padding-top: 10px;
+    }
+    .tech-tag {
+        font-size: 0.65rem;
+        padding: 3px 8px;
+    }
+
+    /* -- ACHIEVEMENTS / TIMELINE -- */
+    .timeline {
+        padding-left: 24px;
+    }
+    .timeline::before {
+        left: 8px;
+    }
+    .timeline-marker {
+        left: -22px;
+        width: 10px;
+        height: 10px;
+    }
+    .timeline-item {
+        margin-bottom: 32px;
+    }
+    .achievement-marker {
+        left: -32px;
+        width: 30px;
+        height: 30px;
+        font-size: 13px;
+    }
+    .timeline-content {
+        padding: 18px;
+    }
+    .timeline-title {
+        font-size: 16px;
+        margin-bottom: 8px;
+    }
+    .timeline-date {
+        font-size: 11px;
+    }
+    .timeline-desc {
+        font-size: 12px;
+        line-height: 1.6;
+        margin-bottom: 12px;
+    }
+    .timeline-tags span {
+        font-size: 10px;
+        padding: 3px 8px;
+    }
+
+    /* -- EDUCATION -- */
+    .education-timeline {
+        gap: 20px;
+    }
+    .education-item {
+        flex-direction: column;
+        gap: 10px;
+    }
+    .education-icon {
+        width: 44px;
+        height: 44px;
+        font-size: 18px;
+        border-radius: 10px;
+    }
+    .education-content {
+        padding: 18px;
+    }
+    .education-degree {
+        font-size: 16px;
+    }
+    .education-year {
+        font-size: 11px;
+    }
+    .education-school {
+        font-size: 13px;
+    }
+    .education-desc {
+        font-size: 13px;
+    }
+    .education-highlights {
+        gap: 6px;
+    }
+    .edu-highlight {
+        font-size: 0.65rem;
+        padding: 4px 10px;
+    }
+
+    /* -- GITHUB -- */
+    .github-stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+    }
+    .gh-stat-card {
+        padding: 16px 10px;
+        border-radius: 10px;
+    }
+    .gh-stat-icon {
+        font-size: 1.2rem;
+        margin-bottom: 8px;
+    }
+    .gh-stat-value {
+        font-size: 1.2rem;
+    }
+    .gh-stat-label {
+        font-size: 0.62rem;
+        letter-spacing: 0.5px;
+    }
+    .github-graph-container {
+        padding: 12px;
+        border-radius: 12px;
+    }
+    .github-chart {
+        min-width: 500px;
+    }
+    .github-graph-header {
+        flex-direction: column;
+        gap: 8px;
+        align-items: flex-start;
+    }
+    .github-profile-link {
+        font-size: 0.75rem;
+        padding: 5px 10px;
+    }
+    .github-streak-container {
+        margin-top: 16px;
+    }
+
+    /* -- CERTIFICATIONS -- */
+    .certs-grid {
+        grid-template-columns: 1fr;
+        gap: 10px;
+    }
+    .cert-card {
+        padding: 14px 16px;
+        gap: 12px;
+    }
+    .cert-badge {
+        width: 38px;
+        height: 38px;
+        min-width: 38px;
+        font-size: 1rem;
+        border-radius: 8px;
+    }
+    .cert-name {
+        font-size: 0.85rem;
+    }
+    .cert-issuer {
+        font-size: 0.68rem;
+    }
+    .cert-verified {
+        font-size: 0.62rem;
+    }
+
+    /* -- CONTACT -- */
+    .contact-info-title {
+        font-size: 18px;
+    }
+    .contact-info-desc {
+        font-size: 13px;
+    }
+    .contact-card {
+        padding: 14px 16px;
+        gap: 12px;
+        border-radius: 12px;
+    }
+    .contact-card-icon {
+        width: 40px;
+        height: 40px;
+        font-size: 16px;
+        border-radius: 10px;
+    }
+    .contact-card-body h4 {
+        font-size: 14px;
+    }
+    .contact-card-body p {
+        font-size: 12px;
+    }
+    .contact-social-links {
+        gap: 8px;
+    }
+    .social-link-item {
+        width: 42px;
+        height: 42px;
+        font-size: 17px;
+        border-radius: 10px;
+    }
+    .contact-form {
+        padding: 20px 16px;
+        gap: 16px;
+    }
+    .form-card-header {
+        padding: 12px 16px;
+    }
+    .form-terminal-title {
+        font-size: 11px;
+    }
+    .form-group input,
+    .form-group textarea {
+        padding: 15px 16px;
+        font-size: 14px;
+        border-radius: 10px;
+    }
+    .form-group label {
+        left: 16px;
+        top: 15px;
+        font-size: 13px;
+    }
+    .btn-contact-submit {
+        padding: 15px 24px;
+        font-size: 14px;
+        border-radius: 12px;
+    }
+    .contact-toast {
+        left: 10px;
+        right: 10px;
+        bottom: 10px;
+        padding: 14px 16px;
+        border-radius: 12px;
+        gap: 12px;
+    }
+    .toast-title {
+        font-size: 14px;
+    }
+    .toast-desc {
+        font-size: 12px;
+    }
+
+    /* -- BLOG -- */
+    .blog-grid {
+        grid-template-columns: 1fr;
+        gap: 14px;
+    }
+    .blog-card {
+        padding: 18px;
+        gap: 12px;
+    }
+    .blog-title {
+        font-size: 16px;
+    }
+    .blog-excerpt {
+        font-size: 13px;
+    }
+    .blog-category {
+        font-size: 10px;
+        padding: 3px 8px;
+    }
+    .blog-tag {
+        font-size: 10px;
+        padding: 2px 8px;
+    }
+    .blog-read-time,
+    .blog-author {
+        font-size: 11px;
+    }
+
+    /* -- FOOTER -- */
+    .footer {
+        padding: 28px 0 16px;
+    }
+    .footer-logo {
+        font-size: 22px;
+    }
+    .footer-tagline {
+        font-size: 12px;
+    }
+    .footer-links {
+        gap: 12px;
+        margin-bottom: 16px;
+    }
+    .footer-links a {
+        font-size: 12px;
+    }
+    .footer-social {
+        gap: 12px;
+        margin-bottom: 16px;
+    }
+    .footer-social a {
+        width: 36px;
+        height: 36px;
+        font-size: 14px;
+    }
+    .footer-bottom p {
+        font-size: 11px;
+    }
+
+    /* -- PRELOADER -- */
+    .loader-content {
+        gap: 16px;
+    }
+    .loader-orbit-system {
+        width: 140px;
+        height: 140px;
+    }
+    .loader-orbit-1 {
+        width: 140px;
+        height: 140px;
+    }
+    .loader-orbit-2 {
+        width: 110px;
+        height: 110px;
+    }
+    .loader-orbit-3 {
+        width: 85px;
+        height: 85px;
+    }
+    .loader-diamond {
+        width: 60px;
+        height: 60px;
+    }
+    .loader-dk {
+        font-size: 1.3rem;
+        letter-spacing: 2px;
+    }
+    .loader-name-reveal {
+        gap: 8px;
+    }
+    .loader-firstname {
+        font-size: 0.7rem;
+    }
+    .loader-role-text {
+        font-size: 0.6rem;
+    }
+    .loader-progress-ring {
+        width: 48px;
+        height: 48px;
+    }
+    .loader-percent {
+        font-size: 0.65rem;
+    }
+    .loader-bar-bg {
+        width: 130px;
+    }
+    .loader-text {
+        font-size: 0.65rem;
+    }
+    .loader-tech-stack {
+        gap: 12px;
+    }
+    .loader-tech {
+        font-size: 0.9rem;
+    }
+
+    /* -- NAV / SIDEBAR -- */
+    .nav-logo {
+        font-size: 22px;
+    }
+    .sidebar {
+        width: 85vw;
+        padding: 70px 20px 28px;
+    }
+    .sidebar-link {
+        font-size: 18px;
+        padding: 9px 14px;
+    }
+    .sidebar-close {
+        top: 16px;
+        right: 18px;
+        width: 38px;
+        height: 38px;
+        font-size: 24px;
+    }
+    .theme-toggle-sidebar {
+        font-size: 13px;
+        padding: 8px 18px;
+    }
+
+    /* -- BACK TO TOP -- */
+    .back-to-top {
+        bottom: 16px;
+        right: 16px;
+        width: 38px;
+        height: 38px;
+        font-size: 15px;
+        border-radius: 10px;
+    }
+}
+
+/* ────────────────────────────────────────────────────────────────
+   EXTRA SMALL MOBILE (max-width: 360px) Deep fix
+   ──────────────────────────────────────────────────────────────── */
+@media screen and (max-width: 360px) {
+    .container {
+        padding: 0 10px;
+    }
+    .section {
+        padding: 44px 0;
+    }
+    .section-title {
+        font-size: 20px;
+    }
+
+    .hero-layout {
+        padding: 72px 10px 32px;
+    }
+    .hero-avatar-wrap,
+    .hero-avatar-ring {
+        width: 80px;
+        height: 80px;
+    }
+    .hero-avatar-initials {
+        font-size: 24px;
+    }
+    .hero-name-centered {
+        font-size: 22px;
+    }
+    .hero-role-wrapper {
+        font-size: 13px;
+        min-height: 24px;
+    }
+    .hero-tagline {
+        font-size: 12px;
+    }
+    .hero-location {
+        font-size: 11px;
+    }
+    .btn-hero {
+        padding: 11px 16px;
+        font-size: 12px;
+    }
+    .social-icon {
+        width: 36px;
+        height: 36px;
+        font-size: 14px;
+    }
+
+    .about-image-frame {
+        width: 160px;
+        height: 210px;
+    }
+    .about-subtitle {
+        font-size: 16px;
+    }
+    .about-text {
+        font-size: 12px;
+    }
+    .about-stats {
+        padding: 12px;
+        gap: 10px;
+    }
+    .stat-number {
+        font-size: 20px;
+    }
+
+    .terminal-header {
+        padding: 8px 10px;
+    }
+    .terminal-title {
+        font-size: 10px;
+    }
+    .terminal-body {
+        padding: 10px;
+    }
+    .skill-name-hack {
+        font-size: 11px;
+    }
+    .skill-pct-hack {
+        font-size: 10px;
+    }
+
+    .exp-card {
+        padding: 16px;
+    }
+    .exp-title {
+        font-size: 16px;
+    }
+
+    .timeline {
+        padding-left: 20px;
+    }
+    .achievement-marker {
+        left: -28px;
+        width: 26px;
+        height: 26px;
+        font-size: 11px;
+    }
+    .timeline-content {
+        padding: 14px;
+    }
+
+    .gh-stat-value {
+        font-size: 1rem;
+    }
+    .gh-stat-card {
+        padding: 12px 8px;
+    }
+
+    .cert-card {
+        padding: 12px;
+        gap: 10px;
+    }
+    .cert-badge {
+        width: 34px;
+        height: 34px;
+        min-width: 34px;
+        font-size: 0.9rem;
+    }
+    .cert-name {
+        font-size: 0.8rem;
+    }
+
+    .contact-card {
+        padding: 12px 14px;
+    }
+    .contact-form {
+        padding: 16px 12px;
+    }
+
+    .nav-logo {
+        font-size: 20px;
+    }
+    .sidebar {
+        width: 90vw;
+        padding: 64px 16px 24px;
+    }
+    .sidebar-link {
+        font-size: 16px;
+    }
+
+    .blog-card {
+        padding: 14px;
+    }
+    .blog-title {
+        font-size: 15px;
+    }
+
+    .loader-orbit-system {
+        width: 110px;
+        height: 110px;
+    }
+    .loader-orbit-1 {
+        width: 110px;
+        height: 110px;
+    }
+    .loader-orbit-2 {
+        width: 90px;
+        height: 90px;
+    }
+    .loader-orbit-3 {
+        width: 70px;
+        height: 70px;
+    }
+    .loader-diamond {
+        width: 48px;
+        height: 48px;
+    }
+    .loader-dk {
+        font-size: 1rem;
+    }
+    .loader-bar-bg {
+        width: 100px;
+    }
+}
+
+/* ────────────────────────────────────────────────────────────────
+   OVERFLOW SAFETY NET — prevent ANY horizontal scroll
+   ──────────────────────────────────────────────────────────────── */
+@media screen and (max-width: 1024px) {
+    .github-chart {
+        min-width: 0;
+        width: 100%;
+    }
+    img,
+    video,
+    canvas,
+    svg {
+        max-width: 100%;
+        height: auto;
+    }
+    .mock-term-line {
+        white-space: normal;
+        word-break: break-word;
+    }
+    .mc-line {
+        white-space: normal;
+        word-break: break-word;
+    }
+    .contact-card-body p {
+        white-space: normal;
+        overflow: visible;
+        text-overflow: unset;
+    }
+}

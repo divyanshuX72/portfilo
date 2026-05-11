@@ -389,17 +389,6 @@ document.addEventListener('DOMContentLoaded', () => {
             featured: true,
             icon: 'fas fa-heartbeat',
             categories: ['web']
-        },
-        {
-            name: 'C-Language-Banking-Management-System',
-            displayName: 'C Language Banking Management System',
-            description: 'Banking Management System in C language that manages customer accounts, deposits, withdrawals, balance inquiry, and transaction records using file handling.',
-            language: 'C',
-            topics: ['c', 'banking', 'file-handling'],
-            githubUrl: 'https://github.com/divyanshuX72/C-Language-Banking-Management-System',
-            featured: false,
-            icon: 'fas fa-landmark',
-            categories: ['web']  // map 'C' to general category
         }
     ];
 
@@ -641,9 +630,11 @@ document.addEventListener('DOMContentLoaded', () => {
             if (!res.ok) throw new Error('GitHub API error');
             const githubRepos = await res.json();
 
-            // Filter out forks, sort by updated
+            // Filter out forks and excluded repos, then sort by updated
+            const excludedRepos = new Set(['portfilo', 'c-language-banking-management-system']);
             const liveRepos = githubRepos
                 .filter(r => !r.fork)
+                .filter(r => !excludedRepos.has((r.name || '').toLowerCase()))
                 .sort((a, b) => new Date(b.updated_at) - new Date(a.updated_at));
 
             // Names of curated projects we already have (case-insensitive deduplication)

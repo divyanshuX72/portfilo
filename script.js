@@ -542,6 +542,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const langMeta = LANG_META[lang] || { icon: 'fas fa-code', color: '#C8A96A' };
         const icon = isCurated ? project.icon : getRepoIcon(project.name);
         const name = isCurated ? project.displayName : project.name.replace(/-/g, ' ');
+        const langLabel = name.toLowerCase() === 'paynest pro' ? 'Node.js' : lang;
         const desc = project.description || 'A cool project on GitHub. Click to explore the source code.';
         const url = isCurated ? project.githubUrl : project.html_url;
         const featured = isCurated ? project.featured : false;
@@ -566,7 +567,7 @@ document.addEventListener('DOMContentLoaded', () => {
             <div class="project-info">
                 <div class="project-meta">
                     <span class="project-lang" style="color:${langMeta.color}">
-                        <i class="${langMeta.icon}"></i> ${lang}
+                        <i class="${langMeta.icon}"></i> ${langLabel}
                     </span>
                     ${featured ? '<span class="project-featured-tag">⭐ Highlighted</span>' : ''}
                 </div>
@@ -1472,5 +1473,10 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     });
+
+    const initialSkillTab = document.querySelector('.skill-tab.active') || skillTabs[0];
+    if (initialSkillTab) {
+        initialSkillTab.click();
+    }
 
 });

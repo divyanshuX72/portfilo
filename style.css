@@ -3743,8 +3743,12 @@ body.sidebar-open {
 /* Terminal Grid */
 .terminal-grid {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
     gap: 28px;
+    width: 100%;
+    max-width: 900px;
+    margin: 0 auto;
+    justify-content: center;
 }
 
 /* Terminal Panel */
@@ -4201,7 +4205,8 @@ body.sidebar-open {
 /* 3-Column Grid for 6 terminal panels on desktop */
 @media (min-width: 993px) {
     .terminal-grid {
-        grid-template-columns: repeat(3, 1fr);
+        grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+        justify-content: center;
     }
 }
 
@@ -5170,7 +5175,8 @@ button:active,
     }
 
     .terminal-grid {
-        grid-template-columns: repeat(2, 1fr) !important;
+        grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)) !important;
+        justify-content: center;
     }
 
     .project-card,
@@ -7276,8 +7282,9 @@ img.loaded {
 
     /* -- SKILLS -- */
     .terminal-grid {
-        grid-template-columns: repeat(2, 1fr);
+        grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
         gap: 20px;
+        justify-content: center;
     }
 
     /* -- PROJECTS -- */

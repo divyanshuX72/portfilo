@@ -347,36 +347,14 @@ document.addEventListener('DOMContentLoaded', () => {
     // Curated/highlighted projects (manually specified — may not yet be on GitHub)
     const CURATED_PROJECTS = [
         {
-            name: 'Playwright-Web-Automation-Framework',
-            displayName: 'Playwright Web Automation Framework',
-            description: 'A robust end-to-end web automation testing framework built with Playwright. Supports cross-browser testing, CI/CD integration, and parallel test execution.',
+            name: 'PayNest-Pro',
+            displayName: 'PayNest Pro',
+            description: 'A comprehensive payment and financial management platform featuring secure transactions and advanced node.js backend architecture.',
             language: 'JavaScript',
-            topics: ['automation', 'playwright', 'testing', 'web'],
-            githubUrl: 'https://github.com/divyanshuX72/Playwright-Web-Automation-Framework',
+            topics: ['finance', 'payment', 'web', 'nodejs'],
+            githubUrl: 'https://github.com/divyanshuX72/PayNest-Pro',
             featured: true,
-            icon: 'fas fa-robot',
-            categories: ['automation', 'web']
-        },
-        {
-            name: 'BlueHeaven-Guard',
-            displayName: 'BlueHeaven Guard — Smart Branch Safety System',
-            description: 'An intelligent smart branch safety & monitoring system with real-time alerts, sensor data analysis, and automated guardian protocols for branch protection.',
-            language: 'Python',
-            topics: ['python', 'iot', 'security', 'automation'],
-            githubUrl: 'https://github.com/divyanshuX72',
-            featured: true,
-            icon: 'fas fa-shield-alt',
-            categories: ['python', 'automation']
-        },
-        {
-            name: 'Wavelength-Enterprise-Site',
-            displayName: 'Wavelength Enterprise Site',
-            description: 'A full-featured enterprise website for Wavelength — a luxury interior design firm. Features a dark luxury aesthetic, service showcase, and contact system.',
-            language: 'PHP',
-            topics: ['web', 'php', 'css', 'javascript'],
-            githubUrl: 'https://github.com/divyanshuX72',
-            featured: true,
-            icon: 'fas fa-building',
+            icon: 'fas fa-money-check-alt',
             categories: ['web']
         },
         {
@@ -388,6 +366,50 @@ document.addEventListener('DOMContentLoaded', () => {
             githubUrl: 'https://github.com/divyanshuX72/MedSupplyAI',
             featured: true,
             icon: 'fas fa-heartbeat',
+            categories: ['web']
+        },
+        {
+            name: 'BlueHeaven-Guard',
+            displayName: 'BlueHeaven Guard — Smart Branch Safety System',
+            description: 'An intelligent smart branch safety & monitoring system with real-time alerts, sensor data analysis, and automated guardian protocols for branch protection.',
+            language: 'Python',
+            topics: ['python', 'iot', 'security', 'automation'],
+            githubUrl: 'https://github.com/divyanshuX72/BlueHeaven-Guard',
+            featured: true,
+            icon: 'fas fa-shield-alt',
+            categories: ['python', 'automation']
+        },
+        {
+            name: 'Playwright-Web-Automation-Framework',
+            displayName: 'Playwright Web Automation Framework',
+            description: 'A robust end-to-end web automation testing framework built with Playwright. Supports cross-browser testing, CI/CD integration, and parallel test execution.',
+            language: 'JavaScript',
+            topics: ['automation', 'playwright', 'testing', 'web'],
+            githubUrl: 'https://github.com/divyanshuX72/Playwright-Web-Automation-Framework',
+            featured: true,
+            icon: 'fas fa-robot',
+            categories: ['automation', 'web']
+        },
+        {
+            name: 'apna-dental-care',
+            displayName: 'apna dental care',
+            description: 'A modern, comprehensive dental clinic management and appointment scheduling system designed for optimal patient experience.',
+            language: 'JavaScript',
+            topics: ['medical', 'web', 'management'],
+            githubUrl: 'https://github.com/divyanshuX72/apna-dental-care',
+            featured: true,
+            icon: 'fas fa-tooth',
+            categories: ['web']
+        },
+        {
+            name: 'Wavelength-Enterprise-Site',
+            displayName: 'Wavelength Enterprise Site',
+            description: 'A full-featured enterprise website for Wavelength — a luxury interior design firm. Features a dark luxury aesthetic, service showcase, and contact system.',
+            language: 'PHP',
+            topics: ['web', 'php', 'css', 'javascript'],
+            githubUrl: 'https://github.com/divyanshuX72/Wavelength-Enterprise-Site',
+            featured: true,
+            icon: 'fas fa-building',
             categories: ['web']
         }
     ];
@@ -526,7 +548,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function buildProjectCard(project, delay, isCurated = false) {
-        const cats = isCurated ? (project.categories || ['web']) : getCategories(project);
         const lang = project.language || 'Code';
         const langMeta = LANG_META[lang] || { icon: 'fas fa-code', color: '#C8A96A' };
         const icon = isCurated ? project.icon : getRepoIcon(project.name);
@@ -538,10 +559,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const mockHTML = getMockPreview(icon, langMeta.color, lang, name, featured);
 
+        // Create a swiper-slide wrapper
+        const slide = document.createElement('div');
+        slide.className = 'swiper-slide';
+
         const card = document.createElement('div');
         card.className = 'project-card' + (featured ? ' project-card--featured' : '');
-        card.setAttribute('data-categories', cats.join(','));
-        card.style.animationDelay = `${delay}ms`;
 
         card.innerHTML = `
             <div class="project-image" style="--lang-color:${langMeta.color}">
@@ -569,56 +592,73 @@ document.addEventListener('DOMContentLoaded', () => {
                 </div>
             </div>
         `;
-        return { card, cats };
+        slide.appendChild(card);
+        return slide;
     }
 
     function renderProjects(allProjects) {
         const grid = document.getElementById('projectsGrid');
         const loading = document.getElementById('projectsLoading');
         const cta = document.getElementById('projectsCta');
-        const filterBtns = document.querySelectorAll('.filter-btn');
+        const carouselWrapper = document.getElementById('projectsCarouselWrapper');
 
         grid.innerHTML = '';
-        const allCards = [];
 
         allProjects.forEach((proj, i) => {
             const isCurated = proj._curated === true;
-            const { card, cats } = buildProjectCard(proj, i * 80, isCurated);
-            grid.appendChild(card);
-            allCards.push({ card, cats });
+            const slide = buildProjectCard(proj, i * 80, isCurated);
+            grid.appendChild(slide);
         });
 
         loading.style.display = 'none';
-        grid.style.display = 'grid';
+        if (carouselWrapper) carouselWrapper.style.display = 'block';
         cta.style.display = 'flex';
 
-        // Animate cards in
-        setTimeout(() => {
-            grid.querySelectorAll('.project-card').forEach((c, i) => {
-                setTimeout(() => c.classList.add('card-visible'), i * 80);
+        // ─── INITIALIZE SWIPER CAROUSEL ───
+        if (typeof Swiper !== 'undefined') {
+            const projectsSwiper = new Swiper('#projectsSwiper', {
+                slidesPerView: 1,
+                spaceBetween: 24,
+                loop: true,
+                speed: 650,
+                grabCursor: true,
+                autoplay: {
+                    delay: 3000,
+                    disableOnInteraction: false,
+                    pauseOnMouseEnter: true,
+                },
+                pagination: {
+                    el: '#projectsPagination',
+                    clickable: true,
+                    dynamicBullets: false,
+                },
+                navigation: {
+                    nextEl: '#projectsNext',
+                    prevEl: '#projectsPrev',
+                },
+                breakpoints: {
+                    640: {
+                        slidesPerView: 2,
+                        spaceBetween: 24,
+                    },
+                    1024: {
+                        slidesPerView: 3,
+                        spaceBetween: 28,
+                    },
+                },
             });
-        }, 50);
 
-        // ─── FILTER LOGIC ───
-        filterBtns.forEach(btn => {
-            btn.addEventListener('click', () => {
-                filterBtns.forEach(b => b.classList.remove('active'));
-                btn.classList.add('active');
-                const filter = btn.getAttribute('data-filter');
-
-                allCards.forEach(({ card, cats }) => {
-                    const visible = filter === 'all' || cats.includes(filter);
-                    if (visible) {
-                        card.classList.remove('hidden');
-                        card.style.animation = 'none';
-                        card.offsetHeight; // reflow
-                        card.style.animation = 'cardFadeInUp 0.45s ease forwards';
-                    } else {
-                        card.classList.add('hidden');
-                    }
+            // Pause autoplay on card hover (entire carousel area)
+            const swiperEl = document.getElementById('projectsSwiper');
+            if (swiperEl) {
+                swiperEl.addEventListener('mouseenter', () => {
+                    if (projectsSwiper.autoplay) projectsSwiper.autoplay.stop();
                 });
-            });
-        });
+                swiperEl.addEventListener('mouseleave', () => {
+                    if (projectsSwiper.autoplay) projectsSwiper.autoplay.start();
+                });
+            }
+        }
     }
 
     async function loadProjects() {
@@ -686,17 +726,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // ─── CONTACT FORM (EmailJS Integration) ───
     // Initialize EmailJS — Replace with your actual keys from https://www.emailjs.com/
-    const EMAILJS_PUBLIC_KEY   = 'YOUR_PUBLIC_KEY';    // ← Replace this
-    const EMAILJS_SERVICE_ID   = 'YOUR_SERVICE_ID';    // ← Replace this
-    const EMAILJS_TEMPLATE_ID  = 'YOUR_TEMPLATE_ID';   // ← Replace this
+    const EMAILJS_PUBLIC_KEY = 'YOUR_PUBLIC_KEY';    // ← Replace this
+    const EMAILJS_SERVICE_ID = 'YOUR_SERVICE_ID';    // ← Replace this
+    const EMAILJS_TEMPLATE_ID = 'YOUR_TEMPLATE_ID';   // ← Replace this
 
     if (typeof emailjs !== 'undefined') {
         emailjs.init(EMAILJS_PUBLIC_KEY);
     }
 
-    const form       = document.getElementById('contactForm');
-    const submitBtn  = document.getElementById('contactSubmitBtn');
-    const toast      = document.getElementById('contactToast');
+    const form = document.getElementById('contactForm');
+    const submitBtn = document.getElementById('contactSubmitBtn');
+    const toast = document.getElementById('contactToast');
     const toastError = document.getElementById('contactToastError');
     const toastClose = document.getElementById('toastClose');
     const toastCloseError = document.getElementById('toastCloseError');
@@ -751,12 +791,12 @@ document.addEventListener('DOMContentLoaded', () => {
         form.addEventListener('submit', async (e) => {
             e.preventDefault();
 
-            const nameInput    = document.getElementById('contact-name');
-            const emailInput   = document.getElementById('contact-email');
+            const nameInput = document.getElementById('contact-name');
+            const emailInput = document.getElementById('contact-email');
             const messageInput = document.getElementById('contact-message');
 
-            const name    = nameInput.value.trim();
-            const email   = emailInput.value.trim();
+            const name = nameInput.value.trim();
+            const email = emailInput.value.trim();
             const message = messageInput.value.trim();
 
             // Validate

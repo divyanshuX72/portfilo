@@ -225,6 +225,12 @@
         <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css">
     </noscript>
 
+    <!-- Swiper.js Carousel (Async) -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" media="print" onload="this.media='all'">
+    <noscript>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
+    </noscript>
+
     <!-- Main Stylesheet -->
     <link rel="stylesheet" href="style.css">
 
@@ -1135,23 +1141,27 @@
                 </p>
             </div>
 
-            <!-- Filter Buttons -->
-            <div class="project-filters" data-aos="fade-up" data-aos-delay="200">
-                <button class="filter-btn active" data-filter="all" id="filter-all">All</button>
-                <button class="filter-btn" data-filter="java" id="filter-java">Java</button>
-                <button class="filter-btn" data-filter="python" id="filter-python">Python</button>
-                <button class="filter-btn" data-filter="web" id="filter-web">Web</button>
-                <button class="filter-btn" data-filter="automation" id="filter-automation">Automation</button>
-            </div>
-
             <!-- Loading Skeleton -->
             <div class="projects-loading" id="projectsLoading" aria-live="polite">
                 <div class="loading-spinner"></div>
                 <p class="loading-text">Fetching repositories from GitHub...</p>
             </div>
 
-            <!-- Projects Grid (populated by JS) -->
-            <div class="projects-grid" id="projectsGrid" style="display:none;"></div>
+            <!-- Swiper Carousel (populated by JS) -->
+            <div class="projects-carousel-wrapper" id="projectsCarouselWrapper" style="display:none;" data-aos="fade-up" data-aos-delay="200">
+                <div class="swiper projects-swiper" id="projectsSwiper">
+                    <div class="swiper-wrapper" id="projectsGrid"></div>
+                    <!-- Pagination -->
+                    <div class="swiper-pagination projects-pagination" id="projectsPagination"></div>
+                </div>
+                <!-- Navigation Arrows -->
+                <button class="swiper-nav-btn swiper-nav-prev" id="projectsPrev" aria-label="Previous project">
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+                <button class="swiper-nav-btn swiper-nav-next" id="projectsNext" aria-label="Next project">
+                    <i class="fas fa-chevron-right"></i>
+                </button>
+            </div>
 
             <!-- Error State -->
             <div class="projects-error" id="projectsError" style="display:none;">
@@ -1639,6 +1649,7 @@
     <script defer src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script defer src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
     <script defer src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <script defer src="script.js"></script>
 </body>
 

@@ -631,7 +631,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const githubRepos = await res.json();
 
             // Filter out forks and excluded repos, then sort by updated
-            const excludedRepos = new Set(['portfilo', 'c-language-banking-management-system']);
+            const excludedRepos = new Set(['portfilo', 'c-language-banking-management-system', 'divyanshux72']);
             const liveRepos = githubRepos
                 .filter(r => !r.fork)
                 .filter(r => !excludedRepos.has((r.name || '').toLowerCase()))

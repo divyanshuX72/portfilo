@@ -632,10 +632,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     clickable: true,
                     dynamicBullets: false,
                 },
-                navigation: {
-                    nextEl: '#projectsNext',
-                    prevEl: '#projectsPrev',
-                },
+
                 breakpoints: {
                     640: {
                         slidesPerView: 2,
@@ -1012,8 +1009,17 @@ document.addEventListener('DOMContentLoaded', () => {
             let lightAngle = 0;
 
             // ── ANIMATION LOOP ──
+            let isHeroVisible = true;
+            
+            const heroObserver = new IntersectionObserver((entries) => {
+                isHeroVisible = entries[0].isIntersecting;
+            }, { threshold: 0 });
+            heroObserver.observe(heroSection);
+
             function animate() {
                 requestAnimationFrame(animate);
+                
+                if (!isHeroVisible) return;
 
                 const t = Date.now() * 0.001;
 
@@ -1077,11 +1083,11 @@ document.addEventListener('DOMContentLoaded', () => {
             alpha: true,
             antialias: false // Optimize for performance
         });
-        rendererBg.setPixelRatio(Math.min(window.devicePixelRatio, 1.5)); // Lightweight rendering
+        rendererBg.setPixelRatio(Math.min(window.devicePixelRatio, 1.0)); // Lightweight rendering
         rendererBg.setSize(window.innerWidth, window.innerHeight);
 
         // 1. Animated Network Nodes (Optimized WebGL GL_LINES)
-        const particleCount = 70;
+        const particleCount = 35;
         const particlesGeo = new THREE.BufferGeometry();
         const particlePos = new Float32Array(particleCount * 3);
         const particleVel = [];
@@ -1173,8 +1179,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const clockBg = new THREE.Clock();
 
+        let isGlobalBgActive = true;
+        document.addEventListener("visibilitychange", () => {
+            isGlobalBgActive = !document.hidden;
+        });
+
         function animateGlobalBg() {
             requestAnimationFrame(animateGlobalBg);
+
+            if (!isGlobalBgActive) return;
 
             // Rotate Cubes
             devCube1.rotation.x += 0.002;
@@ -1261,12 +1274,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const circumference = 2 * Math.PI * 45; // r=45
 
         const loadingMessages = [
-            'Initializing components...',
-            'Loading Three.js scene...',
-            'Rendering particle systems...',
-            'Compiling stylesheets...',
-            'Connecting to GitHub API...',
-            'Fetching repositories...',
+            'Initializing...',
             'Optimizing performance...',
             'Building UI components...',
             'Almost ready...',
@@ -1285,7 +1293,6 @@ document.addEventListener('DOMContentLoaded', () => {
             }
             if (loaderPercent) loaderPercent.textContent = Math.round(progress) + '%';
 
-            // Update message with smooth fade
             const newIdx = Math.min(Math.floor(progress / (100 / loadingMessages.length)), loadingMessages.length - 1);
             if (newIdx !== msgIdx && loaderText) {
                 msgIdx = newIdx;
@@ -1295,51 +1302,31 @@ document.addEventListener('DOMContentLoaded', () => {
                     loaderText.textContent = loadingMessages[msgIdx];
                     loaderText.style.opacity = '0.8';
                     loaderText.style.transform = 'translateY(0)';
-                }, 200);
+                }, 100);
             }
         }
 
-        // Simulate loading progress — SLOWER & more realistic
-        function simulateLoading() {
+        // Fast 1-second loading simulation
+        function simulateLoadingFast() {
+            const duration = 1000; // 1 second total
+            const intervalTime = 20; 
+            const increment = 100 / (duration / intervalTime);
+
             const interval = setInterval(() => {
-                if (progress < 85) {
-                    // Slower increments with natural variation
-                    const increment = Math.random() * 5 + 2; // 2-7% per step
+                if (progress < 100) {
                     progress += increment;
                     updateLoader(progress);
                 } else {
                     clearInterval(interval);
-                }
-            }, 350); // 350ms intervals (slower)
-        }
-        simulateLoading();
-
-        // Complete on window load — show 100% for a beat before dismissing
-        window.addEventListener('load', () => {
-            // Smoothly fill to 100%
-            let fillInterval = setInterval(() => {
-                if (progress < 100) {
-                    progress += 2;
-                    updateLoader(Math.min(progress, 100));
-                } else {
-                    clearInterval(fillInterval);
-                    // Hold at 100% briefly so user can see "Launching portfolio ✨"
                     setTimeout(() => {
                         preloader.classList.add('hidden');
                         document.body.classList.add('loaded');
-                    }, 1000);
+                    }, 200); // tiny pause at 100%
                 }
-            }, 40);
-        });
-
-        // Fallback — longer timeout
-        setTimeout(() => {
-            updateLoader(100);
-            setTimeout(() => {
-                preloader.classList.add('hidden');
-                document.body.classList.add('loaded');
-            }, 800);
-        }, 6000);
+            }, intervalTime);
+        }
+        
+        simulateLoadingFast();
     }
 
     // ─── ANIMATED CUSTOM CURSOR ───
@@ -1350,11 +1337,17 @@ document.addEventListener('DOMContentLoaded', () => {
     if (cursorDot && cursorRing && !isTouchDevice) {
         let mouseX = 0, mouseY = 0;
         let ringX = 0, ringY = 0;
+        let cursorRaf;
 
         document.addEventListener('mousemove', (e) => {
             mouseX = e.clientX;
             mouseY = e.clientY;
-            cursorDot.style.transform = `translate(${mouseX}px, ${mouseY}px)`;
+            if (!cursorRaf) {
+                cursorRaf = requestAnimationFrame(() => {
+                    cursorDot.style.transform = `translate(${mouseX}px, ${mouseY}px)`;
+                    cursorRaf = null;
+                });
+            }
         });
 
         // Smooth ring follow
@@ -1449,11 +1442,17 @@ document.addEventListener('DOMContentLoaded', () => {
     // ─── FLOATING TECH ICONS — MOUSE PARALLAX ───
     const floatingIcons = document.getElementById('floatingTechIcons');
     if (floatingIcons && window.innerWidth > 768) {
+        let iconRaf;
         document.addEventListener('mousemove', (e) => {
-            const x = (e.clientX / window.innerWidth - 0.5) * 10;
-            const y = (e.clientY / window.innerHeight - 0.5) * 10;
-            floatingIcons.style.transform = `translate(${x}px, ${y}px)`;
-        });
+            if (!iconRaf) {
+                iconRaf = requestAnimationFrame(() => {
+                    const x = (e.clientX / window.innerWidth - 0.5) * 10;
+                    const y = (e.clientY / window.innerHeight - 0.5) * 10;
+                    floatingIcons.style.transform = `translate(${x}px, ${y}px) translateZ(0)`;
+                    iconRaf = null;
+                });
+            }
+        }, { passive: true });
     }
 
     // ─── ENHANCED DARK/LIGHT MODE — SMOOTH TRANSITION ───

@@ -230,8 +230,8 @@ img {
     padding: 16px 0;
     transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     background: rgba(10, 10, 10, 0.85);
-    backdrop-filter: blur(18px);
-    -webkit-backdrop-filter: blur(18px);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
     border-bottom: 1px solid rgba(245, 197, 24, 0.12);
     box-shadow: 0 2px 24px rgba(245, 197, 24, 0.06),
         0 1px 0 rgba(245, 197, 24, 0.08);
@@ -661,6 +661,8 @@ body.sidebar-open {
     background-size: 300% 300%;
     animation: goldGlow 3s linear infinite;
     box-shadow: 0 0 28px rgba(245, 197, 24, 0.45), 0 0 70px rgba(245, 197, 24, 0.14);
+    will-change: opacity, transform;
+    transform: translateZ(0);
 }
 
 .hero-avatar {
@@ -685,15 +687,13 @@ body.sidebar-open {
 
 @keyframes goldGlow {
     0% {
-        background-position: 0% 50%;
+        opacity: 0.8;
     }
-
     50% {
-        background-position: 100% 50%;
+        opacity: 1;
     }
-
     100% {
-        background-position: 0% 50%;
+        opacity: 0.8;
     }
 }
 
@@ -938,8 +938,8 @@ body.sidebar-open {
 .profile-card {
     position: relative;
     background: rgba(17, 17, 17, 0.75);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
     border-radius: 24px;
     padding: 28px;
     display: flex;
@@ -1249,8 +1249,8 @@ body.sidebar-open {
     font-weight: 600;
     color: var(--white);
     background: rgba(11, 11, 11, 0.88);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
     border-radius: 30px;
     border: 1px solid var(--border);
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
@@ -1771,8 +1771,8 @@ body.sidebar-open {
     border-radius: 50%;
     border: 1px solid rgba(200, 169, 106, 0.3);
     background: rgba(17, 17, 17, 0.85);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
     color: var(--gold);
     font-size: 16px;
     cursor: pointer;
@@ -1833,8 +1833,8 @@ body.sidebar-open {
 /* ── Project Card (Swiper Slide) ── */
 .project-card {
     background: rgba(17, 17, 17, 0.75);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
     border: 1px solid rgba(200, 169, 106, 0.12);
     border-radius: 20px;
     overflow: hidden;
@@ -2520,7 +2520,7 @@ body.sidebar-open {
 
 .achievement-content {
     background: rgba(10, 18, 24, 0.7);
-    backdrop-filter: blur(10px);
+    backdrop-filter: blur(8px);
     border-left: 3px solid transparent;
     position: relative;
     overflow: hidden;
@@ -2641,7 +2641,7 @@ body.sidebar-open {
 .contact-orb {
     position: absolute;
     border-radius: 50%;
-    filter: blur(80px);
+    filter: blur(8px);
     opacity: 0.12;
     animation: contactOrbFloat 12s ease-in-out infinite;
 }
@@ -2734,8 +2734,8 @@ body.sidebar-open {
 /* ── Contact Cards — Glassmorphic ── */
 .contact-card {
     background: rgba(17, 17, 17, 0.7);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
     border: 1px solid var(--border);
     border-radius: 14px;
     padding: 20px 24px;
@@ -2930,8 +2930,8 @@ body.sidebar-open {
 
 .contact-form-card {
     background: rgba(17, 17, 17, 0.6);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
     border: 1px solid var(--border);
     border-radius: 20px;
     overflow: hidden;
@@ -3045,7 +3045,7 @@ body.sidebar-open {
 
 @keyframes glowPulse {
     0%, 100% { opacity: 0.6; filter: blur(8px); }
-    50%      { opacity: 1;   filter: blur(12px); }
+    50%      { opacity: 1;   filter: blur(8px); }
 }
 
 .form-group input,
@@ -3290,8 +3290,8 @@ body.sidebar-open {
     bottom: 32px;
     right: 32px;
     background: rgba(17, 17, 17, 0.95);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
     border: 1px solid rgba(0, 255, 136, 0.25);
     border-radius: 16px;
     padding: 20px 24px;
@@ -3604,7 +3604,7 @@ body.sidebar-open {
     overflow: hidden;
     transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     position: relative;
-    backdrop-filter: blur(10px);
+    backdrop-filter: blur(8px);
 }
 
 .terminal-panel::before {
@@ -4111,7 +4111,7 @@ body.sidebar-open {
         width: 280px;
         height: 100vh;
         background: rgba(10, 10, 10, 0.98);
-        backdrop-filter: blur(20px);
+        backdrop-filter: blur(8px);
         flex-direction: column;
         align-items: flex-start;
         padding: 80px 32px 32px;
@@ -6027,8 +6027,8 @@ img.loaded {
 /* ── Blog Card V2 ── */
 .blog-card-v2 {
     background: rgba(17, 17, 17, 0.7);
-    backdrop-filter: blur(14px);
-    -webkit-backdrop-filter: blur(14px);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
     border: 1px solid var(--border);
     border-radius: 18px;
     overflow: hidden;
@@ -6112,7 +6112,7 @@ img.loaded {
     font-size: 32px;
     color: var(--gold);
     animation: blogIconFloat 4s ease-in-out infinite;
-    backdrop-filter: blur(10px);
+    backdrop-filter: blur(8px);
     box-shadow:
         0 8px 32px rgba(0, 0, 0, 0.3),
         0 0 40px rgba(245, 197, 24, 0.08);
@@ -6428,7 +6428,7 @@ img.loaded {
 
 @keyframes lineGlow {
     0%, 100% { opacity: 0.4; filter: blur(6px); }
-    50%      { opacity: 0.8; filter: blur(12px); }
+    50%      { opacity: 0.8; filter: blur(8px); }
 }
 
 /* ── SECTION TITLE SHIMMER ── */
@@ -6567,8 +6567,8 @@ img.loaded {
 /* ── STATS PREMIUM GLASS ── */
 .about-stats {
     background: rgba(17, 17, 17, 0.8);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
     box-shadow:
         0 4px 24px rgba(0, 0, 0, 0.3),
         inset 0 1px 0 rgba(255, 255, 255, 0.04);
@@ -6657,8 +6657,8 @@ img.loaded {
 
 /* ── SKILL STAT CHIP GLOW ── */
 .skill-stat-chip {
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
     transition: all 0.3s ease;
 }
 
@@ -7047,12 +7047,12 @@ img.loaded {
 /* ── CONTACT ORB ENHANCED ── */
 .contact-orb-1 {
     opacity: 0.15;
-    filter: blur(60px);
+    filter: blur(8px);
 }
 
 .contact-orb-2 {
     opacity: 0.12;
-    filter: blur(50px);
+    filter: blur(8px);
 }
 
 /* ── HACKER SECTION BACKGROUND DEPTH ── */

@@ -659,7 +659,7 @@ body.sidebar-open {
     padding: 3px;
     background: linear-gradient(135deg, #f5c518, #00ff88, #f5c518, #c9a100, #00ff88);
     background-size: 300% 300%;
-    animation: goldGlow 3s linear infinite;
+    /* Removed expensive background-position animation for performance */
     box-shadow: 0 0 28px rgba(245, 197, 24, 0.45), 0 0 70px rgba(245, 197, 24, 0.14);
 }
 
@@ -683,19 +683,7 @@ body.sidebar-open {
     text-shadow: 0 0 20px rgba(245, 197, 24, 0.5);
 }
 
-@keyframes goldGlow {
-    0% {
-        background-position: 0% 50%;
-    }
-
-    50% {
-        background-position: 100% 50%;
-    }
-
-    100% {
-        background-position: 0% 50%;
-    }
-}
+/* goldGlow keyframes removed for performance */
 
 /* ─── AVAILABLE FOR HIRE BADGE ─── */
 .available-badge {

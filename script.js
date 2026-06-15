@@ -80,17 +80,18 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // Update sidebar active link on scroll
-    function updateSidebarActiveLink() {
-        let current = '';
-        sections.forEach(sec => {
-            const top = sec.offsetTop - 120;
-            if (window.scrollY >= top) current = sec.getAttribute('id');
+    // ─── SIDEBAR ACTIVE LINK OBSERVER ───
+    const sidebarObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const current = entry.target.getAttribute('id');
+                sidebarLinks.forEach(link => {
+                    link.classList.toggle('active', link.getAttribute('href') === '#' + current);
+                });
+            }
         });
-        sidebarLinks.forEach(link => {
-            link.classList.toggle('active', link.getAttribute('href') === '#' + current);
-        });
-    }
+    }, { rootMargin: '-20% 0px -60% 0px', threshold: 0 });
+    sections.forEach(sec => sidebarObserver.observe(sec));
 
     // ─── CENTRAL THROTTLED SCROLL PROGRESS ───
     let isScrolling = false;
@@ -98,13 +99,11 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!isScrolling) {
             window.requestAnimationFrame(() => {
                 onScroll();
-                updateSidebarActiveLink();
                 isScrolling = false;
             });
             isScrolling = true;
         }
     }, { passive: true });
-    updateSidebarActiveLink();
 
     // ─── DARK/LIGHT THEME TOGGLE ───
     let isDarkMode = true;
@@ -1012,8 +1011,12 @@ document.addEventListener('DOMContentLoaded', () => {
             let lightAngle = 0;
 
             // ── ANIMATION LOOP ──
+            let heroAnimationId;
+            let isHeroVisible = true;
+
             function animate() {
-                requestAnimationFrame(animate);
+                if (!isHeroVisible) return;
+                heroAnimationId = requestAnimationFrame(animate);
 
                 const t = Date.now() * 0.001;
 
@@ -1050,6 +1053,20 @@ document.addEventListener('DOMContentLoaded', () => {
             }
             animate();
 
+            // Pause animation when out of view
+            const heroVisObserver = new IntersectionObserver((entries) => {
+                if (entries[0].isIntersecting) {
+                    if (!isHeroVisible) {
+                        isHeroVisible = true;
+                        animate();
+                    }
+                } else {
+                    isHeroVisible = false;
+                    if (heroAnimationId) cancelAnimationFrame(heroAnimationId);
+                }
+            });
+            heroVisObserver.observe(heroSection);
+
             // ── RESIZE HANDLER ──
             window.addEventListener('resize', () => {
                 const nW = container.clientWidth || window.innerWidth * 0.5;
@@ -1065,186 +1082,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // ─── THREE.JS — GLOBAL FUTURISTIC BACKGROUND ───
-    const globalCanvas = document.getElementById('global-3d-bg');
-    const isMobileGlobal = window.innerWidth < 768;
-    if (globalCanvas && typeof THREE !== 'undefined' && !isMobileGlobal) {
-        const sceneBg = new THREE.Scene();
-        const cameraBg = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 1000);
-        cameraBg.position.z = 30;
-
-        const rendererBg = new THREE.WebGLRenderer({
-            canvas: globalCanvas,
-            alpha: true,
-            antialias: false // Optimize for performance
-        });
-        rendererBg.setPixelRatio(Math.min(window.devicePixelRatio, 1.5)); // Lightweight rendering
-        rendererBg.setSize(window.innerWidth, window.innerHeight);
-
-        // 1. Animated Network Nodes (Optimized WebGL GL_LINES)
-        const particleCount = 70;
-        const particlesGeo = new THREE.BufferGeometry();
-        const particlePos = new Float32Array(particleCount * 3);
-        const particleVel = [];
-
-        for (let i = 0; i < particleCount; i++) {
-            particlePos[i * 3] = (Math.random() - 0.5) * 80;
-            particlePos[i * 3 + 1] = (Math.random() - 0.5) * 80;
-            particlePos[i * 3 + 2] = (Math.random() - 0.5) * 40;
-            particleVel.push({
-                x: (Math.random() - 0.5) * 0.04,
-                y: (Math.random() - 0.5) * 0.04,
-                z: (Math.random() - 0.5) * 0.04
-            });
-        }
-        particlesGeo.setAttribute('position', new THREE.BufferAttribute(particlePos, 3));
-        const particlesMat = new THREE.PointsMaterial({
-            color: 0x00ff9c,
-            size: 0.2,
-            transparent: true,
-            opacity: 0.5
-        });
-        const networkParticles = new THREE.Points(particlesGeo, particlesMat);
-        sceneBg.add(networkParticles);
-
-        // Network Lines (Pre-allocated Buffer)
-        const lineMat = new THREE.LineBasicMaterial({
-            color: 0x00ff9c,
-            transparent: true,
-            opacity: 0.12
-        });
-        const maxLines = (particleCount * (particleCount - 1)) / 2;
-        const linesGeo = new THREE.BufferGeometry();
-        const linePosArray = new Float32Array(maxLines * 6);
-        linesGeo.setAttribute('position', new THREE.BufferAttribute(linePosArray, 3));
-        const networkLines = new THREE.LineSegments(linesGeo, lineMat);
-        sceneBg.add(networkLines);
-
-        // 2. Rotating Developer Cubes
-        const cubeGeo = new THREE.BoxGeometry(8, 8, 8);
-        const cubeEdges = new THREE.EdgesGeometry(cubeGeo);
-        const cubeMat = new THREE.LineBasicMaterial({ color: 0x00cc7a, transparent: true, opacity: 0.25 });
-
-        const devCube1 = new THREE.LineSegments(cubeEdges, cubeMat);
-        devCube1.position.set(20, -10, -15);
-        sceneBg.add(devCube1);
-
-        const devCube2 = new THREE.LineSegments(cubeEdges, cubeMat);
-        devCube2.scale.set(0.6, 0.6, 0.6);
-        devCube2.position.set(-25, 15, -20);
-        sceneBg.add(devCube2);
-
-        // 3. Floating Code Symbols
-        const symbols = ['{ }', '</>', '[]', '()', 'JS', 'Ts', 'npm'];
-        const symbolSprites = [];
-
-        symbols.forEach((sym) => {
-            const c = document.createElement('canvas');
-            c.width = 128; c.height = 64;
-            const ctx = c.getContext('2d');
-            ctx.fillStyle = '#00ff9c';
-            ctx.font = 'bold 28px "JetBrains Mono", monospace';
-            ctx.textAlign = 'center';
-            ctx.textBaseline = 'middle';
-            ctx.fillText(sym, 64, 32);
-
-            const tex = new THREE.CanvasTexture(c);
-            const spriteMat = new THREE.SpriteMaterial({ map: tex, transparent: true, opacity: 0.25 });
-
-            // Create 2 instances of each symbol
-            for (let j = 0; j < 2; j++) {
-                const sprite = new THREE.Sprite(spriteMat);
-                sprite.scale.set(5, 2.5, 1);
-                sprite.position.set(
-                    (Math.random() - 0.5) * 70,
-                    (Math.random() - 0.5) * 70,
-                    (Math.random() - 0.5) * 30
-                );
-                sceneBg.add(sprite);
-                symbolSprites.push({
-                    mesh: sprite,
-                    speedY: Math.random() * 0.015 + 0.005,
-                    speedX: (Math.random() - 0.5) * 0.01
-                });
-            }
-        });
-
-        // Background Fog
-        sceneBg.fog = new THREE.FogExp2(0x050a0e, 0.02);
-
-        const clockBg = new THREE.Clock();
-
-        function animateGlobalBg() {
-            requestAnimationFrame(animateGlobalBg);
-
-            // Rotate Cubes
-            devCube1.rotation.x += 0.002;
-            devCube1.rotation.y += 0.003;
-            devCube2.rotation.x -= 0.003;
-            devCube2.rotation.z += 0.002;
-
-            // Animate Symbols
-            symbolSprites.forEach(s => {
-                s.mesh.position.y += s.speedY;
-                s.mesh.position.x += s.speedX;
-                if (s.mesh.position.y > 40) {
-                    s.mesh.position.y = -40;
-                }
-            });
-
-            // Animate Network Nodes & Connections
-            const pos = particlesGeo.attributes.position.array;
-            let lineIdx = 0;
-
-            for (let i = 0; i < particleCount; i++) {
-                let px = pos[i * 3] + particleVel[i].x;
-                let py = pos[i * 3 + 1] + particleVel[i].y;
-                let pz = pos[i * 3 + 2] + particleVel[i].z;
-
-                if (px > 40 || px < -40) particleVel[i].x *= -1;
-                if (py > 40 || py < -40) particleVel[i].y *= -1;
-                if (pz > 20 || pz < -20) particleVel[i].z *= -1;
-
-                pos[i * 3] = px;
-                pos[i * 3 + 1] = py;
-                pos[i * 3 + 2] = pz;
-
-                for (let j = i + 1; j < particleCount; j++) {
-                    const px2 = pos[j * 3];
-                    const py2 = pos[j * 3 + 1];
-                    const pz2 = pos[j * 3 + 2];
-
-                    const distSq = (px - px2) ** 2 + (py - py2) ** 2 + (pz - pz2) ** 2;
-
-                    if (distSq < 150) {
-                        linePosArray[lineIdx++] = px;
-                        linePosArray[lineIdx++] = py;
-                        linePosArray[lineIdx++] = pz;
-                        linePosArray[lineIdx++] = px2;
-                        linePosArray[lineIdx++] = py2;
-                        linePosArray[lineIdx++] = pz2;
-                    }
-                }
-            }
-
-            particlesGeo.attributes.position.needsUpdate = true;
-            linesGeo.setDrawRange(0, lineIdx / 3);
-            linesGeo.attributes.position.needsUpdate = true;
-
-            // Global Scene Rotation
-            sceneBg.rotation.y = Math.sin(clockBg.getElapsedTime() * 0.1) * 0.15;
-            sceneBg.rotation.x = Math.cos(clockBg.getElapsedTime() * 0.05) * 0.08;
-
-            rendererBg.render(sceneBg, cameraBg);
-        }
-        animateGlobalBg();
-
-        // Handle Resizing
-        window.addEventListener('resize', () => {
-            cameraBg.aspect = window.innerWidth / window.innerHeight;
-            cameraBg.updateProjectionMatrix();
-            rendererBg.setSize(window.innerWidth, window.innerHeight);
-        });
-    }
+    // Removed for performance optimization.
 
     // ─── SMOOTH SCROLL — Now handled by page transition handler below ───
 
@@ -1449,11 +1287,18 @@ document.addEventListener('DOMContentLoaded', () => {
     // ─── FLOATING TECH ICONS — MOUSE PARALLAX ───
     const floatingIcons = document.getElementById('floatingTechIcons');
     if (floatingIcons && window.innerWidth > 768) {
+        let isFloatingIconsUpdating = false;
         document.addEventListener('mousemove', (e) => {
-            const x = (e.clientX / window.innerWidth - 0.5) * 10;
-            const y = (e.clientY / window.innerHeight - 0.5) * 10;
-            floatingIcons.style.transform = `translate(${x}px, ${y}px)`;
-        });
+            if (!isFloatingIconsUpdating) {
+                requestAnimationFrame(() => {
+                    const x = (e.clientX / window.innerWidth - 0.5) * 10;
+                    const y = (e.clientY / window.innerHeight - 0.5) * 10;
+                    floatingIcons.style.transform = `translate(${x}px, ${y}px)`;
+                    isFloatingIconsUpdating = false;
+                });
+                isFloatingIconsUpdating = true;
+            }
+        }, { passive: true });
     }
 
     // ─── ENHANCED DARK/LIGHT MODE — SMOOTH TRANSITION ───

@@ -1306,10 +1306,10 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
 
-        // Fast 1-second loading simulation
+        // Fast 0.5-second loading simulation
         function simulateLoadingFast() {
-            const duration = 1000; // 1 second total
-            const intervalTime = 20; 
+            const duration = 500; // 0.5 second total
+            const intervalTime = 10; 
             const increment = 100 / (duration / intervalTime);
 
             const interval = setInterval(() => {

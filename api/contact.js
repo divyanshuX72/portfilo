@@ -281,6 +281,8 @@ module.exports = async function handler(req, res) {
         const emailParams = {
             from_name: cleanName,
             from_email: cleanEmail,
+            email: cleanEmail,         // Added for compatibility with {{email}} templates
+            reply_to: cleanEmail,      // Added for Reply-To email functionality
             subject: cleanSubject,
             message: cleanMessage,
             date: dateStr,

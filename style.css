@@ -4326,7 +4326,7 @@ body.light-theme {
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: opacity 1s cubic-bezier(0.4, 0, 0.2, 1), transform 1s cubic-bezier(0.4, 0, 0.2, 1), filter 1s ease, visibility 1s;
+    transition: opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1), transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), filter 0.4s ease, visibility 0.4s;
     overflow: hidden;
 }
 

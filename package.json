@@ -1,0 +1,15 @@
+{
+  "name": "divyanshu-portfolio",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Divyanshu Kanojia — Full Stack Developer Portfolio",
+  "scripts": {
+    "dev": "node local-server.js"
+  },
+  "dependencies": {
+    "cors": "^2.8.6",
+    "dotenv": "^17.4.2",
+    "express": "^5.2.1",
+    "firebase-admin": "^14.1.0"
+  }
+}

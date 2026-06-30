@@ -238,9 +238,8 @@
     <!-- Main Stylesheet -->
     <link rel="stylesheet" href="style.css">
 
-    <!-- EmailJS SDK -->
-    <script defer type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"
-        defer></script>
+    <!-- reCAPTCHA v3 (lazy-loaded) — Replace YOUR_RECAPTCHA_SITE_KEY with your actual key -->
+    <script defer src="https://www.google.com/recaptcha/api.js?render=6LeZ-z0tAAAAAObmU73OOwvTIkbaMnfKa-MdzgFR"></script>
 
     <!-- Favicon -->
     <link rel="icon" type="image/png" sizes="32x32" href="assets/dk-logo.png">
@@ -1550,6 +1549,14 @@
                                 <span class="form-line"></span>
                                 <span class="form-focus-ring"></span>
                             </div>
+                            <div class="form-group" id="form-group-subject">
+                                <div class="form-field-glow"></div>
+                                <input type="text" id="contact-subject" name="subject" placeholder=" "
+                                    autocomplete="off">
+                                <label for="contact-subject"><i class="fas fa-tag"></i> Subject <span style="opacity:0.5;font-size:0.85em">(Optional)</span></label>
+                                <span class="form-line"></span>
+                                <span class="form-focus-ring"></span>
+                            </div>
                             <div class="form-group" id="form-group-message">
                                 <div class="form-field-glow"></div>
                                 <textarea id="contact-message" name="message" rows="5" placeholder=" "
@@ -1659,6 +1666,8 @@
     <script defer src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script defer src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <script defer src="script.js"></script>
+    <!-- Contact Form Handler Module (loaded after main script) -->
+    <script defer src="contact.js"></script>
 </body>
 
 </html>

@@ -35,7 +35,7 @@
 
     // ─── reCAPTCHA Site Key ───
     // Replace this with your actual reCAPTCHA v3 site key
-    const RECAPTCHA_SITE_KEY = '6LfiIT4tAAAAANbkA_LbS2D2qOr2ph8ijHQBzfg6';
+    const RECAPTCHA_SITE_KEY = '6Lcw2j4tAAAAAILlJFo72Ri9wu8ZWFKsew4YS7bV';
 
     // ─── API Endpoint ───
     const API_ENDPOINT = '/api/contact';

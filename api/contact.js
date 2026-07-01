@@ -301,6 +301,7 @@ module.exports = async function handler(req, res) {
         const replySent = await sendEmail(process.env.EMAILJS_AUTOREPLY_TEMPLATE_ID, {
             to_name: cleanName,
             to_email: cleanEmail,
+            email: cleanEmail, // Added this to match the {{email}} variable in the user's dashboard
             from_name: 'Divyanshu Kanojia',
             subject: cleanSubject,
             message: cleanMessage,

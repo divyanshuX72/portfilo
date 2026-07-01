@@ -2478,6 +2478,168 @@ body.sidebar-open {
     font-size: 20px;
 }
 
+/* ═══════════════════════════════════════════════════════════
+   EXPERIENCE SWIPER CAROUSEL — PREMIUM HORIZONTAL SLIDER
+   ═══════════════════════════════════════════════════════════ */
+
+/* Hide the old grid — carousel wrapper replaces it */
+.experience-grid {
+    display: none !important;
+}
+
+/* Carousel wrapper */
+.experience-carousel-wrapper {
+    position: relative;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 50px;
+}
+
+/* Swiper container */
+.experience-swiper {
+    overflow: hidden;
+    padding: 10px 0 60px;
+}
+
+/* Slides: equal height via flexbox */
+.experience-swiper .swiper-wrapper {
+    align-items: stretch;
+}
+
+.experience-swiper .swiper-slide {
+    height: auto;
+    display: flex;
+    align-items: stretch;
+    /* GPU-accelerated transforms */
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    transform: translateZ(0);
+}
+
+/* Card fills slide fully */
+.experience-swiper .exp-card {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    max-width: none;
+    /* Prevent hover translateY from causing layout shifts during swipe */
+    will-change: transform, box-shadow;
+}
+
+/* Disable vertical hover transform during drag to prevent jank */
+.experience-swiper.swiper-dragging .exp-card {
+    transform: none !important;
+    transition: none !important;
+}
+
+/* ── Navigation Arrows ── */
+.experience-swiper .swiper-button-prev,
+.experience-swiper .swiper-button-next {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: rgba(200, 169, 106, 0.08);
+    border: 1px solid rgba(200, 169, 106, 0.2);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    color: var(--gold);
+    top: calc(50% - 20px);
+}
+
+.experience-swiper .swiper-button-prev::after,
+.experience-swiper .swiper-button-next::after {
+    font-size: 18px;
+    font-weight: 700;
+}
+
+.experience-swiper .swiper-button-prev {
+    left: -6px;
+}
+
+.experience-swiper .swiper-button-next {
+    right: -6px;
+}
+
+.experience-swiper .swiper-button-prev:hover,
+.experience-swiper .swiper-button-next:hover {
+    background: rgba(200, 169, 106, 0.18);
+    border-color: var(--gold);
+    box-shadow: 0 0 20px rgba(200, 169, 106, 0.25);
+    transform: scale(1.08);
+}
+
+.experience-swiper .swiper-button-prev:active,
+.experience-swiper .swiper-button-next:active {
+    transform: scale(0.95);
+}
+
+/* ── Pagination Dots ── */
+.experience-swiper .swiper-pagination {
+    bottom: 8px !important;
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+}
+
+.experience-swiper .swiper-pagination-bullet {
+    width: 10px;
+    height: 10px;
+    background: rgba(200, 169, 106, 0.2);
+    border: 1px solid rgba(200, 169, 106, 0.3);
+    opacity: 1;
+    border-radius: 50%;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    cursor: pointer;
+}
+
+.experience-swiper .swiper-pagination-bullet:hover {
+    background: rgba(200, 169, 106, 0.4);
+    transform: scale(1.2);
+}
+
+.experience-swiper .swiper-pagination-bullet-active {
+    width: 28px;
+    border-radius: 14px;
+    background: linear-gradient(135deg, var(--gold), var(--neon));
+    border-color: transparent;
+    box-shadow: 0 0 12px rgba(200, 169, 106, 0.5);
+}
+
+/* ── Responsive: mobile (1 card) ── */
+@media screen and (max-width: 640px) {
+    .experience-carousel-wrapper {
+        padding: 0 16px;
+    }
+
+    .experience-swiper .swiper-button-prev,
+    .experience-swiper .swiper-button-next {
+        display: none;
+    }
+
+    .experience-swiper .exp-card {
+        padding: 20px;
+    }
+}
+
+/* ── Responsive: tablet (2 cards) ── */
+@media screen and (min-width: 641px) and (max-width: 1024px) {
+    .experience-carousel-wrapper {
+        padding: 0 40px;
+    }
+}
+
+/* ── Responsive: small mobile ── */
+@media screen and (max-width: 375px) {
+    .experience-carousel-wrapper {
+        padding: 0 10px;
+    }
+
+    .experience-swiper .exp-card {
+        padding: 16px;
+    }
+}
+
 /* ═══ ACHIEVEMENTS ═══ */
 .achievements-section {
     background: linear-gradient(180deg, var(--bg) 0%, rgba(0, 255, 156, 0.03) 50%, var(--bg) 100%);

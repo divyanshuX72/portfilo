@@ -7,10 +7,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // ─── AOS INIT ───
     AOS.init({
-        duration: 800,
+        duration: 400,
         easing: 'ease-out-cubic',
         once: true,
-        offset: 80,
+        offset: 50,
         disable: 'mobile'
     });
 
@@ -1385,6 +1385,121 @@ document.addEventListener('DOMContentLoaded', () => {
     const initialSkillTab = document.querySelector('.skill-tab.active') || skillTabs[0];
     if (initialSkillTab) {
         initialSkillTab.click();
+    }
+
+    // ═══════════════════════════════════════════════════════════
+    // EXPERIENCE CAROUSEL — SWIPER.JS INITIALIZATION
+    // ═══════════════════════════════════════════════════════════
+    function initExperienceSwiper() {
+        if (typeof Swiper === 'undefined') return false;
+
+        const experienceSwiper = new Swiper('.experience-swiper', {
+            // Core
+            direction: 'horizontal',
+            loop: true,
+            speed: 700,
+            grabCursor: true,
+            lazy: true,
+
+            // GPU-accelerated CSS transforms
+            cssMode: false,
+
+            // Autoplay
+            autoplay: {
+                delay: 4500,
+                disableOnInteraction: false,
+                pauseOnMouseEnter: true,
+            },
+
+            // Navigation arrows
+            navigation: {
+                nextEl: '.experience-next',
+                prevEl: '.experience-prev',
+            },
+
+            // Pagination dots
+            pagination: {
+                el: '.experience-pagination',
+                clickable: true,
+                dynamicBullets: false,
+            },
+
+            // Keyboard navigation
+            keyboard: {
+                enabled: true,
+                onlyInViewport: true,
+            },
+
+            // Responsive breakpoints (mobile-first)
+            slidesPerView: 1,
+            spaceBetween: 20,
+            breakpoints: {
+                // Tablet: 2 cards
+                641: {
+                    slidesPerView: 2,
+                    spaceBetween: 24,
+                },
+                // Desktop: 3 cards
+                1025: {
+                    slidesPerView: 3,
+                    spaceBetween: 28,
+                },
+            },
+
+            // Accessibility
+            a11y: {
+                prevSlideMessage: 'Previous experience',
+                nextSlideMessage: 'Next experience',
+                paginationBulletMessage: 'Go to experience {{index}}',
+                containerMessage: 'Work Experience Carousel',
+                containerRoleDescriptionMessage: 'carousel',
+                itemRoleDescriptionMessage: 'slide',
+            },
+
+            // Events
+            on: {
+                // Pause autoplay on drag start
+                touchStart: function () {
+                    if (this.autoplay && this.autoplay.running) {
+                        this.autoplay.stop();
+                    }
+                },
+                // Resume autoplay after drag end
+                touchEnd: function () {
+                    if (this.autoplay && !this.autoplay.running) {
+                        this.autoplay.start();
+                    }
+                },
+            },
+        });
+
+        // Pause/resume on hover for the entire carousel wrapper
+        const carouselWrapper = document.querySelector('.experience-carousel-wrapper');
+        if (carouselWrapper) {
+            carouselWrapper.addEventListener('mouseenter', () => {
+                if (experienceSwiper.autoplay && experienceSwiper.autoplay.running) {
+                    experienceSwiper.autoplay.stop();
+                }
+            });
+            carouselWrapper.addEventListener('mouseleave', () => {
+                if (experienceSwiper.autoplay && !experienceSwiper.autoplay.running) {
+                    experienceSwiper.autoplay.start();
+                }
+            });
+        }
+
+        return true;
+    }
+
+    // Try to init immediately; if Swiper isn't loaded yet (defer), retry
+    if (!initExperienceSwiper()) {
+        const swiperCheckInterval = setInterval(() => {
+            if (initExperienceSwiper()) {
+                clearInterval(swiperCheckInterval);
+            }
+        }, 100);
+        // Safety: stop checking after 10s
+        setTimeout(() => clearInterval(swiperCheckInterval), 10000);
     }
 
 });
